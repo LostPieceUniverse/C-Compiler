@@ -8,81 +8,129 @@ namespace Lexer
 {
   public interface IToken
   {
-    //idk
-  }
-  public class Token
-  {
-    public object Value;
+    public object GetValue();
   }
   
   //grouping, seoerator
-  public class OpenBrace : Token
+  public class OpenBrace :IToken
   {
-    public char Value { get; } = '{';
+    public object GetValue()
+    {
+      return _value;
+    }
+    private char _value = '{';
   }
-  public class CloseBrace : Token
+  public class CloseBrace :IToken
   {
-    public char Value { get; } = '}';
+    public object GetValue()
+    {
+      return _value;
+    }
+    private char _value = '}';
   }
-  public class OpenParenthesis : Token
+  public class OpenParenthesis :IToken
   {
-    public char Value { get; } = '(';
+    public object GetValue()
+    {
+      return _value;
+    }
+    private char _value = '(';
   }
-  public class CloseParenthesis : Token
+  public class CloseParenthesis :IToken
   {
-    public char Value { get; } = ')';
+    public object GetValue()
+    {
+      return _value;
+    }
+    private char _value = ')';
   }
-  public class Semicolon : Token
+  public class Semicolon :IToken
   {
-    public char Value { get; } = ';';
+    public object GetValue()
+    {
+      return _value;
+    }
+    private char _value = ';';
   }
   
   //operators
-  public class Plus : Token
+  public class Plus :IToken
   {
-    public char Value { get; } = '+';
+    public object GetValue()
+    {
+      return _value;
+    }
+    private char _value = '+';
   }
-  public class Minus : Token
+  public class Minus :IToken
   {
-    public char Value { get; } = '-';
+    public object GetValue()
+    {
+      return _value;
+    }
+    private char _value = '-';
   }
-  public class Equals : Token 
+  public class Equals :IToken 
   {
-    public char Value { get; } = '=';
+    public object GetValue()
+    {
+      return _value;
+    }
+    private char _value = '=';
   }
 
   //keywords
-  public class Int : Token
+  public class Int :IToken
   {
-    public string Value { get; } = "int";
+    public object GetValue()
+    {
+      return _value;
+    }
+    private string _value = "int";
   }
-  public class Return : Token
+  public class Return :IToken
   {
-    public string Value { get; } = "return";
+    public object GetValue()
+    {
+      return _value;
+    }
+    private string _value = "return";
   }
 
   //identifier
-  public class Identifier : Token
+  public class Identifier :IToken
   {
     public Identifier(string identifier)
     { 
-      Value = identifier;
+      _value = identifier;
     }
-    public string Value { get; private set; }
+    public object GetValue()
+    {
+      return _value;
+    }
+    private string _value;
   }
 
   //constant
-  public class IntegerLiteral : Token
+  public class IntegerLiteral :IToken
   {
     public IntegerLiteral(int integerLiteral)
     {
-      Value = integerLiteral;
+      _value = integerLiteral;
     }
-    public int Value { get; private set; }
+    public object GetValue()
+    {
+      return _value;
+    }
+    private int _value;
   }  
 
-  public class Bullshit : Token
+  public class Bullshit :IToken
   {
-    public string Value { get; } = "sheit";
+    public object GetValue()
+    {
+      return _value;
+    }
+    private string _value = "sheit";
   }
 }

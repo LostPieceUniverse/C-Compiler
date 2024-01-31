@@ -10,7 +10,7 @@ namespace Lexer
     {
         static void Main(string[] args)
         {
-          List<Token> tokens = new List<Token>();
+          List<IToken> tokens = new List<IToken>();
           string path = @"/home/fedora/test.txt";
 
           string tempStr = string.Empty;
@@ -20,6 +20,7 @@ namespace Lexer
             while (reader.Peek() >= 0) 
             {
               char character = (char)reader.Read();
+
               switch(character)
               {
                 case ' ':
@@ -49,6 +50,18 @@ namespace Lexer
                   }
                   break;
                 case '(':
+                  if(tempStr != Empty)
+                  {
+                      if(int.TryParse(tempStr, out int integer))
+                      {
+                        tokens.Add(new IntegerLiteral(integer));
+                      }
+                      else
+                      {
+                        tokens.Add(new Identifier(tempStr));
+                      }
+                      tempStr = string.Empty;
+                  }
                   tokens.Add(new OpenParenthesis());
                   break;
                 case ')':
@@ -73,16 +86,19 @@ namespace Lexer
                   tokens.Add(new Equals());
                   break;
                 default:
-                  tempStr += reader.Read().ToString();
+                  tempStr += character.ToString();
                   break;
               }
+              lastChar = character;
+              Console.Write(character.ToString());
               //tokens.Add((char).sr.Read());
             }   
           }
           foreach(var item in tokens)
           {
-            Console.WriteLine(item.Value.ToString());
+            Console.WriteLine(item.GetValue().ToString());
           }
         }
+
     }
 }
