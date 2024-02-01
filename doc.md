@@ -26,8 +26,7 @@ return
 ...
 ```
 - identifier
-Sequence of nondigit characters (lower- & uppercase) including underscore
-(e.g. function- & variablenames )
+Sequence of nondigit characters (lower- & uppercase) including underscore<br>(e.g. function- & variablenames )
 ```
 [a-zA-Z]
 [0-9]
