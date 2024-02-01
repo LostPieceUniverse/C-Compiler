@@ -19,31 +19,61 @@ geometry: margin=2cm
 Here are all the tokens my lexer should recognize, and the regular expression defining each of them:
 
 - keyword
+All lowercase, for fixed keywords
+(e.g. basic datatypes, if - else, ect.)
 ```
 int
 return
+...
 ```
 - identifier
+Sequence of nondigit characters (lower- & uppercase) including underscore
+(e.g. function- & variablenames )
 ```
 [a-zA-Z]
 [0-9]
-_
 ```
 - constant
+A constant holds a value (string- / integer-literal)
+```
+string-literal
+integer-literal
+```
+
 - string-literal
+Char-Sequence enclosed in double-quotes
+```
+[a-zA-Z]
+[0-9]
+...
+```
+- integer-literal
+numeric-Sequence 
+```
+[0-9]
+```
 - operator
+```
+Arithmetic
+Relational
+Logical
+Bitwise
+Assignment
+```
 - punctuator
+```
+()
+{}
+[]
+=
+;
+:
+,
+.
+->
+...
+```
 
-
-- Open brace ```{```
-- Close brace ```}```
-- Open parenthesis ```(```
-- Close parenthesis ```)```
-- Semicolon ```;```
-- Int keyword ```int```
-- Return keyword ```return ```
-- Identifier ```[a-zA-Z]```
-- Integer literal ```[0-9]```
 
 #### What to do
 
