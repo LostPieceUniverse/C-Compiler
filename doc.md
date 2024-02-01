@@ -15,7 +15,25 @@ geometry: margin=2cm
 ### Lexer 
 -> lexer breaks up sourcecode into tokens
 
-Here are all the tokens your lexer needs to recognize, and the regular expression defining each of them:
+#### Lexical elements
+Here are all the tokens my lexer should recognize, and the regular expression defining each of them:
+
+- keyword
+```
+int
+return
+```
+- identifier
+```
+[a-zA-Z]
+[0-9]
+_
+```
+- constant
+- string-literal
+- operator
+- punctuator
+
 
 - Open brace ```{```
 - Close brace ```}```
