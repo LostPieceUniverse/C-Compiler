@@ -10,7 +10,7 @@ namespace Compiler
   public class Lexer
   {
     
-    static public List<Token> LexAndParse(string code)
+    static public List<Token> Lexing(string code)
     {
       List<Token> tokens = new List<Token>();
       string tempStr = string.Empty;

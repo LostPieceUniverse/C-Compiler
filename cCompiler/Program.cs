@@ -12,7 +12,7 @@ namespace Compiler
         {
           string path = @"/home/fedora/test.txt";
           string code = File.ReadAllText(path);
-          List<Token> tokenList = Lexer.LexAndParse(code);
+          List<Token> tokenList = Lexer.Lexing(code);
           Output(tokenList);
         }
 

@@ -5,17 +5,13 @@ geometry: margin=2cm
 
 ## Writing a C compiler
 
-[comment]: <> (thanks for lettin me copy ur doc memiXD)
+1. [Lexer](##Lexer)
+2. [Parser](##Parser)
 
-1. [Lexing and Parsing](##LexerandParsing)
-2. [Type and Scope checking](##TypeandScopechecking)
-
-## Lexing and Parsing
-
-### Lexer 
+## Lexer 
 -> lexer breaks up sourcecode into tokens
 
-#### Lexical elements
+### Lexical elements
 Here are all the tokens my lexer should recognize, and the regular expression defining each of them:
 
 - keyword<br>
@@ -71,7 +67,7 @@ Assignment
 ->
 ...
 ```
-#### Example
+### Example
 int variableName = 5;
 
 **keyword** -> *int*<br>
@@ -80,17 +76,16 @@ int variableName = 5;
 **constant** -> **integer-literal** -> *5*<br>
 **punctuator** - > *;*
 
-#### What to do
+### What to do
 
 Implement a *lex* function **input**: file **output**: list of tokens.
 
-### Parser
--> parser interpretes tokens as for example identifier
+## Parser
+-> parser builds AST with tokens and checks Syntax
 
-#### What to do
+### What to do
 Combine Parsing with Lexer.
 
-## Type and Scope checking
 
 # Quellen
 
