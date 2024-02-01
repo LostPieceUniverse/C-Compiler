@@ -18,39 +18,39 @@ geometry: margin=2cm
 #### Lexical elements
 Here are all the tokens my lexer should recognize, and the regular expression defining each of them:
 
-- keyword
+- keyword<br>
 All lowercase, for fixed keywords<br>(e.g. basic datatypes, if - else, ect.)
 ```
 int
 return
 ...
 ```
-- identifier
+- identifier<br>
 Sequence of nondigit characters (lower- & uppercase) including underscore<br>(e.g. function- & variablenames )
 ```
 [a-zA-Z]
 [0-9]
 ```
-- constant
+- constant<br>
 A constant holds a value (string- / integer-literal)
 ```
 string-literal
 integer-literal
 ```
 
-- string-literal
+- string-literal<br>
 Char-Sequence enclosed in double-quotes
 ```
 [a-zA-Z]
 [0-9]
 ...
 ```
-- integer-literal
+- integer-literal<br>
 numeric-Sequence 
 ```
 [0-9]
 ```
-- operator
+- operator<br>
 ```
 Arithmetic
 Relational
@@ -58,7 +58,7 @@ Logical
 Bitwise
 Assignment
 ```
-- punctuator
+- punctuator<br>
 ```
 ()
 {}

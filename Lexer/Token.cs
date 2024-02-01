@@ -11,46 +11,41 @@ namespace Lexer
     public object GetValue();
   }
   
-  //grouping, seoerator
-  public class OpenBrace :IToken
+  //keywordss
+  public class Int :IToken
   {
-    public object GetValue()
+    public  GetValue()
     {
-      return _value;
+      return '{';
     }
-    private char _value = '{';
   }
   public class CloseBrace :IToken
   {
     public object GetValue()
     {
-      return _value;
+      return '}';
     }
-    private char _value = '}';
   }
   public class OpenParenthesis :IToken
   {
     public object GetValue()
     {
-      return _value;
+      return '(';
     }
-    private char _value = '(';
   }
   public class CloseParenthesis :IToken
   {
     public object GetValue()
     {
-      return _value;
+      return ')';
     }
-    private char _value = ')';
   }
   public class Semicolon :IToken
   {
     public object GetValue()
     {
-      return _value;
+      return ';';
     }
-    private char _value = ';';
   }
   
   //operators
@@ -60,7 +55,6 @@ namespace Lexer
     {
       return _value;
     }
-    private char _value = '+';
   }
   public class Minus :IToken
   {
@@ -68,7 +62,6 @@ namespace Lexer
     {
       return _value;
     }
-    private char _value = '-';
   }
   public class Equals :IToken 
   {
@@ -76,7 +69,6 @@ namespace Lexer
     {
       return _value;
     }
-    private char _value = '=';
   }
 
   //keywords
@@ -86,7 +78,6 @@ namespace Lexer
     {
       return _value;
     }
-    private string _value = "int";
   }
   public class Return :IToken
   {
@@ -94,7 +85,6 @@ namespace Lexer
     {
       return _value;
     }
-    private string _value = "return";
   }
 
   //identifier
