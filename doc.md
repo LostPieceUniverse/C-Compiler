@@ -7,12 +7,13 @@ geometry: margin=2cm
 
 [comment]: <> (thanks for lettin me copy ur doc memiXD)
 
-1. [Lexing](##Lexer) and [Parsing](##Parser)
+1. [Lexing and Parsing](##LexerandParsing)
 2. [Type and Scope checking](##TypeandScopechecking)
 
-## Lexer
+## Lexing and Parsing
 
--> lexter breaks up sourcecode into tokens
+### Lexer 
+-> lexer breaks up sourcecode into tokens
 
 Here are all the tokens your lexer needs to recognize, and the regular expression defining each of them:
 
@@ -26,11 +27,12 @@ Here are all the tokens your lexer needs to recognize, and the regular expressio
 - Identifier ```[a-zA-Z]```
 - Integer literal ```[0-9]```
 
-### What to do
+#### What to do
 
 Implement a *lex* function **input**: file **output**: list of tokens.
 
-## Parser
+### Parsing
+-> parser interpretes tokens as for example identifier
 
 ## Type and Scope checking
 
