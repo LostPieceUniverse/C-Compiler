@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
- 
+using System.Text.RegularExpressions; 
 namespace Lexer
 {
     internal class Program
@@ -14,43 +14,164 @@ namespace Lexer
           string path = @"/home/fedora/test.txt";
 
           string tempStr = string.Empty;
+          bool isString = false;
           using (StreamReader reader = new StreamReader(path)) 
           {
             while (reader.Peek() >= 0) 
             {
-              string character = (char)reader.Read().ToString();
-              
-              if(Regex.IsMatch(character, "[a-z]", RegexOptions.IgnoreCase) || character == '_' || Regex.IsMatch(character, "[0-9]"))
+              string character = ((char)reader.Read()).ToString();
+              if(isString)
               {
-                tempStr != character; 
+                if(character == "\"")
+                {
+                  Token token = new Token();
+                  token.Value = tempStr;
+                  if(int.TryParse(tempStr, out int num))
+                  {
+                    token.Type = TokenType.IntegerLiteral;
+                  }
+                  else
+                  {
+                    token.Type = TokenType.StringLiteral;
+                  }
+                  tokens.Add(token);
+                  isString = false;
+                  tempStr = string.Empty;
+                }
+                else
+                {
+                  tempStr += character; 
+                }
+              }
+              else if(Regex.IsMatch(character, "[a-z]", RegexOptions.IgnoreCase) || character == "_" || Regex.IsMatch(character, "[0-9]"))
+              {
+                tempStr += character; 
               }
               else
               {
                 if(tempStr != string.Empty)
                 {
                   tokens.Add(HandleString(tempStr));
+                  tempStr = string.Empty;
                 }
                 
-                Token newToken = new Token();
+                Token token = new Token();
                 switch (character)
                 {
                   case " ":
                     continue;
+                  case "\"":
+                    if(!isString)
+                    {
+                      isString = true;
+                    }
+                    break;
                   case "+":
-                    newToken.Value = TokenType.Plus;
+                    token.Type = TokenType.Plus;
                     break;
                   case "-":
-                    newToken.Value = TokenType.Minus;
+                    token.Type = TokenType.Minus;
                     break;
-                    default:
+                  case "(":
+                    token.Type = TokenType.OpenParenthesis;
+                      break;
+                  case ")":
+                      token.Type = TokenType.CloseParenthesis;
+                      break;
+                  case "{":
+                      token.Type = TokenType.OpenBrace;
+                      break;
+                  case "}":
+                      token.Type = TokenType.CloseBrace;
+                      break;
+                  case "=":
+                      token.Type = TokenType.Equals;
+                      break;
+                  case ";":
+                      token.Type = TokenType.Semicolon;
+                      break;
+                  default:
+                      break;
                 }
+                tokens.Add(token);
               }
             } 
           }
+          Output(tokens);
         }
         static Token HandleString(string str)
         {
-
+          Token token = new Token();
+          switch(str)
+          {
+            case "int":
+              token.Type = TokenType.Int;
+              break;
+            case "string":
+              token.Type = TokenType.String;
+              break;
+            case "return":
+              token.Type = TokenType.Return;
+              break;
+            default:
+              token.Type = TokenType.Identifier;
+              token.Value = str;
+              break;
+          }
+          return token;
+        }
+        static void Output(List<Token> list)
+        {
+          foreach(var token in list)
+          {
+            switch(token.Type)
+            {
+              case TokenType.Int:
+                Console.WriteLine("int");
+                break;
+              case TokenType.String:
+                Console.WriteLine("string");
+                break;
+              case TokenType.Return:
+                Console.WriteLine("return");
+                break;
+              case TokenType.IntegerLiteral:
+                Console.WriteLine(token.Value);
+                break;
+              case TokenType.StringLiteral:
+                Console.WriteLine(token.Value);
+                break;
+              case TokenType.Identifier:
+                Console.WriteLine(token.Value);
+                break;
+              case TokenType.Plus:
+                Console.WriteLine("+");
+                break;
+              case TokenType.Minus:
+                Console.WriteLine("-");
+                break;
+              case TokenType.OpenParenthesis:
+                Console.WriteLine("(");
+                break;
+              case TokenType.CloseParenthesis:
+                Console.WriteLine(")");
+                break;
+              case TokenType.OpenBrace:
+                Console.WriteLine("{");
+                break;
+              case TokenType.CloseBrace:
+                Console.WriteLine("}");
+                break;
+              case TokenType.Equals:
+                Console.WriteLine("=");
+                break;
+              case TokenType.Semicolon:
+                Console.WriteLine(";");
+                break;
+              default:
+                break;
+            }
+          }
         }
     }
 }
