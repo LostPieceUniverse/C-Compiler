@@ -19,8 +19,7 @@ geometry: margin=2cm
 Here are all the tokens my lexer should recognize, and the regular expression defining each of them:
 
 - keyword
-All lowercase, for fixed keywords
-(e.g. basic datatypes, if - else, ect.)
+All lowercase, for fixed keywords<br>(e.g. basic datatypes, if - else, ect.)
 ```
 int
 return
