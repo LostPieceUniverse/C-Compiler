@@ -71,7 +71,14 @@ Assignment
 ->
 ...
 ```
+##### Example
+int variableName = 5;
 
+**keyword** -> *int*
+**identifier** -> *variableName*
+**punctuator** - > *=*
+**constant** -> **integer-literal** -> *5*
+**punctuator** - > *;*
 
 #### What to do
 
@@ -79,6 +86,9 @@ Implement a *lex* function **input**: file **output**: list of tokens.
 
 ### Parser
 -> parser interpretes tokens as for example identifier
+
+#### What to do
+Combine Parsing with Lexer.
 
 ## Type and Scope checking
 
