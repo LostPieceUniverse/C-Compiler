@@ -5,7 +5,7 @@ geometry: margin=2cm
 
 ## Writing a C compiler
 
-1. [Lexer](##Lexer)
+1. [Lexer](##Lexer) -> done!
 2. [Parser](##Parser)
 
 ## Lexer 
