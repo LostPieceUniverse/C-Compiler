@@ -71,13 +71,13 @@ Assignment
 ->
 ...
 ```
-##### Example
+#### Example
 int variableName = 5;
 
-**keyword** -> *int*
-**identifier** -> *variableName*
-**punctuator** - > *=*
-**constant** -> **integer-literal** -> *5*
+**keyword** -> *int*<br>
+**identifier** -> *variableName*<br>
+**punctuator** - > *=*<br>
+**constant** -> **integer-literal** -> *5*<br>
 **punctuator** - > *;*
 
 #### What to do
