@@ -14,16 +14,43 @@ namespace Lexer
           string path = @"/home/fedora/test.txt";
 
           string tempStr = string.Empty;
-          char lastChar;
           using (StreamReader reader = new StreamReader(path)) 
           {
             while (reader.Peek() >= 0) 
             {
-              char character = (char)reader.Read();
-
-            }   
+              string character = (char)reader.Read().ToString();
+              
+              if(Regex.IsMatch(character, "[a-z]", RegexOptions.IgnoreCase) || character == '_' || Regex.IsMatch(character, "[0-9]"))
+              {
+                tempStr != character; 
+              }
+              else
+              {
+                if(tempStr != string.Empty)
+                {
+                  tokens.Add(HandleString(tempStr));
+                }
+                
+                Token newToken = new Token();
+                switch (character)
+                {
+                  case " ":
+                    continue;
+                  case "+":
+                    newToken.Value = TokenType.Plus;
+                    break;
+                  case "-":
+                    newToken.Value = TokenType.Minus;
+                    break;
+                    default:
+                }
+              }
+            } 
           }
         }
+        static Token HandleString(string str)
+        {
 
+        }
     }
 }
