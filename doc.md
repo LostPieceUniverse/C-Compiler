@@ -31,7 +31,7 @@ Here are all the tokens your lexer needs to recognize, and the regular expressio
 
 Implement a *lex* function **input**: file **output**: list of tokens.
 
-### Parsing
+### Parser
 -> parser interpretes tokens as for example identifier
 
 ## Type and Scope checking
