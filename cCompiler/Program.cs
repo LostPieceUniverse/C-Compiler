@@ -10,7 +10,7 @@ namespace Compiler
     {
         static void Main(string[] args)
         {
-          string path = @"/home/fedora/test.txt";
+          string path = @"/home/haru/test.c";
           string code = File.ReadAllText(path);
           List<Token> tokenList = Lexer.Lexing(code);
           Output(tokenList);
@@ -30,6 +30,12 @@ namespace Compiler
                 break;
               case TokenType.Return:
                 Console.WriteLine("return");
+                break;
+              case TokenType.If:
+                Console.WriteLine("if");
+                break;
+              case TokenType.Else:
+                Console.WriteLine("else");
                 break;
               case TokenType.IntegerLiteral:
                 Console.WriteLine(token.Value);

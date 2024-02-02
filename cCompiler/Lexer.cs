@@ -112,6 +112,12 @@ namespace Compiler
         case "return":
           token.Type = TokenType.Return;
           break;
+        case "if":
+          token.Type = TokenType.If;
+          break;
+        case "else":
+          token.Type = TokenType.Else;
+          break;
         default:
           token.Type = TokenType.Identifier;
           token.Value = str;

@@ -10,7 +10,9 @@ namespace Compiler
   {
     Int, 
     String, 
-    Return, 
+    Return,
+    If,
+    Else,
     Identifier, 
     StringLiteral, 
     IntegerLiteral, 
