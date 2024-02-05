@@ -81,10 +81,14 @@ int variableName = 5;
 Implement a *lex* function **input**: file **output**: list of tokens.
 
 ## Parser
--> parser builds AST with tokens and checks Syntax
+-> parser builds AST with tokens and check Syntax
+### AST
+-> Abstract Syntax Tree
+A data structure representing the structure of a program (or code snippet).
 
 ### What to do
-Combine Parsing with Lexer.
+Implement a *pars* function **input**: list of tokens **output**: AST.
+(AST should be rooted at a Program node)
 
 
 # Quellen
