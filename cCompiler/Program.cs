@@ -10,7 +10,8 @@ namespace Compiler
     {
         static void Main(string[] args)
         {
-          string path = @"/home/haru/test.c";
+          //string path = @"/home/haru/test.c";
+          string path = @"/home/fedora/test.c";
           string code = File.ReadAllText(path);
           List<Token> tokenList = Lexer.Lexing(code);
           Output(tokenList);
