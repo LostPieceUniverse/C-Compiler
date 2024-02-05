@@ -53,6 +53,15 @@ namespace Compiler
               case TokenType.Minus:
                 Console.WriteLine("-");
                 break;
+              case TokenType.Multiplication:
+                Console.WriteLine("*");
+                break;
+              case TokenType.Divition:
+                Console.WriteLine("/");
+                break;
+              case TokenType.Modulo:
+                Console.WriteLine("%");
+                break;
               case TokenType.OpenParenthesis:
                 Console.WriteLine("(");
                 break;

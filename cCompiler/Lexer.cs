@@ -71,6 +71,15 @@ namespace Compiler
             case "-":
               token.Type = TokenType.Minus;
               break;
+            case "*":
+              token.Type = TokenType.Multiplication;
+              break;
+            case "/":
+              token.Type = TokenType.Divition;
+              break;
+            case "%":
+              token.Type = TokenType.Modulo;
+              break;
             case "(":
               token.Type = TokenType.OpenParenthesis;
               break;

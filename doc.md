@@ -7,6 +7,7 @@ geometry: margin=2cm
 
 1. [Lexer](##Lexer) -> done!
 2. [Parser](##Parser)
+3. [Stuff](##Stuff)
 
 ## Lexer 
 -> lexer breaks up sourcecode into tokens
@@ -90,7 +91,10 @@ A data structure representing the structure of a program (or code snippet).
 Implement a *pars* function **input**: list of tokens **output**: AST.<br>
 AST should be rooted at a Program node and raise an error on invalid syntax;
 
+## Stuff
 
+### Translation Unit
+-> The whole code file without any sort of preprocessor directives ('#xyz')
 
 # Quellen
 
