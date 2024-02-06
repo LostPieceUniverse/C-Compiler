@@ -6,50 +6,38 @@ using System.Threading.Tasks;
 
 namespace Compiler
 {
-  public enum StatementType 
+  public enum NodeType
   {
-    If,
-    Else,
-    ElseIf,
-    Return,
-    muffin
-  }
-  public enum ExpressionType
-  {
-    StringLiteral,
-    IntegerLiteral,
+    Program,
+    FuncDecl,
+    Statement,
+    Expression,
     muffin
   }
   public class Node
   {
-    public List<Token> Tokens { get; set; } = null;
-    
-    public Node Left { get; set; } = null;
-    public Node Right { get; set; } = null;
-  }
-  public class FunctionNode : Node
-  {
-    public FunctionNode(string name)
+    public Node(NodeType type)
     {
-      Name = name;
+      Type = type;
     }
-    public string Name { get; private set; } = string.Empty;
+    public NodeType Type { get; private set; } = NodeType.muffin;
+    public List<Node> ChildNodes { get; set; } = new List<Node>();
+    public List<Token> Tokens { get; set; } = new List<Token>();
+  }
+
+  public class ExpressionNode : Node
+  {
+    public ExpressionNode(NodeType type) : base(type)
+    {
+      
+    }
   }
   public class StatementNode : Node
   {
-    public StatementNode(StatementType type)
+    public StatementNode(NodeType type) : base(type)
     {
-      Type = type;
+      
     }
-    public StatementType Type { get; private set; } = StatementType.muffin;
-  }
-  public class ExpressionNode : Node
-  {
-    public ExpressionNode(ExpressionType type)
-    {
-      Type = type;
-    }
-    public ExpressionType Type { get; private set; } = ExpressionType.muffin;
   }
 }
 

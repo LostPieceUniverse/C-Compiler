@@ -13,11 +13,16 @@ namespace Compiler
           //string path = @"/home/haru/test.c";
           string path = @"/home/fedora/dev/Compiler/test.c";
           string code = File.ReadAllText(path);
+
           List<Token> tokenList = Lexer.Lexing(code);
-          Output(tokenList);
+          OutputToken(tokenList);
+
+          Console.WriteLine("********************************");
+
+          Node node = Parser.Parsing(tokenList);
         }
 
-        static void Output(List<Token> list)
+        static void OutputToken(List<Token> list)
         {
           foreach(var token in list)
           {
