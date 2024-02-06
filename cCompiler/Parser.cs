@@ -12,61 +12,49 @@ namespace Compiler
     {
       Node root = null;
       Node currentNode = null;
-      List<Token> tokens = new List<Token>();
+      List<Token> tempTokens = new List<Token>();
 
       for(int i = 0; i < tokenList.Count; i++)
       {
-        Console.WriteLine("token");
         switch (tokenList[i].Type)
         {
-            case TokenType.OpenBrace:
+          case TokenType.OpenBrace:
             if(root == null)
             {
               root = new Node(NodeType.Program);
-              root.Tokens = tokens;
+              TransmitTokens(root.Tokens, tempTokens);
               currentNode = root;
-              Console.WriteLine("*********************************");
-              Console.WriteLine("Program");
-              foreach (var item in tokens)
-              {
-                  Console.WriteLine("root token");
-              }
             }
-            tokens.Clear();
+            tempTokens.Clear();
             continue;
-            break;
           case TokenType.Semicolon:
               ExpressionNode expNode = new ExpressionNode(NodeType.Expression);
-              expNode.Tokens = tokens;
+              TransmitTokens(expNode.Tokens, tempTokens);
               currentNode.ChildNodes.Add(expNode);
-              Console.WriteLine("*********************************");
-              Console.WriteLine("Expression");
-              foreach (var item in tokens)
-              {
-                  Console.WriteLine("Expression token");
-              }
-              tokens.Clear();
+              tempTokens.Clear();
               continue;
-            break;
           case TokenType.Return:
               StatementNode statNode = new StatementNode(NodeType.Statement);
-              statNode.Tokens = tokens.GetRange(i + 1, (tokenList.Count - 1));
+              TransmitTokens(statNode.Tokens, tokenList.Where((value, index) => index >= i && index <= tokenList.Count).ToList());
               currentNode.ChildNodes.Add(statNode);
               currentNode = statNode;
-              Console.WriteLine("*********************************");
-              Console.WriteLine("Statement");
-              foreach (var item in tokens)
-              {
-                  Console.WriteLine("Statement token");
-              }
-              tokens.Clear();
-              break;
+              tempTokens.Clear();
+            return root;
+            break;
           default:
-              tokens.Add(tokenList[i]);
+            tempTokens.Add(tokenList[i]);
             break;
         }
       }
       return root;
+    }
+
+    static private void TransmitTokens(List<Token> nodeTokens, List<Token> tokens)
+    {
+        foreach(Token token in tokens)
+        {
+          nodeTokens.Add(token);
+        }
     }
   }
 }

@@ -99,7 +99,7 @@ namespace Compiler
               token.Type = TokenType.Semicolon;
               break;
             default:
-              break;
+              continue;
           }
           tokens.Add(token);
         }
