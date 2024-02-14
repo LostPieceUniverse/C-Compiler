@@ -17,6 +17,10 @@
             Node node = Parser.Parsing(tokenList);
             OutputNode(node);
 
+            Console.WriteLine("********************************");
+
+            Translator.Translating(node);
+
             Console.ReadLine();
         }
 
@@ -91,17 +95,18 @@
 
         static void OutputNode(Node node)
         {
-            Console.WriteLine("********************************");
-            Console.WriteLine(node.Type.ToString());
-            foreach(var token in node.Tokens)
-            {
-                Console.WriteLine(token.ToString());
-            }
-            foreach(var child in node.ChildNodes)
-            {
-                OutputNode(child);
-            }
-
+          if(node == null)
+          {
+            return;
+          }
+          Console.WriteLine("********************************");
+          Console.WriteLine(node.Type.ToString());
+          foreach(var token in node.Tokens)
+          {
+              Console.WriteLine(token.ToString());
+          }
+          OutputNode(node.Right);
+          OutputNode(node.Left);
         }
     }
 }

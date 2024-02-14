@@ -6,8 +6,8 @@ geometry: margin=2cm
 ## Writing a C compiler
 
 1. [Lexer](##Lexer) -> done!
-2. [Parser](##Parser)
-3. [Stuff](##Stuff)
+2. [Parser](##Parser) -> done *(still kinda work in progress)*
+3. [Stuff](##Stuff) -> work in progress
 
 ## Lexer 
 -> lexer breaks up sourcecode into tokens
@@ -81,6 +81,14 @@ int variableName = 5;
 
 Implement a *lex* function **input**: file **output**: list of tokens.
 
+### My Plan
+
+I have a class *Token* holding two attributes<br>
+-> *Type* enum(TokenType)<br>
+-> *Value* string<br>
+
+After Lexing I get a ```List<Token>``` holding the sourcecode broken up into tokens.
+
 ## Parser
 -> parser builds AST with tokens and check Syntax
 ### AST
@@ -90,6 +98,18 @@ A data structure representing the structure of a program (or code snippet).
 ### What to do
 Implement a *pars* function **input**: list of tokens **output**: AST.<br>
 AST should be rooted at a Program node and raise an error on invalid syntax;
+
+### My Plan
+
+*(I am ignoring scope/syntac/ect checking)*<br>
+I have a class *Node* holding three attributes<br>
+-> *Type* enum(NodeType)<br>
+-> *Left* Node<br>
+-> *Right* Node<br>
+-> *Tokens* List<Token><br>
+
+Left Nodes are the main strain going through the program and ```Expressions```<br>
+Right Nodes are sidetracks and ```Statement```
 
 ## Stuff
 
@@ -103,4 +123,6 @@ AST should be rooted at a Program node and raise an error on invalid syntax;
 ![lexer tutorial](https://stlab.cc/legacy/how-to-write-a-simple-lexical-analyzer-or-parser.html)
 
 ![c bible](https://web.archive.org/web/20200909074736if_/https://www.pdf-archive.com/2014/10/02/ansi-iso-9899-1990-1/ansi-iso-9899-1990-1.pdf)
+
+![compiler explorer](https://godbolt.org/)
 

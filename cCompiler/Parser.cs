@@ -30,17 +30,16 @@ namespace Compiler
           case TokenType.Semicolon:
               ExpressionNode expNode = new ExpressionNode(NodeType.Expression);
               TransmitTokens(expNode.Tokens, tempTokens);
-              currentNode.ChildNodes.Add(expNode);
+              currentNode.Left = expNode;
+              currentNode = expNode;
               tempTokens.Clear();
               continue;
           case TokenType.Return:
               StatementNode statNode = new StatementNode(NodeType.Statement);
               TransmitTokens(statNode.Tokens, tokenList.Where((value, index) => index >= i && index <= tokenList.Count).ToList());
-              currentNode.ChildNodes.Add(statNode);
-              currentNode = statNode;
+              currentNode.Right = statNode;
               tempTokens.Clear();
             return root;
-            break;
           default:
             tempTokens.Add(tokenList[i]);
             break;

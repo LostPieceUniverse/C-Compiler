@@ -21,8 +21,28 @@ namespace Compiler
       Type = type;
     }
     public NodeType Type { get; private set; } = NodeType.muffin;
-    public List<Node> ChildNodes { get; set; } = new List<Node>();
+    public Node Left { get; set; } = null;
+    public Node Right { get; set; } = null;
+    //public List<Node> ChildNodes { get; set; } = new List<Node>();
     public List<Token> Tokens { get; set; } = new List<Token>();
+
+    //for debugging purposes
+    public string PrintNodeType()
+    {
+      switch (Type)
+      {
+        case NodeType.Program:
+          return "Program";
+        case NodeType.FuncDecl:
+          return "FuncDecl";
+        case NodeType.Statement:
+          return "Statement";
+        case NodeType.Expression:
+          return "Expression";
+          default:
+          return "muffin";
+      }
+    }
   }
 
   public class ExpressionNode : Node

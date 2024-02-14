@@ -1,16 +1,30 @@
+using System;
+using System.Text;
 namespace Compiler
 {
     internal class Translator
     {
-      public Translator(Node rootNode)
+      static public void Translating(Node node)
       {
-        _RootNode = rootNode;
+        StringBuilder sb = new StringBuilder();
+        TranslateNode(node, sb);
+
+        Console.WriteLine(sb);
       }
-      public void Translating()
+      
+      static private void TranslateNode(Node node, StringBuilder sb)
       {
-
+        if(node == null)
+        {
+          return;
+        }
+        //sb append translation
+        sb.Append(node.PrintNodeType());
+        sb.Append("Token Count: ");
+        sb.Append(node.Tokens.Count.ToString());
+        //go to next node
+        TranslateNode(node.Right, sb);
+        TranslateNode(node.Left, sb);
       }
-
-      private Node _RootNode = null;
     }
 }
