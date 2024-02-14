@@ -26,5 +26,19 @@ namespace Compiler
         TranslateNode(node.Right, sb);
         TranslateNode(node.Left, sb);
       }
+
+      static private void TranslateProgram()
+      {
+        
+      }
+      static private void TranslateExpression()
+      {
+
+      }
+
+      static private void TranslateStatement()
+      {
+
+      }
     }
 }
