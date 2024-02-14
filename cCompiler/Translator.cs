@@ -21,7 +21,7 @@ namespace Compiler
         //sb append translation
         sb.Append(node.PrintNodeType());
         sb.Append("Token Count: ");
-        sb.Append(node.Tokens.Count.ToString());
+        sb.AppendLine(node.Tokens.Count.ToString());
         //go to next node
         TranslateNode(node.Right, sb);
         TranslateNode(node.Left, sb);

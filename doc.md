@@ -87,7 +87,7 @@ I have a class *Token* holding two attributes<br>
 -> *Type* enum(TokenType)<br>
 -> *Value* string<br>
 
-After Lexing I get a ```List<Token>``` holding the sourcecode broken up into tokens.
+After Lexing I get a ```List<Token>``` holding the sourcecode broken up into tokens.<br>
 
 ## Parser
 -> parser builds AST with tokens and check Syntax
@@ -108,9 +108,10 @@ I have a class *Node* holding three attributes<br>
 -> *Right* Node<br>
 -> *Tokens* List<Token><br>
 
-Left Nodes are the main strain going through the program and ```Expressions```<br>
-Right Nodes are sidetracks and ```Statement```
+Left Nodes are the main strain going through the program ```Expressions```<br>
+Right Nodes are sidetracks ```Statement```<br>
 
+Right now everythign is in one function. If I'd add statements other than ```Return``` there would have to be some sort of recursion.
 ## Stuff
 
 ### Translation Unit
