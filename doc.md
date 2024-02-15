@@ -105,6 +105,10 @@ I have a class *Node* holding three attributes<br>
 Left Nodes are the main strain going through the program ```Expressions```<br>
 Right Nodes are sidetracks ```Statement```<br>
 
+if...<br> 
+...an ```Expression``` is an equation I will have to form an AST for said equation -> seperate class *EquationNode*<br>
+...an ```Expression``` is a string literal it must be in the root node since those go ontop of everything in assembly<br>
+
 Right now everythign is in one function. If I'd add statements other than ```Return``` there would have to be some sort of recursion.<br>
 
 ### AST
@@ -176,9 +180,9 @@ If the top value needs to be checked without altering the stack's contents ```pe
 If operations are performed such as ```pop``` or ```peek``` its essential to verify the stack's status first to avoid errors<br>
 ```cmp esp, ebp ; Compares the stack pointer (ESP) with the base pointer (EBP) to check if the stack is empty```
 
-## Stuff
+# Glossar
 
-### Translation Unit
+*Translation Unit*<br>
 -> The whole code file without any sort of preprocessor directives ('#xyz')
 
 # das where I got stuff from
@@ -190,6 +194,8 @@ If operations are performed such as ```pop``` or ```peek``` its essential to ver
 ![c bible](https://web.archive.org/web/20200909074736if_/https://www.pdf-archive.com/2014/10/02/ansi-iso-9899-1990-1/ansi-iso-9899-1990-1.pdf)
 
 ![compiler explorer](https://godbolt.org/)
+
+![assembly totorial](https://asmtutor.com/#lesson1)
 
 ![memory sheit](https://www.geeksforgeeks.org/stack-vs-heap-memory-allocation/)
 
