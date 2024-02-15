@@ -13,7 +13,7 @@ geometry: margin=2cm
 -> lexer breaks up sourcecode into tokens
 
 ### Lexical elements
-Here are all the tokens my lexer should recognize, and the regular expression defining each of them:
+Here are all the tokens this lexer could recognize, and the regular expression defining each of them:
 
 - keyword<br>
 All lowercase, for fixed keywords<br>(e.g. basic datatypes, if - else, ect.)
