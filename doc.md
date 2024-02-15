@@ -125,16 +125,24 @@ While recursivly iterating over the AST-Nodes, each node gets fed one of the cor
 
 I have to learn about proper memory handling.
 
-### Understand Memory Handling
--> define how variables and data will be allocated and accessed in memory, considering  stack frames, heap memory ect.
+### Memory Handling
+-> define how variables and data will be allocated and accessed in memory, considering  stack frames, heap memory ect.<br>
 
+Memory will either be allocated on a stack or heap.
+
+#### Stack
+The size of memoy to be allocated is known to the compiler and whenever a function is called, its variables get memoru allocated on the stack.
+Is the functioncall over the memory for those variables will be de-allocated. This means any value stored in stack memory is accesible
+as long as the function has not completed its execution. Stack memory allocation is considered safer as compared to heap memory allocation
+because the data stored can only be accessed by the owner thread. Altho memory allocation and de-allocation are faster than heap memory allocation
+stack memroy has less storage space than heap memory.
 
 ## Stuff
 
 ### Translation Unit
 -> The whole code file without any sort of preprocessor directives ('#xyz')
 
-# Quellen
+# das where I got stuff from
 
 ![Nora Sandler](https://norasandler.com/2017/11/29/Write-a-Compiler.html)
 
@@ -143,4 +151,6 @@ I have to learn about proper memory handling.
 ![c bible](https://web.archive.org/web/20200909074736if_/https://www.pdf-archive.com/2014/10/02/ansi-iso-9899-1990-1/ansi-iso-9899-1990-1.pdf)
 
 ![compiler explorer](https://godbolt.org/)
+
+![memory sheit](https://www.geeksforgeeks.org/stack-vs-heap-memory-allocation/)
 
