@@ -78,11 +78,9 @@ int variableName = 5;
 **punctuator** - > *;*
 
 ### What to do
-
 Implement a *lex* function **input**: file **output**: list of tokens.
 
 ### My Plan
-
 I have a class *Token* holding two attributes<br>
 -> *Type* enum(TokenType)<br>
 -> *Value* string<br>
@@ -90,17 +88,17 @@ I have a class *Token* holding two attributes<br>
 After Lexing I get a ```List<Token>``` holding the sourcecode broken up into tokens.<br>
 
 ## Parser
--> parser builds AST with tokens and check Syntax
+-> parser builds AST with tokens and check Syntax.
+
 ### AST
 -> Abstract Syntax Tree<br>
 A data structure representing the structure of a program (or code snippet).
 
 ### What to do
 Implement a *pars* function **input**: list of tokens **output**: AST.<br>
-AST should be rooted at a Program node and raise an error on invalid syntax;
+AST should be rooted at a Program node and raise an error on invalid syntax.
 
 ### My Plan
-
 *(I am ignoring scope/syntac/ect checking)*<br>
 I have a class *Node* holding three attributes<br>
 -> *Type* enum(NodeType)<br>
@@ -112,6 +110,19 @@ Left Nodes are the main strain going through the program ```Expressions```<br>
 Right Nodes are sidetracks ```Statement```<br>
 
 Right now everythign is in one function. If I'd add statements other than ```Return``` there would have to be some sort of recursion.
+
+## Code Generator
+-> code generator translates an AST into assemblycode.
+
+### What to do
+Implement a *translate* function **input**: AST **output**: assembly code.<br>
+
+## My Plan
+I have a class *Translator* with<br>
+-> Translate function for each NodeType ```Program```,```FuncDecl```,```Statement```,```Expression```<br>
+
+While recursivly iterating over the AST-Nodes, each node gets fed one of the corresponding translatefunctions.
+
 ## Stuff
 
 ### Translation Unit
