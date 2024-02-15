@@ -19,14 +19,14 @@
 
       Console.WriteLine("********************************");
 
-      Translator.Translating(node);
+      CodeGenerator.Generate(node);
 
       Console.ReadLine();
     }
 
         static void OutputToken(List<Token> list)
         {
-            foreach (var token in list)
+          foreach (var token in list)
             {
                 switch (token.Type)
                 {

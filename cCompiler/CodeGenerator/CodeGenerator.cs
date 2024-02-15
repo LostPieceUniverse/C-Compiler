@@ -2,17 +2,17 @@ using System;
 using System.Text;
 namespace Compiler
 {
-    internal class Translator
+    internal class CodeGenerator
     {
-      static public void Translating(Node node)
+      static public void Generate(Node node)
       {
         StringBuilder sb = new StringBuilder();
-        TranslateNode(node, sb);
+        GenerateNode(node, sb);
 
         Console.WriteLine(sb);
       }
       
-      static private void TranslateNode(Node node, StringBuilder sb)
+      static private void GenerateNode(Node node, StringBuilder sb)
       {
         if(node == null)
         {
@@ -22,46 +22,46 @@ namespace Compiler
         switch (node.Type)
         {
           case NodeType.Program:
-            TranslateProgram(node);
+            GenerateProgram(node);
             break;
           case NodeType.FuncDecl:
-            TranslateFuncDecl(node);
+            GenerateFuncDecl(node);
             break;
           case NodeType.Statement:
-            TranslateStatement(node);
+            GenerateStatement(node);
             break;
           case NodeType.Expression:
-            TranslateExpression(node);
+            GenerateExpression(node);
             break;
           default:
             break;
         }
         
         //go to next node
-        TranslateNode(node.Right, sb);
-        TranslateNode(node.Left, sb);
+        GenerateNode(node.Right, sb);
+        GenerateNode(node.Left, sb);
       }
 
       //ProgramNode
-      static private void TranslateProgram(Node node)
+      static private void GenerateProgram(Node node)
       {
         
       }
 
       //FuncDeclNodes
-      static private void TranslateFuncDecl(Node node)
+      static private void GenerateFuncDecl(Node node)
       {
 
       }
       
       //StatementNodes
-      static private void TranslateStatement(Node node)
+      static private void GenerateStatement(Node node)
       {
 
       }
       
       //ExpressionNodes
-      static private void TranslateExpression(Node node)
+      static private void GenerateExpression(Node node)
       {
 
       }
