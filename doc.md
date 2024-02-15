@@ -117,7 +117,7 @@ Right now everythign is in one function. If I'd add statements other than ```Ret
 ### What to do
 Implement a *translate* function **input**: AST **output**: assembly code.<br>
 
-## My Plan
+### My Plan
 I have a class *Translator* with<br>
 -> Translate function for each NodeType ```Program```,```FuncDecl```,```Statement```,```Expression```<br>
 
