@@ -152,6 +152,30 @@ later...to compilcated and not needed atm.
 | flexibility | fixed size | resizing is possible |
 | Size | smaller than heap | larger than stack |
 
+### Assembly 
+#### stack operations
+Stack operations are fundamental in assembly programming and used for data managing, functioncalls and memory allocation.
+
+**Push**<br>
+-> is used to add an element on the top of the stack<br>
+If a value gets ```push```ed onto the stack, it becomes the new top element and all other elements are shifted down.<br>
+```push ax ; Pushes the value of the AX register onto the stack```
+
+**Pop**<br>
+-> is used to remove the top element from the stack<br>
+If a value gets ```pop```ed from the stack, the top element is removed and the next element becomes the new op element.<br>
+```pop ax ; Pops the top value from the stack into the AX register```
+
+**Peek**<br> 
+-> is used to view the top element of the stack without removing it
+If the top value needs to be checked without altering the stack's contents ```peek``` is used.
+```mov ax, [esp] ; Copies the top value of the stack into the AX register without popping it```
+
+**IsEmpty**<br> 
+-> is used to check if the stack is empty 
+If operations are performed such as ```pop``` or ```peek``` its essential to verify the stack's status first to avoid errors
+```cmp esp, ebp ; Compares the stack pointer (ESP) with the base pointer (EBP) to check if the stack is empty```
+
 ## Stuff
 
 ### Translation Unit
@@ -168,4 +192,6 @@ later...to compilcated and not needed atm.
 ![compiler explorer](https://godbolt.org/)
 
 ![memory sheit](https://www.geeksforgeeks.org/stack-vs-heap-memory-allocation/)
+
+![stack bs] (https://marketsplash.com/tutorials/assembly/assembly-stack-operations/)
 
