@@ -142,7 +142,7 @@ later...to compilcated and not needed atm.
 
 ##### key differences
 || Stack | Heap |
-|:--------------:|:-----------:|:------------:|
+|--------------|:-----------:|:------------:|
 | Memory is allocated | ...in a contiguous block |...in a random order|
 | allocation / deallocation | by compiler | by programmer |
 | cost | less | more |
@@ -167,13 +167,13 @@ If a value gets ```pop```ed from the stack, the top element is removed and the n
 ```pop ax ; Pops the top value from the stack into the AX register```
 
 **Peek**<br> 
--> is used to view the top element of the stack without removing it
-If the top value needs to be checked without altering the stack's contents ```peek``` is used.
+-> is used to view the top element of the stack without removing it<br>
+If the top value needs to be checked without altering the stack's contents ```peek``` is used.<br>
 ```mov ax, [esp] ; Copies the top value of the stack into the AX register without popping it```
 
 **IsEmpty**<br> 
--> is used to check if the stack is empty 
-If operations are performed such as ```pop``` or ```peek``` its essential to verify the stack's status first to avoid errors
+-> is used to check if the stack is empty<br>
+If operations are performed such as ```pop``` or ```peek``` its essential to verify the stack's status first to avoid errors<br>
 ```cmp esp, ebp ; Compares the stack pointer (ESP) with the base pointer (EBP) to check if the stack is empty```
 
 ## Stuff
