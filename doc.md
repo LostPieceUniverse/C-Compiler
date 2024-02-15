@@ -137,6 +137,21 @@ as long as the function has not completed its execution. Stack memory allocation
 because the data stored can only be accessed by the owner thread. Altho memory allocation and de-allocation are faster than heap memory allocation
 stack memroy has less storage space than heap memory.
 
+#### Heap
+later...to compilcated and not needed atm.
+
+##### key differences
+|| Stack | Heap |
+|--------------|-----------|------------|
+| Memory is allocated | ...in a contiguous block |...in a random order|
+| allocation / deallocation | by compiler | by programmer |
+| cost | less | more |
+| implementation | easy | hard |
+| access time | faster | slower |
+| issue | memory shortage | memory fragmentation |
+| flexibility | fixed size | resizing is possible |
+| Size | smaller than heap | larger than stack |
+
 ## Stuff
 
 ### Translation Unit
