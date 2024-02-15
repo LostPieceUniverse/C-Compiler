@@ -18,25 +18,50 @@ namespace Compiler
         {
           return;
         }
-        //sb append translation
-        sb.Append(node.PrintNodeType());
-        sb.Append("Token Count: ");
-        sb.AppendLine(node.Tokens.Count.ToString());
+        //call corresponding function
+        switch (node.Type)
+        {
+          case NodeType.Program:
+            TranslateProgram(node);
+            break;
+          case NodeType.FuncDecl:
+            TranslateFuncDecl(node);
+            break;
+          case NodeType.Statement:
+            TranslateStatement(node);
+            break;
+          case NodeType.Expression:
+            TranslateExpression(node);
+            break;
+          default:
+            break;
+        }
+        
         //go to next node
         TranslateNode(node.Right, sb);
         TranslateNode(node.Left, sb);
       }
 
-      static private void TranslateProgram()
+      //ProgramNode
+      static private void TranslateProgram(Node node)
       {
         
       }
-      static private void TranslateExpression()
+
+      //FuncDeclNodes
+      static private void TranslateFuncDecl(Node node)
       {
 
       }
+      
+      //StatementNodes
+      static private void TranslateStatement(Node node)
+      {
 
-      static private void TranslateStatement()
+      }
+      
+      //ExpressionNodes
+      static private void TranslateExpression(Node node)
       {
 
       }

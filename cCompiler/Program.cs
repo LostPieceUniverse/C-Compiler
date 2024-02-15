@@ -1,28 +1,28 @@
 ﻿namespace Compiler
 {
-    internal class Program
+  internal class Program
+  {
+    static void Main(string[] args)
     {
-        static void Main(string[] args)
-        {
-            //string path = @"/home/haru/test.c";
-            string path = @"/home/fedora/dev/Compiler/test.c";
-            //string path = @"C:\Users\sam.zgraggen\Desktop\test.c";
-            string code = File.ReadAllText(path);
+      //string path = @"/home/haru/test.c";
+      string path = @"/home/fedora/dev/Compiler/test.c";
+      //string path = @"C:\Users\sam.zgraggen\Desktop\test.c";
+      string code = File.ReadAllText(path);
 
-            List<Token> tokenList = Lexer.Lexing(code);
-            OutputToken(tokenList);
+      List<Token> tokenList = Lexer.Lexing(code);
+      OutputToken(tokenList);
 
-            Console.WriteLine("********************************");
+      Console.WriteLine("********************************");
 
-            Node node = Parser.Parsing(tokenList);
-            OutputNode(node);
+      Node node = Parser.Parsing(tokenList);
+      OutputNode(node);
 
-            Console.WriteLine("********************************");
+      Console.WriteLine("********************************");
 
-            Translator.Translating(node);
+      Translator.Translating(node);
 
-            Console.ReadLine();
-        }
+      Console.ReadLine();
+    }
 
         static void OutputToken(List<Token> list)
         {
