@@ -12,6 +12,16 @@ geometry: margin=2cm
 ## Lexer 
 -> lexer breaks up sourcecode into tokens
 
+### What to do
+Implement a *lex* function **input**: file **output**: list of tokens.
+
+### My Plan
+I have a class *Token* holding two attributes<br>
+-> *Type* enum(TokenType)<br>
+-> *Value* string<br>
+
+After Lexing I get a ```List<Token>``` holding the sourcecode broken up into tokens.<br>
+
 ### Lexical elements
 Here are all the tokens this lexer could recognize, and the regular expression defining each of them:
 
@@ -77,22 +87,8 @@ int variableName = 5;
 **constant** -> **integer-literal** -> *5*<br>
 **punctuator** - > *;*
 
-### What to do
-Implement a *lex* function **input**: file **output**: list of tokens.
-
-### My Plan
-I have a class *Token* holding two attributes<br>
--> *Type* enum(TokenType)<br>
--> *Value* string<br>
-
-After Lexing I get a ```List<Token>``` holding the sourcecode broken up into tokens.<br>
-
 ## Parser
 -> parser builds AST with tokens and check Syntax.
-
-### AST
--> Abstract Syntax Tree<br>
-A data structure representing the structure of a program (or code snippet).
 
 ### What to do
 Implement a *pars* function **input**: list of tokens **output**: AST.<br>
@@ -109,7 +105,11 @@ I have a class *Node* holding three attributes<br>
 Left Nodes are the main strain going through the program ```Expressions```<br>
 Right Nodes are sidetracks ```Statement```<br>
 
-Right now everythign is in one function. If I'd add statements other than ```Return``` there would have to be some sort of recursion.
+Right now everythign is in one function. If I'd add statements other than ```Return``` there would have to be some sort of recursion.<br>
+
+### AST
+-> Abstract Syntax Tree<br>
+A data structure representing the structure of a program (or code snippet).
 
 ## Code Generator
 -> code generator translates an AST into assemblycode.
@@ -122,6 +122,12 @@ I have a class *Translator* with<br>
 -> Translate function for each NodeType ```Program```,```FuncDecl```,```Statement```,```Expression```<br>
 
 While recursivly iterating over the AST-Nodes, each node gets fed one of the corresponding translatefunctions.
+
+I have to learn about proper memory handling.
+
+### Understand Memory Handling
+-> define how variables and data will be allocated and accessed in memory, considering  stack frames, heap memory ect.
+
 
 ## Stuff
 
