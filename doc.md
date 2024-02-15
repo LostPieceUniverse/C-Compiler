@@ -142,7 +142,7 @@ later...to compilcated and not needed atm.
 
 ##### key differences
 || Stack | Heap |
-|--------------|-----------|------------|
+|:--------------:|:-----------:|:------------:|
 | Memory is allocated | ...in a contiguous block |...in a random order|
 | allocation / deallocation | by compiler | by programmer |
 | cost | less | more |
