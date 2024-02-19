@@ -12,7 +12,7 @@ namespace Compiler
     }
     static public ExpressionTree Build(List<Token> tokenList)
     {
-      if(tokenList.Contains)
+      
       return null;
     }
   }
