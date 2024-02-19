@@ -54,16 +54,16 @@
                     case TokenType.Identifier:
                         Console.WriteLine(token.Value);
                         break;
-                    case TokenType.Plus:
+                    case TokenType.Addition:
                         Console.WriteLine("+");
                         break;
-                    case TokenType.Minus:
+                    case TokenType.Subtraction:
                         Console.WriteLine("-");
                         break;
                     case TokenType.Multiplication:
                         Console.WriteLine("*");
                         break;
-                    case TokenType.Divition:
+                    case TokenType.Division:
                         Console.WriteLine("/");
                         break;
                     case TokenType.Modulo:

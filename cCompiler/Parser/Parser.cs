@@ -21,22 +21,19 @@ namespace Compiler
           case TokenType.OpenBrace:
             if(root == null)
             {
-              root = new Node(NodeType.Program);
-              TransmitTokens(root.Tokens, tempTokens);
+              root = new Node(NodeType.Program, GetTokens(tempTokens));
               currentNode = root;
             }
             tempTokens.Clear();
             continue;
           case TokenType.Semicolon:
-              ExpressionNode expNode = new ExpressionNode(NodeType.Expression);
-              TransmitTokens(expNode.Tokens, tempTokens);
+              ExpressionNode expNode = new ExpressionNode(NodeType.Expression, GetTokens(tempTokens));
               currentNode.Left = expNode;
               currentNode = expNode;
               tempTokens.Clear();
               continue;
           case TokenType.Return:
-              StatementNode statNode = new StatementNode(NodeType.Statement);
-              TransmitTokens(statNode.Tokens, tokenList.Where((value, index) => index >= i && index <= tokenList.Count).ToList());
+              StatementNode statNode = new StatementNode(NodeType.Statement, GetTokens(tokenList.Where((value, index) => index >= i && index <= tokenList.Count).ToList()));
               currentNode.Right = statNode;
               tempTokens.Clear();
             return root;
@@ -48,12 +45,14 @@ namespace Compiler
       return root;
     }
 
-    static private void TransmitTokens(List<Token> nodeTokens, List<Token> tokens)
+    static private List<Token> GetTokens(List<Token> tokens)
     {
-        foreach(Token token in tokens)
-        {
-          nodeTokens.Add(token);
-        }
+      List<Token> tempList = new List<Token>();
+      foreach(Token token in tokens)
+      {
+        tempList.Add(token);
+      }
+      return tempList;
     }
   }
 }

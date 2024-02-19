@@ -66,16 +66,16 @@ namespace Compiler
               }
               break;
             case "+":
-              token.Type = TokenType.Plus;
+              token.Type = TokenType.Addition;
               break;
             case "-":
-              token.Type = TokenType.Minus;
+              token.Type = TokenType.Subtraction;
               break;
             case "*":
               token.Type = TokenType.Multiplication;
               break;
             case "/":
-              token.Type = TokenType.Divition;
+              token.Type = TokenType.Division;
               break;
             case "%":
               token.Type = TokenType.Modulo;

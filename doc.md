@@ -106,8 +106,8 @@ Left Nodes are the main strain going through the program ```Expressions```<br>
 Right Nodes are sidetracks ```Statement```<br>
 
 if...<br> 
-...an ```Expression``` is an equation I will have to form an AST for said equation -> seperate class *EquationNode*<br>
-...an ```Expression``` is a string literal it must be in the root node since those go ontop of everything in assembly<br>
+...an ```Expression``` is an equation I will have to form an AST for said equation -> seperate class *ExpressionNodeHelper*<br>
+...an ```Expression``` is a string literal it must be in the root node since those go ontop of everything in assembly(also handled in *ExpressionNodeHelper*)<br>
 
 Right now everythign is in one function. If I'd add statements other than ```Return``` there would have to be some sort of recursion.<br>
 

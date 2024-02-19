@@ -16,15 +16,16 @@ namespace Compiler
   }
   public class Node
   {
-    public Node(NodeType type)
+    public Node(NodeType type, List<Token> tokens)
     {
       Type = type;
+      Tokens = tokens;
     }
     public NodeType Type { get; private set; } = NodeType.muffin;
+    public List<Token> Tokens { get; private set; } = new List<Token>();
+
     public Node Left { get; set; } = null;
     public Node Right { get; set; } = null;
-    //public List<Node> ChildNodes { get; set; } = new List<Node>();
-    public List<Token> Tokens { get; set; } = new List<Token>();
 
     //for debugging purposes
     public string PrintNodeType()
@@ -47,14 +48,15 @@ namespace Compiler
 
   public class ExpressionNode : Node
   {
-    public ExpressionNode(NodeType type) : base(type)
+    public ExpressionNode(NodeType type, List<Token> tokens) : base(type, tokens)
     {
-      
+      Root = ExpressionTree.Build(tokens);
     }
+    public ExpressionTree Root { get; set; } = null;
   }
   public class StatementNode : Node
   {
-    public StatementNode(NodeType type) : base(type)
+    public StatementNode(NodeType type, List<Token> tokens) : base(type, tokens)
     {
       
     }
