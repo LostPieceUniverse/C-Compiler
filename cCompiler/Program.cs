@@ -5,7 +5,7 @@
     static void Main(string[] args)
     {
       //string path = @"/home/haru/test.c";
-      string path = @"/home/fedora/dev/Compiler/test.c";
+      string path = @"/home/runin/dev/Compiler/test.c";
       //string path = @"C:\Users\sam.zgraggen\Desktop\test.c";
       string code = File.ReadAllText(path);
 

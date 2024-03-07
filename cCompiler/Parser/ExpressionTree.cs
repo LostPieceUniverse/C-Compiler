@@ -16,12 +16,12 @@ namespace Compiler
       ExpressionTree rootNode = null;
       foreach (Token token in tokenList)
       {
-        if(token.Type == TokenType.IntegerLiteral)
+        if(token.Type == Token.TokenType.IntegerLiteral)
         {
           IntegerLiteralExpressionNode obj = new IntegerLiteralExpressionNode();
           rootNode = obj.BuildAST(tokenList);
         }
-        else if(token.Type == TokenType.StringLiteral)
+        else if(token.Type == Token.TokenType.StringLiteral)
         {
 
         }
@@ -39,7 +39,7 @@ namespace Compiler
 
       IntegerLiteralExpressionNode node = new IntegerLiteralExpressionNode();
 
-      if(token.Type == TokenType.OpenParenthesis)
+      if(token.Type == Token.TokenType.OpenParenthesis)
       {
         node = BuildAST(tokenList);
         //remove the closing parenthesis
@@ -53,7 +53,7 @@ namespace Compiler
         node.Right = BuildAST(tokenList);
         return node;
       }
-      return null;
+      return node;
     }
     
     public IntegerLiteralExpressionNode Left { get; set;} = null;

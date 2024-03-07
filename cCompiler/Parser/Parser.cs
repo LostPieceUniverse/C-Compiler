@@ -1,16 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Compiler
 {
   public class Parser
   {
     static public Node Parsing(List<Token> tokenList)
     {
-      Node root = null;
+      Node rootNode = null;
       Node currentNode = null;
       List<Token> tempTokens = new List<Token>();
 
@@ -18,31 +12,31 @@ namespace Compiler
       {
         switch (tokenList[i].Type)
         {
-          case TokenType.OpenBrace:
-            if(root == null)
+          case Token.TokenType.OpenBrace:
+            if(rootNode == null)
             {
-              root = new Node(NodeType.Program, GetTokens(tempTokens));
-              currentNode = root;
+              rootNode = new Node(Node.NodeType.Program, GetTokens(tempTokens));
+              currentNode = rootNode;
             }
             tempTokens.Clear();
             continue;
-          case TokenType.Semicolon:
-              ExpressionNode expNode = new ExpressionNode(NodeType.Expression, GetTokens(tempTokens));
+          case Token.TokenType.Semicolon:
+              ExpressionNode expNode = new ExpressionNode(GetTokens(tempTokens));
               currentNode.Left = expNode;
               currentNode = expNode;
               tempTokens.Clear();
               continue;
-          case TokenType.Return:
-              StatementNode statNode = new StatementNode(NodeType.Statement, GetTokens(tokenList.Where((value, index) => index >= i && index <= tokenList.Count).ToList()));
+          case Token.TokenType.Return:
+              StatementNode statNode = new StatementNode(GetTokens(tokenList.Where((value, index) => index >= i && index <= tokenList.Count).ToList()));
               currentNode.Right = statNode;
               tempTokens.Clear();
-            return root;
+            return rootNode;
           default:
             tempTokens.Add(tokenList[i]);
             break;
         }
       }
-      return root;
+      return rootNode;
     }
 
     static private List<Token> GetTokens(List<Token> tokens)
