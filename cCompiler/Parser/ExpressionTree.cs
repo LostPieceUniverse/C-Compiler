@@ -10,18 +10,18 @@ namespace Compiler
       Division,
       muffin
     }
-    static public ExpressionTree Build(List<Token> tokenList)
+    static public ExpressionTree Build(Node.NodeType nodeType, List<Token> tokenList)
     {
       //berry unpretty solution incomming...I think...
       ExpressionTree rootNode = null;
       foreach (Token token in tokenList)
       {
-        if(token.Type == Token.TokenType.IntegerLiteral)
+        if(nodeType == Node.NodeType.IntegerExpression)
         {
           IntegerLiteralExpressionNode obj = new IntegerLiteralExpressionNode();
-          rootNode = obj.BuildAST(tokenList);
+          rootNode = obj.BuildAST(0,tokenList);
         }
-        else if(token.Type == Token.TokenType.StringLiteral)
+        else if(nodeType == Node.NodeType.StringExpression)
         {
 
         }
@@ -32,38 +32,68 @@ namespace Compiler
 
   public class IntegerLiteralExpressionNode : ExpressionTree
   {
-    public IntegerLiteralExpressionNode BuildAST(List<Token> tokenList)
+    public IntegerLiteralExpressionNode BuildAST(int index, List<Token> tokenList)
     {
-      Token token = tokenList[0];
-      tokenList.RemoveAt(0);
+      Token token = tokenList[index];
 
       IntegerLiteralExpressionNode node = new IntegerLiteralExpressionNode();
-
-      if(token.Type == Token.TokenType.OpenParenthesis)
+      IntegerLiteralExpressionNode tempNode = new IntegerLiteralExpressionNode();
+      
+      for(;;)
       {
-        node = BuildAST(tokenList);
-        //remove the closing parenthesis
-        tokenList.RemoveAt(0);
+        //if paranthesis
+        if(token.Type == Token.TokenType.OpenParenthesis)
+        {
+          node = BuildAST(index++, tokenList);
+          //remove the closing parenthesis
+          tokenList.RemoveAt(0);
+          return node;
+        }
+        //if operand
+        else if(token.IsOperator())
+        {
+          switch (token.Value)
+          {
+            case "-":
+              node.Operand = ExpressionTree.OperatorType.Subtraction;
+              break;
+            case "+":
+              node.Operand = ExpressionTree.OperatorType.Addition;
+              break;
+            case "/":
+              node.Operand = ExpressionTree.OperatorType.Division;
+              break;
+            case "*":
+              node.Operand = ExpressionTree.OperatorType.Multiplication;
+              break;
+              default:
+              break;
+          }
+          node.IsOperator = true;
+        
+          node.Left = BuildAST(tokenList);
+          node.Right = BuildAST(tokenList);
+          return node;
+        }
+        //if value
+        else
+        {
+          tempNode.IsValue = true;
+          tempNode.Value = token.Value;
+        }
         return node;
       }
-      else if(this.IsOperator)
-      {
-        node.Operator = this.Operator;
-        node.Left = BuildAST(tokenList);
-        node.Right = BuildAST(tokenList);
-        return node;
-      }
-      return node;
     }
     
-    public IntegerLiteralExpressionNode Left { get; set;} = null;
-    public IntegerLiteralExpressionNode Right { get; set;} = null;
+    public IntegerLiteralExpressionNode LeftNode { get; set;} = null;
+    public IntegerLiteralExpressionNode RightNode { get; set;} = null;
 
-    //public OperatorType Operator { get; set; } = OperatorType.muffin;
-    public OperatorType Operator { get; set; } = OperatorType.muffin;//temp
+    //public OperatorType Operator { get; private set; } = OperatorType.muffin;
+    public OperatorType Operand { get; private set; } = OperatorType.muffin;//temp
+    public bool IsOperator { get; private set; } = false;
 
-    public string Operand { get; set; } = string.Empty;
-    public bool IsOperator { get; set; } = false;
+    public string Value { get; private set; } = string.Empty;
+    public bool IsValue { get; private set; } = false;
   }
 
   public class StringLiteralExpressionNode : ExpressionTree

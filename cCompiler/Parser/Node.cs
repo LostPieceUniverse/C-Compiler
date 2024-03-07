@@ -62,7 +62,7 @@ namespace Compiler
   {
     public ExpressionNode( List<Token> tokens) : base( tokens)
     {
-      RootNode = ExpressionTree.Build(tokens);
+      RootNode = ExpressionTree.Build(Type, tokens);
     }
     public ExpressionTree RootNode { get; set; }
   }

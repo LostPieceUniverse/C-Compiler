@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
- using System.Text.RegularExpressions;
+using System.Text.RegularExpressions;
  
 namespace Compiler
 {
@@ -27,11 +22,11 @@ namespace Compiler
             token.Value = tempStr;
             if(int.TryParse(tempStr, out int num))
             {
-              token.Type = TokenType.IntegerLiteral;
+              token.Type = Token.TokenType.IntegerLiteral;
             }
             else
             {
-              token.Type = TokenType.StringLiteral;
+              token.Type = Token.TokenType.StringLiteral;
             }
             tokens.Add(token);
             isString = false;
@@ -66,37 +61,38 @@ namespace Compiler
               }
               break;
             case "+":
-              token.Type = TokenType.Addition;
-              break;
+              //token.Type = TokenType.Addition;
+              //break;
             case "-":
-              token.Type = TokenType.Subtraction;
-              break;
+              //token.Type = TokenType.Subtraction;
+              //break;
             case "*":
-              token.Type = TokenType.Multiplication;
-              break;
+              //token.Type = TokenType.Multiplication;
+              //break;
             case "/":
-              token.Type = TokenType.Division;
-              break;
+              //token.Type = TokenType.Division;
+              //break;
             case "%":
-              token.Type = TokenType.Modulo;
+              //token.Type = TokenType.Modulo;
+              token.Type = Token.TokenType.Operand;
               break;
             case "(":
-              token.Type = TokenType.OpenParenthesis;
+              token.Type = Token.TokenType.OpenParenthesis;
               break;
             case ")":
-              token.Type = TokenType.CloseParenthesis;
+              token.Type = Token.TokenType.CloseParenthesis;
               break;
             case "{":
-              token.Type = TokenType.OpenBrace;
+              token.Type = Token.TokenType.OpenBrace;
               break;
             case "}":
-              token.Type = TokenType.CloseBrace;
+              token.Type = Token.TokenType.CloseBrace;
               break;
             case "=":
-              token.Type = TokenType.Equals;
+              token.Type = Token.TokenType.Equals;
               break;
             case ";":
-              token.Type = TokenType.Semicolon;
+              token.Type = Token.TokenType.Semicolon;
               break;
             default:
               continue;
@@ -113,22 +109,22 @@ namespace Compiler
       switch(str)
       {
         case "int":
-          token.Type = TokenType.Int;
+          token.Type = Token.TokenType.Int;
           break;
         case "string":
-          token.Type = TokenType.String;
+          token.Type = Token.TokenType.String;
           break;
         case "return":
-          token.Type = TokenType.Return;
+          token.Type = Token.TokenType.Return;
           break;
         case "if":
-          token.Type = TokenType.If;
+          token.Type = Token.TokenType.If;
           break;
         case "else":
-          token.Type = TokenType.Else;
+          token.Type = Token.TokenType.Else;
           break;
         default:
-          token.Type = TokenType.Identifier;
+          token.Type = Token.TokenType.Identifier;
           token.Value = str;
           break;
       }

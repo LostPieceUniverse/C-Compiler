@@ -18,11 +18,12 @@ namespace Compiler
       Identifier, 
       StringLiteral, 
       IntegerLiteral, 
-      Addition, 
-      Subtraction, 
-      Multiplication,
-      Division,
-      Modulo,
+      //Addition, 
+      //Subtraction, 
+      //Multiplication,
+      //Division,
+      //Modulo,
+      Operand,
       OpenParenthesis, 
       CloseParenthesis,
       OpenBrace,
@@ -33,5 +34,10 @@ namespace Compiler
     }
     public TokenType Type { get; set; } = TokenType.muffin;
     public string Value { get; set; } = "memi";
+
+    public bool IsOperator()
+    {
+      return System.Text.RegularExpressions.Regex.IsMatch(Value, @"^[\d+\-*/\s()]+$");
+    }
   }
 }
