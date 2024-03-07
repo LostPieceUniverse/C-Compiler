@@ -1,4 +1,3 @@
-using System;
 using System.Text;
 namespace Compiler
 {
@@ -21,16 +20,16 @@ namespace Compiler
         //call corresponding function
         switch (node.Type)
         {
-          case NodeType.Program:
+          case Node.NodeType.Program:
             GenerateProgram(node);
             break;
-          case NodeType.FuncDecl:
+          case Node.NodeType.FuncDecl:
             GenerateFuncDecl(node);
             break;
-          case NodeType.Statement:
+          case Node.NodeType.Statement:
             GenerateStatement(node);
             break;
-          case NodeType.Expression:
+          case Node.NodeType.IntegerExpression:
             GenerateExpression(node);
             break;
           default:

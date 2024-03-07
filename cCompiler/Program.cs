@@ -5,7 +5,7 @@
     static void Main(string[] args)
     {
       //string path = @"/home/haru/test.c";
-      string path = @"/home/runin/dev/Compiler/test.c";
+      string path = @"/home/runin/dev/c#/Compiler/test.c";
       //string path = @"C:\Users\sam.zgraggen\Desktop\test.c";
       string code = File.ReadAllText(path);
 
@@ -30,61 +30,63 @@
             {
                 switch (token.Type)
                 {
-                    case TokenType.Int:
+                    case Token.TokenType.Int:
                         Console.WriteLine("int");
                         break;
-                    case TokenType.String:
+                    case Token.TokenType.String:
                         Console.WriteLine("string");
                         break;
-                    case TokenType.Return:
+                    case Token.TokenType.Return:
                         Console.WriteLine("return");
                         break;
-                    case TokenType.If:
+                    case Token.TokenType.If:
                         Console.WriteLine("if");
                         break;
-                    case TokenType.Else:
+                    case Token.TokenType.Else:
                         Console.WriteLine("else");
                         break;
-                    case TokenType.IntegerLiteral:
+                    case Token.TokenType.IntegerLiteral:
                         Console.WriteLine(token.Value);
                         break;
-                    case TokenType.StringLiteral:
+                    case Token.TokenType.StringLiteral:
                         Console.WriteLine(token.Value);
                         break;
-                    case TokenType.Identifier:
+                    case Token.TokenType.Identifier:
                         Console.WriteLine(token.Value);
                         break;
-                    case TokenType.Addition:
+                        /*
+                    case Token.TokenType.Addition:
                         Console.WriteLine("+");
                         break;
-                    case TokenType.Subtraction:
+                    case Token.TokenType.Subtraction:
                         Console.WriteLine("-");
                         break;
-                    case TokenType.Multiplication:
+                    case Token.TokenType.Multiplication:
                         Console.WriteLine("*");
                         break;
-                    case TokenType.Division:
+                    case Token.TokenType.Division:
                         Console.WriteLine("/");
                         break;
-                    case TokenType.Modulo:
+                    case Token.TokenType.Modulo:
                         Console.WriteLine("%");
                         break;
-                    case TokenType.OpenParenthesis:
+                        */
+                    case Token.TokenType.OpenParenthesis:
                         Console.WriteLine("(");
                         break;
-                    case TokenType.CloseParenthesis:
+                    case Token.TokenType.CloseParenthesis:
                         Console.WriteLine(")");
                         break;
-                    case TokenType.OpenBrace:
+                    case Token.TokenType.OpenBrace:
                         Console.WriteLine("{");
                         break;
-                    case TokenType.CloseBrace:
+                    case Token.TokenType.CloseBrace:
                         Console.WriteLine("}");
                         break;
-                    case TokenType.Equals:
+                    case Token.TokenType.Equals:
                         Console.WriteLine("=");
                         break;
-                    case TokenType.Semicolon:
+                    case Token.TokenType.Semicolon:
                         Console.WriteLine(";");
                         break;
                     default:
