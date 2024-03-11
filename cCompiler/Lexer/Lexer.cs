@@ -20,14 +20,7 @@ namespace Compiler
           {
             Token token = new Token();
             token.Value = tempStr;
-            if(int.TryParse(tempStr, out int num))
-            {
-              token.Type = Token.TokenType.IntegerLiteral;
-            }
-            else
-            {
-              token.Type = Token.TokenType.StringLiteral;
-            }
+            token.Type = Token.TokenType.StringLiteral;
             tokens.Add(token);
             isString = false;
             tempStr = string.Empty;
@@ -53,6 +46,12 @@ namespace Compiler
           switch (character)
           {
             case " ":
+              if(double.TryParse(tempStr, out _) )
+              {
+                token.Value = tempStr;
+                tempStr = string.Empty;
+                token.Type = Token.TokenType.IntegerLiteral;
+              }
               continue;
             case "\"":
               if(!isString)
@@ -97,7 +96,10 @@ namespace Compiler
             default:
               continue;
           }
-          tokens.Add(token);
+          if(!isString)
+          {
+            tokens.Add(token);
+          }
         }
       }
       return tokens;
