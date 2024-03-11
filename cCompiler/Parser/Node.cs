@@ -14,8 +14,32 @@ namespace Compiler
     
     public Node( List<Token> tokens)
     { 
+      Console.WriteLine("Trying to define nodeType");
+      bool containsIntegerLiteral = tokens.Any(token => token.Type == Token.TokenType.IntegerLiteral);
+      if(containsIntegerLiteral)
+      {
+        Console.WriteLine("true");
+      }
+      else
+      {
+        Console.WriteLine("false");
+      }
+      if(tokens.Any(token => token.Type == Token.TokenType.IntegerLiteral))
+      {
+        Type = NodeType.IntegerExpression;
+      }
+      else if (tokens.Any(token => token.Type == Token.TokenType.StringLiteral))
+      {
+        Type = NodeType.StringExpression;
+      }
+      else
+      {
+        Type = NodeType.Statement;
+      }
+      /*
       foreach (Token token in tokens)
       {
+        Console.WriteLine(token.Type.ToString());
         if(token.Type == Token.TokenType.IntegerLiteral)
         {
           Type = NodeType.IntegerExpression;
@@ -29,6 +53,7 @@ namespace Compiler
           Type = NodeType.Statement;
         }
       }
+      */
       Tokens = tokens;
     }
     public NodeType Type { get; private set; } = NodeType.muffin;

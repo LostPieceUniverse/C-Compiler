@@ -1,9 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
- 
 namespace Compiler
 {
   public class Token
@@ -35,9 +29,5 @@ namespace Compiler
     public TokenType Type { get; set; } = TokenType.muffin;
     public string Value { get; set; } = "memi";
 
-    public bool IsOperator()
-    {
-      return System.Text.RegularExpressions.Regex.IsMatch(Value, @"^[\d+\-*/\s()]+$");
-    }
   }
 }
