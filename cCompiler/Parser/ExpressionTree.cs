@@ -29,10 +29,25 @@ namespace Compiler
       }
       return rootNode;
     }
+
   }
 
   public class IntegerLiteralExpressionNode : ExpressionTree
   {
+    static public void Print(int indent)
+    {
+        Console.Write(new string(' ', indent * 2)); // Adjust spacing based on indentation level
+        if (IsValue)
+        {
+            Console.WriteLine("Value: " + Value);
+        }
+        else if (IsOperator)
+        {
+            Console.WriteLine("Operator: " + Operand.ToString());
+            LeftNode?.Print(indent + 1);
+            RightNode?.Print(indent + 1);
+        }
+    }
     public IntegerLiteralExpressionNode BuildAST(int index, List<Token> tokenList)
     {
       IntegerLiteralExpressionNode node = new IntegerLiteralExpressionNode();
