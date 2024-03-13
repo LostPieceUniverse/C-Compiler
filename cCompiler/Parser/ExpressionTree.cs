@@ -78,49 +78,6 @@ namespace Compiler
             break;
         }
         index++;
-        /*
-        //if paranthesis
-        if(token.Type == Token.TokenType.OpenParenthesis)
-        {
-          node = BuildAST(index++, tokenList);
-          //remove the closing parenthesis
-          tokenList.RemoveAt(0);
-          return node;
-        }
-        //if operand
-        else if(token.IsOperator())
-        {
-          switch (token.Value)
-          {
-            case "-":
-              node.Operand = ExpressionTree.OperatorType.Subtraction;
-              break;
-            case "+":
-              node.Operand = ExpressionTree.OperatorType.Addition;
-              break;
-            case "/":
-              node.Operand = ExpressionTree.OperatorType.Division;
-              break;
-            case "*":
-              node.Operand = ExpressionTree.OperatorType.Multiplication;
-              break;
-              default:
-              break;
-          }
-          node.IsOperator = true;
-        
-          node.LeftNode = tempNode;
-          node.RightNode = BuildAST(index++, tokenList);
-          return node;
-        }
-        //if value
-        else
-        {
-          tempNode.IsValue = true;
-          tempNode.Value = token.Value;
-          index++;
-        }
-        */
       }
       return node;
     }

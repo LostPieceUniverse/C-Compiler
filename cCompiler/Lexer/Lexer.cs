@@ -1,22 +1,21 @@
 using System.Text.RegularExpressions;
- 
+
 namespace Compiler
 {
   public class Lexer
   {
-    
-    static public List<Token> Lexing(string code)
+    public static List<Token> Lexing(string code)
     {
       List<Token> tokens = new List<Token>();
       string tempStr = string.Empty;
       bool isString = false;
 
-      for(int i = 0; i < code.Length; i++)
+      for (int i = 0; i < code.Length; i++)
       {
         string character = (code[i]).ToString();
-        if(isString)
+        if (isString)
         {
-          if(character == "\"")
+          if (character == "\"")
           {
             Token token = new Token();
             token.Value = tempStr;
@@ -27,110 +26,124 @@ namespace Compiler
           }
           else
           {
-            tempStr += character; 
+            tempStr += character;
           }
         }
-        else if(Regex.IsMatch(character, "[a-z]", RegexOptions.IgnoreCase) || character == "_" || Regex.IsMatch(character, "[0-9]"))
+        else if (Regex.IsMatch(character, "[a-z]", RegexOptions.IgnoreCase) || character == "_" || Regex.IsMatch(character, "[0-9]"))
         {
-          tempStr += character; 
+          tempStr += character;
         }
         else
         {
-          if(tempStr != string.Empty)
+          if (tempStr != string.Empty)
           {
-            tokens.Add(HandleString(tempStr));
-            tempStr = string.Empty;
+              tokens.Add(HandleString(tempStr));
+              tempStr = string.Empty;
           }
 
           Token token = new Token();
           switch (character)
           {
             case " ":
-              if(double.TryParse(tempStr, out _) )
-              {
-                token.Value = tempStr;
-                tempStr = string.Empty;
-                token.Type = Token.TokenType.IntegerLiteral;
-              }
+              //if (double.TryParse(tempStr, out _))
+              //{
+                //token.Value = tempStr;
+                //tempStr = string.Empty;
+                //token.Type = Token.TokenType.IntegerLiteral;
+              //}
               continue;
             case "\"":
-              if(!isString)
+              if (!isString)
               {
-                isString = true;
+                  isString = true;
               }
               break;
             case "+":
-              //token.Type = TokenType.Addition;
-              //break;
             case "-":
-              //token.Type = TokenType.Subtraction;
-              //break;
             case "*":
-              //token.Type = TokenType.Multiplication;
-              //break;
             case "/":
-              //token.Type = TokenType.Division;
-              //break;
             case "%":
-              //token.Type = TokenType.Modulo;
-              token.Type = Token.TokenType.Operand;
-              break;
             case "(":
-              token.Type = Token.TokenType.OpenParenthesis;
-              break;
             case ")":
-              token.Type = Token.TokenType.CloseParenthesis;
-              break;
             case "{":
-              token.Type = Token.TokenType.OpenBrace;
-              break;
             case "}":
-              token.Type = Token.TokenType.CloseBrace;
-              break;
             case "=":
-              token.Type = Token.TokenType.Equals;
-              break;
             case ";":
-              token.Type = Token.TokenType.Semicolon;
+              if (!isString)
+              {
+                tokens.Add(new Token
+                {
+                    Value = character,
+                    Type = GetTokenType(character)
+                });
+              }
               break;
             default:
               continue;
           }
-          if(!isString)
-          {
-            tokens.Add(token);
-          }
         }
-      }
-      return tokens;
     }
 
-    static public Token HandleString(string str)
-    {
-      Token token = new Token();
-      switch(str)
+      if (tempStr != string.Empty)
       {
-        case "int":
-          token.Type = Token.TokenType.Int;
-          break;
-        case "string":
-          token.Type = Token.TokenType.String;
-          break;
-        case "return":
-          token.Type = Token.TokenType.Return;
-          break;
-        case "if":
-          token.Type = Token.TokenType.If;
-          break;
-        case "else":
-          token.Type = Token.TokenType.Else;
-          break;
-        default:
-          token.Type = Token.TokenType.Identifier;
-          token.Value = str;
-          break;
+          tokens.Add(HandleString(tempStr));
       }
-      return token;
+
+      return tokens;
+  }
+
+    public static Token HandleString(string str)
+    {
+        Token token = new Token();
+        switch (str)
+        {
+            case "int":
+                token.Type = Token.TokenType.Int;
+                break;
+            case "string":
+                token.Type = Token.TokenType.String;
+                break;
+            case "return":
+                token.Type = Token.TokenType.Return;
+                break;
+            case "if":
+                token.Type = Token.TokenType.If;
+                break;
+            case "else":
+                token.Type = Token.TokenType.Else;
+                break;
+            default:
+                if (int.TryParse(str, out _))
+                {
+                    token.Type = Token.TokenType.IntegerLiteral;
+                }
+                else
+                {
+                    token.Type = Token.TokenType.Identifier;
+                }
+                token.Value = str;
+                break;
+        }
+        return token;
+    }
+
+    private static Token.TokenType GetTokenType(string character)
+    {
+        return character switch
+        {
+            "+" => Token.TokenType.Operand,
+            "-" => Token.TokenType.Operand,
+            "*" => Token.TokenType.Operand,
+            "/" => Token.TokenType.Operand,
+            "%" => Token.TokenType.Operand,
+            "(" => Token.TokenType.OpenParenthesis,
+            ")" => Token.TokenType.CloseParenthesis,
+            "{" => Token.TokenType.OpenBrace,
+            "}" => Token.TokenType.CloseBrace,
+            "=" => Token.TokenType.Equals,
+            ";" => Token.TokenType.Semicolon,
+            _ => throw new ArgumentException("Invalid character"),
+        };
     }
   }
 }
