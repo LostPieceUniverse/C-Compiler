@@ -72,7 +72,6 @@ namespace Compiler
                 node.Operand = OperatorType.Multiplication;
                 break;
             }
-            Console.WriteLine("initialize-----------------------------------------------------------");
             node.IsOperator = true;
             node.LeftNode = BuildAST(index + 1, tokenList);
             node.RightNode = BuildAST(index + 2, tokenList);
