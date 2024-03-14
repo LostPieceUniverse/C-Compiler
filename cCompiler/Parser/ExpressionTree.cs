@@ -1,6 +1,6 @@
 namespace Compiler
 {
-  public class ExpressionTree
+  public abstract class ExpressionTree
   {
     public enum OperatorType
     {
@@ -10,7 +10,7 @@ namespace Compiler
       Division,
       muffin
     }
-    
+    public abstract void print(IntegerLiteralExpressionNode obj);
     static public ExpressionTree Build(Node.NodeType nodeType, List<Token> tokenList)
     {
       //berry unpretty solution incomming...I think...
@@ -19,14 +19,22 @@ namespace Compiler
       {
         if(nodeType == Node.NodeType.IntegerExpression)
         {
-          IntegerLiteralExpressionNode obj = new IntegerLiteralExpressionNode();
-          rootNode = obj.BuildAST(0,tokenList);
+          IntegerLiteralExpressionNode obj1 = new IntegerLiteralExpressionNode();
+          rootNode = obj1.BuildAST(0,tokenList);
         }
         else if(nodeType == Node.NodeType.StringExpression)
         {
 
         }
       }
+        IntegerLiteralExpressionNode obj = new IntegerLiteralExpressionNode();
+
+        Console.WriteLine("*******************print*********************");
+        if(rootNode != null)
+        {
+          obj.print((IntegerLiteralExpressionNode)rootNode);
+        }
+      //if null then error
       return rootNode;
     }
 
@@ -34,20 +42,6 @@ namespace Compiler
 
   public class IntegerLiteralExpressionNode : ExpressionTree
   {
-    static public void Print(int indent)
-    {
-        Console.Write(new string(' ', indent * 2)); // Adjust spacing based on indentation level
-        if (IsValue)
-        {
-            Console.WriteLine("Value: " + Value);
-        }
-        else if (IsOperator)
-        {
-            Console.WriteLine("Operator: " + Operand.ToString());
-            LeftNode?.Print(indent + 1);
-            RightNode?.Print(indent + 1);
-        }
-    }
     public IntegerLiteralExpressionNode BuildAST(int index, List<Token> tokenList)
     {
       IntegerLiteralExpressionNode node = new IntegerLiteralExpressionNode();
@@ -78,6 +72,7 @@ namespace Compiler
                 node.Operand = OperatorType.Multiplication;
                 break;
             }
+            Console.WriteLine("initialize-----------------------------------------------------------");
             node.IsOperator = true;
             node.LeftNode = BuildAST(index + 1, tokenList);
             node.RightNode = BuildAST(index + 2, tokenList);
@@ -94,10 +89,11 @@ namespace Compiler
         }
         index++;
       }
+      //if node is null error
       return node;
     }
     
-    private static int FindClosingParenthesis(int startIndex, List<Token> tokenList)
+    private int FindClosingParenthesis(int startIndex, List<Token> tokenList)
     {
       int count = 1;
       for (int i = startIndex; i < tokenList.Count; i++)
@@ -115,13 +111,26 @@ namespace Compiler
           }
         }
       }
-      return 0;
+      return 0;//error
+    }
+
+    public override void print(IntegerLiteralExpressionNode obj)
+    {
+      Console.WriteLine("Operand: " + obj.Operand.ToString());
+      Console.WriteLine("Value: " + obj.Value);
+      if(obj.LeftNode != null)
+      {
+        print(obj.LeftNode);
+      }
+      if(obj.RightNode != null)
+      {
+        print(obj.RightNode);
+      }
     }
     public IntegerLiteralExpressionNode LeftNode { get; set;} = null;
     public IntegerLiteralExpressionNode RightNode { get; set;} = null;
 
-    //public OperatorType Operator { get; private set; } = OperatorType.muffin;
-    public OperatorType Operand { get; private set; } = OperatorType.muffin;//temp
+    public OperatorType Operand { get; private set; } = OperatorType.muffin;
     public bool IsOperator { get; private set; } = false;
 
     public string Value { get; private set; } = string.Empty;
@@ -130,6 +139,9 @@ namespace Compiler
 
   public class StringLiteralExpressionNode : ExpressionTree
   {
+    public override void print(IntegerLiteralExpressionNode obj)
+    {
 
+    }
   }
 }
