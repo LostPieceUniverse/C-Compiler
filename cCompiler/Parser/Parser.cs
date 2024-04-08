@@ -15,7 +15,7 @@ namespace Compiler
           case Token.TokenType.OpenBrace:
             if(rootNode == null)
             {
-              rootNode = new Node(GetTokens(tempTokens));//to fix make type type.programm aka main
+              rootNode = new Node(GetTokens(tempTokens));//to fix: make type type.programm aka main
               currentNode = rootNode;
             }
             tempTokens.Clear();

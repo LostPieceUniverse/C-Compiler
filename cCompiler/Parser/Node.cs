@@ -27,24 +27,6 @@ namespace Compiler
       {
         Type = NodeType.Statement;
       }
-      /*
-      foreach (Token token in tokens)
-      {
-        Console.WriteLine(token.Type.ToString());
-        if(token.Type == Token.TokenType.IntegerLiteral)
-        {
-          Type = NodeType.IntegerExpression;
-        }
-        else if(token.Type == Token.TokenType.StringLiteral)
-        {
-          Type = NodeType.StringExpression;
-        }
-        else
-        {
-          Type = NodeType.Statement;
-        }
-      }
-      */
       Tokens = tokens;
     }
     public NodeType Type { get; private set; } = NodeType.muffin;

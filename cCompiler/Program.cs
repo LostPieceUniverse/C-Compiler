@@ -57,23 +57,6 @@
           case Token.TokenType.Identifier:
               Console.WriteLine(token.Value);
               break;
-              /*
-          case Token.TokenType.Addition:
-              Console.WriteLine("+");
-              break;
-          case Token.TokenType.Subtraction:
-              Console.WriteLine("-");
-              break;
-          case Token.TokenType.Multiplication:
-              Console.WriteLine("*");
-              break;
-          case Token.TokenType.Division:
-              Console.WriteLine("/");
-              break;
-          case Token.TokenType.Modulo:
-              Console.WriteLine("%");
-              break;
-              */
           case Token.TokenType.OpenParenthesis:
               Console.WriteLine("(");
               break;

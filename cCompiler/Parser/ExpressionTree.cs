@@ -10,6 +10,12 @@ namespace Compiler
       Division,
       muffin
     }
+    public enum ValueType
+    {
+      Numeric,
+      EAX,
+      muffin
+    }
     public abstract void print(IntegerLiteralExpressionNode obj);
     static public ExpressionTree Build(Node.NodeType nodeType, List<Token> tokenList)
     {
@@ -19,25 +25,24 @@ namespace Compiler
       {
         if(nodeType == Node.NodeType.IntegerExpression)
         {
-          IntegerLiteralExpressionNode obj1 = new IntegerLiteralExpressionNode();
-          rootNode = obj1.BuildAST(0,tokenList);
+          IntegerLiteralExpressionNode obj = new IntegerLiteralExpressionNode();
+          rootNode = obj.BuildAST(0,tokenList);
         }
         else if(nodeType == Node.NodeType.StringExpression)
         {
 
         }
       }
-        IntegerLiteralExpressionNode obj = new IntegerLiteralExpressionNode();
+        IntegerLiteralExpressionNode ob3j = new IntegerLiteralExpressionNode();
 
         Console.WriteLine("*******************print*********************");
         if(rootNode != null)
         {
-          obj.print((IntegerLiteralExpressionNode)rootNode);
+          ob3j.print(((IntegerLiteralExpressionNode)rootNode));
         }
       //if null then error
       return rootNode;
     }
-
   }
 
   public class IntegerLiteralExpressionNode : ExpressionTree
@@ -79,6 +84,7 @@ namespace Compiler
           case Token.TokenType.OpenParenthesis:
             int closingIndex = FindClosingParenthesis(index + 1, tokenList);
             node = BuildAST(index + 1, tokenList.GetRange(index + 1, closingIndex - index - 1));
+            Console.WriteLine("index:{0}, closingIndex{1}",index, closingIndex);
             index = closingIndex;
             break;
           case Token.TokenType.CloseParenthesis:
