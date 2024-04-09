@@ -1,3 +1,4 @@
+using System.Diagnostics;
 namespace Compiler
 {
   public class Parser
@@ -6,6 +7,8 @@ namespace Compiler
     {
       Node rootNode = null;
       Node currentNode = null;
+      Debug.Assert(currentNode != null);
+      Debug.Assert(rootNode != null);
       List<Token> tempTokens = new List<Token>();
 
       for (int i = 0; i < tokenList.Count; i++)
@@ -28,10 +31,12 @@ namespace Compiler
             tempTokens.Clear();
             continue;
           case Token.TokenType.Return:
-            StatementNode statNode = new StatementNode(GetTokens(tokenList.Where((value, index) => index >= i && index <= tokenList.Count).ToList()));
+            //!!!assuming return means end of programm!!!
+            StatementNode statNode = new StatementNode(GetTokens(tokenList.GetRange(i, (tokenList.Count - 1) - i)));
             currentNode.Right = statNode;
             tempTokens.Clear();
-            return rootNode;
+            i = tokenList.Count - 1;
+            break;
           default:
             tempTokens.Add(tokenList[i]);
             break;

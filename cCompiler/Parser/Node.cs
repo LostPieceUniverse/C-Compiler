@@ -80,8 +80,8 @@ namespace Compiler
           throw new Exception("rootnode is null");
         }
 
-        //check if tree can be calced
-        ExpressionRootNode.TreeNodeOptimizing();
+        //check if tree can be calced -> to finih implementing
+        //ExpressionRootNode.TreeNodeOptimizing();
       }
       else if (Type == NodeType.StringExpression)
       {
@@ -103,8 +103,8 @@ namespace Compiler
         }
       }
     }
-    public ExpressionTree ExpressionRootNode { get; private set; } //equation or string contents
-    public String ExpressionIdentifier { get; private set; } //variable
+    public ExpressionTree ExpressionRootNode { get; private set; } = null;//equation or string contents
+    public String ExpressionIdentifier { get; private set; } = string.Empty;//variable
   }
 
 
