@@ -16,30 +16,6 @@ namespace Compiler
       EAX,
       muffin
     }
-    static public ExpressionTree Build(Node.NodeType nodeType, List<Token> tokenList)
-    {
-      //berry unpretty solution incomming...I think...
-      ExpressionTree rootNode = null;
-      IntegerLiteralExpressionNode obj = new IntegerLiteralExpressionNode();
-      rootNode = obj.BuildAST(0, tokenList);
-
-      /*
-      foreach (Token token in tokenList)
-      {
-          if (nodeType == Node.NodeType.IntegerExpression)
-          {
-              IntegerLiteralExpressionNode obj = new IntegerLiteralExpressionNode();
-              rootNode = obj.BuildAST(0, tokenList);
-          }
-          else if (nodeType == Node.NodeType.StringExpression)
-          {
-
-          }
-      }
-      */
-      //if null then error
-      return rootNode;
-    }
   }
 
   public class IntegerLiteralExpressionNode : ExpressionTree
@@ -47,61 +23,126 @@ namespace Compiler
     public IntegerLiteralExpressionNode BuildAST(int index, List<Token> tokenList)
     {
       IntegerLiteralExpressionNode node = new IntegerLiteralExpressionNode();
-      IntegerLiteralExpressionNode currentNode = new IntegerLiteralExpressionNode();
+      IntegerLiteralExpressionNode nextNode = new IntegerLiteralExpressionNode();
+      IntegerLiteralExpressionNode tempNode = new IntegerLiteralExpressionNode();
 
-      while (index < tokenList.Count)
+      if(index == tokenList.Count)
       {
-        Token token = tokenList[index];
-
-        switch (token.Type)
-        {
-          case Token.TokenType.IntegerLiteral:
+        return null;
+      }
+      
+      Token token = tokenList[index];
+      switch (token.Type)
+      {
+        case Token.TokenType.IntegerLiteral:
             if (node.IsValue)
             {
-                throw new Exception("two values ffs");
+              throw new Exception("two values ffs");
             }
             node.IsValue = true;
             node.Value = token.Value;
-            break;
-          case Token.TokenType.Operand:
-            if (node.IsOperator)
+            nextNode = BuildAST(index + 1, tokenList);
+            if(nextNode == null)
             {
-                throw new Exception("two operands ffs");
+              return node;
             }
-            IntegerLiteralExpressionNode newNode = new IntegerLiteralExpressionNode();
-            switch (token.Value)
+            else if (nextNode.IsOperator)
             {
-                case "-":
-                    newNode.Operand = OperatorType.Subtraction;
-                    break;
-                case "+":
-                    newNode.Operand = OperatorType.Addition;
-                    break;
-                case "/":
-                    newNode.Operand = OperatorType.Division;
-                    break;
-                case "*":
-                    newNode.Operand = OperatorType.Multiplication;
-                    break;
+              tempNode = node;
+              node = nextNode;
+              if(node.LeftNode == null)
+              {
+                node.LeftNode = tempNode;
+              }
+              else
+              {
+                node.RightNode = node.LeftNode;
+                node.LeftNode = tempNode;
+              }
+              tempNode = null;
+              nextNode = null;
             }
-            newNode.IsOperator = true;
-            newNode.LeftNode = node;
-            node = newNode;
-            node.RightNode = BuildAST(index + 1, tokenList);
-            return node;
-          case Token.TokenType.OpenParenthesis:
-            int closingIndex = FindClosingParenthesis(index + 1, tokenList);
-            node = BuildAST(index + 1, tokenList.GetRange(index + 1, closingIndex - index - 1));
-            index = closingIndex;
+            else
+            {
+              throw new Exception("switch: integerliteral");
+            }
             break;
-          case Token.TokenType.CloseParenthesis:
-            return node;
-          default:
-            break;
-        }
-        index++;
+        case Token.TokenType.Operand:
+          if (node.IsOperator)
+          {
+            throw new Exception("two operands ffs");
+          }
+          switch (token.Value)
+          {
+            case "-":
+              node.Operand = OperatorType.Subtraction;
+              break;
+            case "+":
+              node.Operand = OperatorType.Addition;
+              break;
+            case "/":
+              node.Operand = OperatorType.Division;
+              break;
+            case "*":
+              node.Operand = OperatorType.Multiplication;
+              break;
+          }
+          node.IsOperator = true;
+          IntegerLiteralExpressionNode parenthesisNode = new IntegerLiteralExpressionNode();
+          if (tokenList[index + 1].Type == Token.TokenType.OpenParenthesis)
+          {
+            parenthesisNode = BuildAST(index + 1, tokenList);
+            int indexclosing = FindClosingParenthesis(index + 2, tokenList);
+            nextNode = BuildAST(indexclosing + 1, tokenList);
+
+            if (nextNode.LeftNode == null)
+            {
+              nextNode.LeftNode = parenthesisNode;
+            }
+            else
+            {
+              nextNode.RightNode = nextNode.LeftNode;
+              nextNode.LeftNode = parenthesisNode;
+            }
+          }
+          else
+          {
+            nextNode = BuildAST(index + 1, tokenList);
+          }
+          
+          
+          
+          if (node.LeftNode == null)
+          {
+            node.LeftNode = nextNode;
+          }
+          else
+          {
+            node.RightNode = nextNode;
+          }
+          tempNode = null;
+          nextNode = null;
+          break;
+        case Token.TokenType.OpenParenthesis:
+          int closingIndex = FindClosingParenthesis(index + 1, tokenList);
+          node = BuildAST(0, tokenList.GetRange(index + 1, closingIndex - index - 1));
+          index = closingIndex + 1;
+          if (!node.IsOperator)
+          {
+            throw new Exception("switch: OpenParenthesis");
+          }
+
+          break;
+        case Token.TokenType.CloseParenthesis:
+          return node;
+        default:
+          break;
       }
       //if node is null error
+      if (node == null)
+      {
+        throw new Exception("node is null");
+      }
       return node;
     }
 
@@ -138,6 +179,13 @@ namespace Compiler
 
   public class StringLiteralExpressionNode : ExpressionTree
   {
-      
+    public StringLiteralExpressionNode BuildAST(List<Token> tokenList)
+    {
+      return null;
+    }
+
+    public string Value { get; private set; } = string.Empty;
   }
+
 }
+

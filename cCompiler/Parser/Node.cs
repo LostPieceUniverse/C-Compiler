@@ -23,6 +23,10 @@ namespace Compiler
       {
         Type = NodeType.StringExpression;
       }
+      else if(tokens[1].Value == "main")
+      {
+        Type = NodeType.Program;
+      }
       else
       {
         Type = NodeType.Statement;
@@ -60,19 +64,38 @@ namespace Compiler
   {
     public ExpressionNode(List<Token> tokens) : base(tokens)
     {
-      //assuming tokens[0] is type && tokens[1] is the identifier
-      ExpressionIdentifier = tokens[1].Value;
-      tokens.RemoveRange(0, Math.Min(3, tokens.Count));
-      if(ExpressionIdentifier == "c")
+      //string- or integerliteral
+      if (Type == NodeType.IntegerExpression)
       {
-          int asdasd = 98;
-      }
-      //build expressionTree
-      ExpressionRootNode = ExpressionTree.Build(Type, tokens);
+        //assuming tokens[0] is type && tokens[1] is the identifier
+        ExpressionIdentifier = tokens[1].Value;
+        tokens.RemoveRange(0, Math.Min(3, tokens.Count));
 
-      //check if tree can be calced
+        //build expressionTree
+        IntegerLiteralExpressionNode obj = new IntegerLiteralExpressionNode();
+        ExpressionRootNode = obj.BuildAST(0, tokens);
+
+        if (ExpressionRootNode == null)
+        {
+          throw new Exception("rootnode is null");
+        }
+        //check if tree can be calced
+
+      }
+      else if (Type == NodeType.StringExpression)
+      {
+        //printf or variable
+        if (tokens[0].Value == "printf")
+        {
+          ExpressionIdentifier = tokens[0].Value;
+        }
+        else
+        {
+          ExpressionIdentifier = tokens[1].Value;
+        }
+      }
     }
-    public ExpressionTree ExpressionRootNode { get; private set; } //quation
+    public ExpressionTree ExpressionRootNode { get; private set; } //equation or string contents
     public String ExpressionIdentifier { get; private set; } //variable
   }
 
