@@ -85,13 +85,20 @@ namespace Compiler
       else if (Type == NodeType.StringExpression)
       {
         //printf or variable
+        StringLiteralExpressionNode obj = new StringLiteralExpressionNode();
         if (tokens[0].Value == "printf")
         {
           ExpressionIdentifier = tokens[0].Value;
+          tokens.RemoveAt(0);
+
+          ExpressionRootNode = obj.BuildAST(tokens);
         }
         else
         {
           ExpressionIdentifier = tokens[1].Value;
+          tokens.RemoveRange(0, Math.Min(3, tokens.Count));
+
+          ExpressionRootNode = obj.BuildAST(tokens);
         }
       }
     }

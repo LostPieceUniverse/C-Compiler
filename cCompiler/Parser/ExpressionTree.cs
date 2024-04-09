@@ -181,7 +181,15 @@ namespace Compiler
   {
     public StringLiteralExpressionNode BuildAST(List<Token> tokenList)
     {
-      return null;
+      StringLiteralExpressionNode node = new StringLiteralExpressionNode();
+      for(int i = 0; i < tokenList.Count; i++)
+      {
+        if(tokenList[i].Type == Token.TokenType.StringLiteral)
+        {
+          node.Value += tokenList[i].Value;
+        }
+      }
+      return node;
     }
 
     public string Value { get; private set; } = string.Empty;
