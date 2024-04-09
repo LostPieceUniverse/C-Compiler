@@ -16,6 +16,8 @@ namespace Compiler
       EAX,
       muffin
     }
+
+    public abstract bool TreeNodeOptimizing();
   }
 
   public class IntegerLiteralExpressionNode : ExpressionTree
@@ -167,6 +169,42 @@ namespace Compiler
       return 0;//error
     }
 
+    public override bool TreeNodeOptimizing()
+    {
+      if (LeftNode != null)
+      {
+        if (LeftNode.IsValue && !int.TryParse(LeftNode.Value, out _))
+        {
+          return true;
+        }
+        else
+        {
+          return LeftNode.TreeNodeOptimizing();
+        }
+      }
+    else
+    {
+      Console.WriteLine("LeftNode is null");
+    }
+
+    if (RightNode != null)
+    {
+      if (RightNode.IsValue && !int.TryParse(RightNode.Value, out _))
+      {
+        return true;
+      }
+      else
+      {
+        return RightNode.TreeNodeOptimizing();
+      }
+    }
+    else
+    {
+      Console.WriteLine("RightnNode is null");
+    }
+    return false;//doesnt work but to be implemented another time...what a drag
+  }
+
     public IntegerLiteralExpressionNode LeftNode { get; set; } = null;
     public IntegerLiteralExpressionNode RightNode { get; set; } = null;
 
@@ -191,7 +229,11 @@ namespace Compiler
       }
       return node;
     }
-
+    
+    public override bool TreeNodeOptimizing()
+    {
+      return false;
+    }
     public string Value { get; private set; } = string.Empty;
   }
 

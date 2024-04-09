@@ -79,8 +79,9 @@ namespace Compiler
         {
           throw new Exception("rootnode is null");
         }
-        //check if tree can be calced
 
+        //check if tree can be calced
+        ExpressionRootNode.TreeNodeOptimizing();
       }
       else if (Type == NodeType.StringExpression)
       {
