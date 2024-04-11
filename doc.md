@@ -199,5 +199,5 @@ If operations are performed such as ```pop``` or ```peek``` its essential to ver
 
 ![memory sheit](https://www.geeksforgeeks.org/stack-vs-heap-memory-allocation/)
 
-![stack bs] (https://marketsplash.com/tutorials/assembly/assembly-stack-operations/)
+![stack bs](https://marketsplash.com/tutorials/assembly/assembly-stack-operations/)
 
