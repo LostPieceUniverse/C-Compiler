@@ -6,7 +6,8 @@ geometry: margin=2cm
 ## Writing a C compiler
 
 1. [Lexer](##Lexer) -> done!
-2. [Parser](##Parser) -> done *(still kinda work in progress)*
+2. [Parser](##Parser) -> done 
+3. [Code Generator](##Code Generator)
 3. [Stuff](##Stuff) -> work in progress
 
 ## Lexer 
