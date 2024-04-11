@@ -1,14 +1,13 @@
 using System.Diagnostics;
 namespace Compiler
 {
-  public class Parser
+public class Parser
   {
     static public Node Parsing(List<Token> tokenList)
     {
       Node rootNode = null;
       Node currentNode = null;
-      Debug.Assert(currentNode != null);
-      Debug.Assert(rootNode != null);
+      
       List<Token> tempTokens = new List<Token>();
 
       for (int i = 0; i < tokenList.Count; i++)
@@ -18,8 +17,8 @@ namespace Compiler
           case Token.TokenType.OpenBrace:
             if (rootNode == null)
             {
-              rootNode = new Node(GetTokens(tempTokens));
-              currentNode = rootNode;
+                rootNode = new Node(GetTokens(tempTokens));
+                currentNode = rootNode;
             }
             tempTokens.Clear();
             continue;
@@ -31,7 +30,6 @@ namespace Compiler
             tempTokens.Clear();
             continue;
           case Token.TokenType.Return:
-            //!!!assuming return means end of programm!!!
             StatementNode statNode = new StatementNode(GetTokens(tokenList.GetRange(i, (tokenList.Count - 1) - i)));
             currentNode.Right = statNode;
             tempTokens.Clear();

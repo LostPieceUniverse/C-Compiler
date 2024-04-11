@@ -15,7 +15,7 @@
       Console.WriteLine("************PARSER********************");
 
       Node node = Parser.Parsing(tokenList);
-      OutputNode(node);
+      Node.OutputNode(node);
 
       Console.WriteLine("********************************");
 

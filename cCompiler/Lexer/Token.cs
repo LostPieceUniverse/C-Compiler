@@ -10,13 +10,7 @@ namespace Compiler
       If,
       Else,
       Identifier, 
-      StringLiteral, 
-      IntegerLiteral, 
-      //Addition, 
-      //Subtraction, 
-      //Multiplication,
-      //Division,
-      //Modulo,
+      Literal, 
       Operand,
       OpenParenthesis, 
       CloseParenthesis,
@@ -26,8 +20,15 @@ namespace Compiler
       Semicolon,
       muffin
     }
+    public enum LiteralType
+    {
+      StringLiteral,
+      IntegerLiteral,
+      muffin
+    }
     public TokenType Type { get; set; } = TokenType.muffin;
     public string Value { get; set; } = "memi";
+    public LiteralType Literal { get; set; } = LiteralType.muffin;
 
   }
 }

@@ -14,18 +14,32 @@ namespace Compiler
 
     public Node(List<Token> tokens)
     {
-      bool containsIntegerLiteral = tokens.Any(token => token.Type == Token.TokenType.IntegerLiteral);
-      if (tokens.Any(token => token.Type == Token.TokenType.IntegerLiteral))
+      //berry unpretty solution...
+      if(tokens.Any(token => token.Type == Token.TokenType.Literal))
       {
-        Type = NodeType.IntegerExpression;
+        if (tokens.Any(token => token.Literal == Token.LiteralType.IntegerLiteral))
+        {
+          Type = NodeType.IntegerExpression;
+        }
+        else if (tokens.Any(token => token.Literal == Token.LiteralType.StringLiteral))
+        {
+          Type = NodeType.StringExpression;
+        }
       }
-      else if (tokens.Any(token => token.Type == Token.TokenType.StringLiteral))
+      else if(tokens.Any(token => token.Type == Token.TokenType.Identifier))
       {
-        Type = NodeType.StringExpression;
-      }
-      else if(tokens[1].Value == "main")
-      {
-        Type = NodeType.Program;
+        if (tokens[1].Value == "main")
+        {
+          Type = NodeType.Program;
+        }
+        else if (tokens[0].Type == Token.TokenType.Return)
+        {
+          Type = NodeType.Statement;
+        }
+        else if(tokens.Any(token => token.Literal == Token.LiteralType.StringLiteral))
+        {
+          Type = NodeType.StringExpression;
+        }
       }
       else
       {
@@ -39,23 +53,29 @@ namespace Compiler
     public Node Left { get; set; }
     public Node Right { get; set; }
 
-    //for debugging purposes
-    public string PrintNodeType()
+    public static void OutputNode(Node rootNode, string indent = "")
     {
-      switch (Type)
+      if (rootNode != null)
       {
-        case NodeType.Program:
-          return "Program";
-        case NodeType.FuncDecl:
-          return "FuncDecl";
-        case NodeType.Statement:
-          return "Statement";
-        case NodeType.IntegerExpression:
-          return "IntegerExpression";
-        case NodeType.StringExpression:
-          return "StringExpression";
-        default:
-          return "muffin";
+        Console.Write(indent);
+        foreach(var t in rootNode.Tokens)
+        {
+          Console.Write(t.Value);
+        }
+        Console.WriteLine("");
+        if (rootNode.Left != null)
+        {
+          Console.WriteLine(indent + "|");
+          Console.WriteLine(indent + "|- Left:");
+          OutputNode(rootNode.Left, indent + "|  ");
+        }
+
+        if (rootNode.Right != null)
+        {
+          Console.WriteLine(indent + "|");
+          Console.WriteLine(indent + "|- Right:");
+          OutputNode(rootNode.Right, indent + "|  ");
+        }
       }
     }
   }
@@ -70,7 +90,7 @@ namespace Compiler
         //assuming tokens[0] is type && tokens[1] is the identifier
         ExpressionIdentifier = tokens[1].Value;
         tokens.RemoveRange(0, Math.Min(3, tokens.Count));
-
+        
         //build expressionTree
         IntegerLiteralExpressionNode obj = new IntegerLiteralExpressionNode();
         ExpressionRootNode = obj.BuildAST(0, tokens);
@@ -80,8 +100,9 @@ namespace Compiler
           throw new Exception("rootnode is null");
         }
 
-        //check if tree can be calced -> to finih implementing
-        //ExpressionRootNode.TreeNodeOptimizing();
+        //check if tree can be calced
+        bool hasVariable = false;
+        ExpressionRootNode.TreeNodeOptimizing(ref hasVariable, 0);
       }
       else if (Type == NodeType.StringExpression)
       {
@@ -103,17 +124,21 @@ namespace Compiler
         }
       }
     }
-    public ExpressionTree ExpressionRootNode { get; private set; } = null;//equation or string contents
-    public String ExpressionIdentifier { get; private set; } = string.Empty;//variable
+    public ExpressionTree ExpressionRootNode { get; private set; } //equation or string contents
+    public String ExpressionIdentifier { get; private set; } //variable
   }
 
 
   public class StatementNode : Node
   {
+    //kept very simple for now
     public StatementNode(List<Token> tokens) : base(tokens)
     {
+      if (tokens[0].Type == Token.TokenType.Return)
+      {
+          
+      }
     }
   }
-
 }
 
