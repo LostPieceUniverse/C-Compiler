@@ -203,3 +203,5 @@ If operations are performed such as ```pop``` or ```peek``` its essential to ver
 
 ![stack bs](https://marketsplash.com/tutorials/assembly/assembly-stack-operations/)
 
+![GG Simple Code Generator](https://www.geeksforgeeks.org/simple-code-generator/)
+
