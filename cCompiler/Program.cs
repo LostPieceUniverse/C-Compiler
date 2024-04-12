@@ -19,7 +19,7 @@
 
       Console.WriteLine("********************************");
 
-      CodeGenerator.Generate(node);
+      AssemblyGenerator.Generate(node);
 
       Console.ReadLine();
     }

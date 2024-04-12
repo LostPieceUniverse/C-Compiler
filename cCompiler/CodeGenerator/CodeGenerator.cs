@@ -1,7 +1,7 @@
 using System.Text;
 namespace Compiler
 {
-    internal class CodeGenerator
+    internal class AssemblyGenerator
     {
       static public void Generate(Node node)
       {
@@ -30,10 +30,13 @@ namespace Compiler
             GenerateStatement(node);
             break;
           case Node.NodeType.IntegerExpression:
-            GenerateExpression(node);
+            GenerateIntegerExpression(node);
+            break;
+          case Node.NodeType.StringExpression:
+            GenerateStringExpression(node);
             break;
           default:
-            break;
+            throw new Exception("NodeType error or w/e");
         }
         
         //go to next node
@@ -60,7 +63,12 @@ namespace Compiler
       }
       
       //ExpressionNodes
-      static private void GenerateExpression(Node node)
+      static private void GenerateIntegerExpression(Node node)
+      {
+
+      }
+
+      static private void GenerateStringExpression(Node node)
       {
 
       }
