@@ -186,7 +186,7 @@ If operations are performed such as ```pop``` or ```peek``` its essential to ver
 *Translation Unit*<br>
 -> The whole code file without any sort of preprocessor directives ('#xyz')
 
-# das where I got stuff from
+# References
 
 ![Nora Sandler](https://norasandler.com/2017/11/29/Write-a-Compiler.html)
 
