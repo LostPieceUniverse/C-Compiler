@@ -5,13 +5,10 @@ namespace Compiler
     {
       static public void Generate(Node node)
       {
-        StringBuilder sb = new StringBuilder();
-        GenerateNode(node, sb);
-
-        Console.WriteLine(sb);
+        GenerateNode(node);
       }
       
-      static private void GenerateNode(Node node, StringBuilder sb)
+      static private void GenerateNode(Node node)
       {
         if(node == null)
         {
@@ -40,8 +37,8 @@ namespace Compiler
         }
         
         //go to next node
-        GenerateNode(node.Right, sb);
-        GenerateNode(node.Left, sb);
+        GenerateNode(node.Right);
+        GenerateNode(node.Left);
       }
 
       //ProgramNode
@@ -72,5 +69,11 @@ namespace Compiler
       {
 
       }
+
+      public StringBuilder SECTIONdata { get; set; } = new StringBuilder();
+
+      public StringBuilder SECTIONtext { get; set; } = new StringBuilder();
+
+      public StringBuilder SECTIONbss { get; set; } = new StringBuilder();
     }
 }
