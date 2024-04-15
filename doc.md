@@ -8,7 +8,7 @@ geometry: margin=2cm
 1. [Lexer](##Lexer) -> done!
 2. [Parser](##Parser) -> done 
 3. [CodeGenerator](##CodeGenerator) -> work in progress
-4. [Stuff](##Stuff) -> work in progress
+4. [Glossar](#Glossar)
 5. [References](#References)
 
 ## Lexer 
