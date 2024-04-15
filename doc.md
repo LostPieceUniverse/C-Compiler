@@ -7,7 +7,7 @@ geometry: margin=2cm
 
 1. [Lexer](##Lexer) -> done!
 2. [Parser](##Parser) -> done 
-3. [Code Generator](##Code Generator) -> wprk in progress
+3. [CodeGenerator](##CodeGenerator) -> work in progress
 4. [Stuff](##Stuff) -> work in progress
 5. [References](#References)
 
