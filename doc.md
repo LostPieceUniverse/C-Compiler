@@ -1,6 +1,3 @@
----
-geometry: margin=2cm
----
 # C Compiler
 
 ## Writing a C compiler
