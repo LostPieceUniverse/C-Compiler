@@ -2,9 +2,9 @@
 
 ## Writing a C compiler
 
-1. [Lexer](##Lexer) -> done!
-2. [Parser](##Parser) -> done 
-3. [CodeGenerator](##CodeGenerator) -> work in progress
+1. [Lexer](#Lexer) -> done!
+2. [Parser](#Parser) -> done 
+3. [CodeGenerator](#CodeGenerator) -> work in progress
 4. [Glossar](#Glossar)
 5. [References](#References)
 
