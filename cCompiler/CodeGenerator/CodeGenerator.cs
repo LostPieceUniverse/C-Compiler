@@ -14,6 +14,7 @@ namespace Compiler
         }
         Section.FillData(generator.SECTIONdata, generator.stringVariables);
         Section.FillText(generator.SECTIONtext, generator.integerVariables);
+        Section.FillBss(generator.SECTIONbss, generator.integerVariables);
 
         Console.WriteLine(generator.SECTIONdata);
         Console.WriteLine(generator.SECTIONtext);
@@ -71,13 +72,16 @@ namespace Compiler
       {
 
       }
-      
+      //////////////////////////////make a flag if equation got optimized
       //ExpressionNodes
       private void GenerateIntegerExpression(Node node)
       {
         ExpressionNode expNode = node as ExpressionNode;
-        integerVariables.Add(expNode.ExpressionIdentifier);
-        
+        IntegerLiteralExpressionNode intExprNode = expNode.ExpressionRootNode as IntegerLiteralExpressionNode;
+        if(expNode.Tokens.Count == 1)
+        {
+          integerVariables.Add(expNode.ExpressionIdentifier, intExprNode.Value);
+        }
       }
 
       private void GenerateStringExpression(Node node)
@@ -100,7 +104,8 @@ namespace Compiler
       //lists to remember
       public List<string> stringVariables { get; set; } = new List<string>();
       
-      public List<string> integerVariables { get; set; } = new List<string>();
+      public Dictionary<string, string> integerVariables { get; set; } = new Dictionary<string, string>();
+
 
       //stringbuilders
       public StringBuilder SECTIONdata { get; set; } = new StringBuilder("SECTION .data" + newLine + "newline db 0xA ;newline character for formatting output");
