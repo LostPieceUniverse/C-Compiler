@@ -28,7 +28,7 @@ In future iterations, I plan to expand the capabilities of the compiler to inclu
 
 ## Documentation
 
-For detailed planning, thoughts, and project management, please refer to the `doc.md` file. 
+For detailed planning, thoughts, notes and project management, please refer to the `doc.md` file. 
 This document serves as a personal repository of ideas, plans, and reflections on the development journey of this compiler. 
 It outlines the current progress, future milestones, and any additional notes pertinent to the project's evolution. 
 Your insights and suggestions are valuable contributions to the ongoing refinement of this compiler.
