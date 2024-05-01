@@ -186,7 +186,7 @@ If operations are performed such as ```pop``` or ```peek``` its essential to ver
 
 # References
 
-![Nora Sandler](https://norasandler.com/2017/11/29/Write-a-Compiler.html)
+![Nora Sandler write a compiler](https://norasandler.com/2017/11/29/Write-a-Compiler.html)
 
 ![lexer tutorial](https://stlab.cc/legacy/how-to-write-a-simple-lexical-analyzer-or-parser.html)
 
@@ -198,7 +198,7 @@ If operations are performed such as ```pop``` or ```peek``` its essential to ver
 
 ![memory sheit](https://www.geeksforgeeks.org/stack-vs-heap-memory-allocation/)
 
-![stack bs](https://marketsplash.com/tutorials/assembly/assembly-stack-operations/)
+![stack stuff](https://marketsplash.com/tutorials/assembly/assembly-stack-operations/)
 
 ![GG Simple Code Generator](https://www.geeksforgeeks.org/simple-code-generator/)
 
