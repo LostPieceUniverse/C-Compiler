@@ -1,4 +1,5 @@
 # C Compiler
+
 the code I am testing with:
 ```c
 int main() {
@@ -10,6 +11,7 @@ int main() {
   return 0;
 }
 ```
+yes I know one could ```#include <stdio.h>``` but I wanned to implement the printf function myself in the Assembygenerator for now.
 ## Writing a C compiler
 
 1. [Lexer](#Lexer) -> done!
