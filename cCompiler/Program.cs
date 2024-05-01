@@ -11,6 +11,7 @@
 
       Console.WriteLine("************LEXER***********************");
       List<Token> tokenList = Lexer.Lexing(code);
+      Console.WriteLine(string.Join(Environment.NewLine, tokenList));
 
       Console.WriteLine("************PARSER********************");
 

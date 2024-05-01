@@ -1,4 +1,3 @@
-using System.Diagnostics;
 namespace Compiler
 {
 public class Parser
@@ -17,8 +16,8 @@ public class Parser
           case Token.TokenType.OpenBrace:
             if (rootNode == null)
             {
-                rootNode = new Node(GetTokens(tempTokens));
-                currentNode = rootNode;
+              rootNode = new Node(GetTokens(tempTokens));
+              currentNode = rootNode;
             }
             tempTokens.Clear();
             continue;

@@ -117,10 +117,8 @@ namespace Compiler
             }
             else
             {
-            nextNode = BuildAST(index + 1, tokenList);
+              nextNode = BuildAST(index + 1, tokenList);
             }
-
-
 
             if (node.LeftNode == null)
             {
@@ -254,10 +252,10 @@ namespace Compiler
       public IntegerLiteralExpressionNode RightNode { get; set; } = null;
 
       public OperatorType Operand { get; private set; } = OperatorType.muffin;
-      public bool IsOperator { get; private set; } = false;
+      public bool IsOperator { get; private set; } = false;//return operator ffs ------------------------------------------- !!
 
       public string Value { get; private set; } = string.Empty;
-      public bool IsValue { get; private set; } = false;
+      public bool IsValue { get; private set; } = false;//return value ffs ------------------------------------------------- !!
   }
 
   public class StringLiteralExpressionNode : ExpressionTree
