@@ -15,7 +15,15 @@ namespace Compiler
     public Node(List<Token> tokens)
     {
       //berry unpretty solution...
-      if(tokens.Any(token => token.Type == Token.TokenType.Literal))
+      if (tokens[1].Value == "main")
+      {
+        Type = NodeType.Program;
+      }
+      else if (tokens[0].Type == Token.TokenType.Return)
+      {
+        Type = NodeType.Statement;
+      }
+      else if(tokens.Any(token => token.Type == Token.TokenType.Literal))
       {
         if (tokens.Any(token => token.Literal == Token.LiteralType.IntegerLiteral))
         {
@@ -28,15 +36,7 @@ namespace Compiler
       }
       else if(tokens.Any(token => token.Type == Token.TokenType.Identifier))
       {
-        if (tokens[1].Value == "main")
-        {
-          Type = NodeType.Program;
-        }
-        else if (tokens[0].Type == Token.TokenType.Return)
-        {
-          Type = NodeType.Statement;
-        }
-        else if(tokens.Any(token => token.Literal == Token.LiteralType.StringLiteral))
+        if(tokens.Any(token => token.Literal == Token.LiteralType.StringLiteral))
         {
           Type = NodeType.StringExpression;
         }

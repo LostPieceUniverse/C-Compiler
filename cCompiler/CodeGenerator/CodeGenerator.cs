@@ -5,10 +5,22 @@ namespace Compiler
     {
       static public void Generate(Node node)
       {
-        GenerateNode(node);
+        AssemblyGenerator generator = new AssemblyGenerator();
+        generator.GenerateNode(node);
+        
+        foreach(var a in generator.integerVariables)
+        {
+          Console.WriteLine(a + "----------------------------------------------------------------------");
+        }
+        Section.FillData(generator.SECTIONdata, generator.stringVariables);
+        Section.FillText(generator.SECTIONtext, generator.integerVariables);
+
+        Console.WriteLine(generator.SECTIONdata);
+        Console.WriteLine(generator.SECTIONtext);
+        Console.WriteLine(generator.SECTIONbss);
       }
       
-      static private void GenerateNode(Node node)
+      private void GenerateNode(Node node)
       {
         if(node == null)
         {
@@ -43,46 +55,58 @@ namespace Compiler
       }
 
       //ProgramNode
-      static private void GenerateProgram(Node node)
+      private void GenerateProgram(Node node)
       {
         
       }
 
       //FuncDeclNodes
-      static private void GenerateFuncDecl(Node node)
+      private void GenerateFuncDecl(Node node)
       {
 
       }
       
       //StatementNodes
-      static private void GenerateStatement(Node node)
+      private void GenerateStatement(Node node)
       {
 
       }
       
       //ExpressionNodes
-      static private void GenerateIntegerExpression(Node node)
+      private void GenerateIntegerExpression(Node node)
       {
-
+        ExpressionNode expNode = node as ExpressionNode;
+        integerVariables.Add(expNode.ExpressionIdentifier);
+        
       }
 
-      static private void GenerateStringExpression(Node node)
+      private void GenerateStringExpression(Node node)
       {
-        foreach(var n in node.Tokens)
+        ExpressionNode expNode = node as ExpressionNode;
+        switch(expNode.ExpressionIdentifier)
         {
-          Console.WriteLine(n.Value);
-          Console.WriteLine(n.Type);
-          Console.WriteLine(n.Literal);
-          Console.WriteLine(newLine);
+          case "printf":
+            //class section add to .data 
+            StringLiteralExpressionNode strExprNode = expNode.ExpressionRootNode as StringLiteralExpressionNode;
+            stringVariables.Add(strExprNode.Value);
+            break;
+          default:
+            break;
         }
       }
 
       private const string newLine = "\n"; //windows -> \r\n
+      
+      //lists to remember
+      public List<string> stringVariables { get; set; } = new List<string>();
+      
+      public List<string> integerVariables { get; set; } = new List<string>();
 
-      public StringBuilder SECTIONdata { get; set; } = new StringBuilder("SECTION .data" + newLine);
+      //stringbuilders
+      public StringBuilder SECTIONdata { get; set; } = new StringBuilder("SECTION .data" + newLine + "newline db 0xA ;newline character for formatting output");
 
-      public StringBuilder SECTIONtext { get; set; } = new StringBuilder("SECTION .text" + newLine + "global _start" + newLine + newLine + "_start:");
+      public StringBuilder SECTIONtext { get; set; } = new StringBuilder("\n\nSECTION .text" + newLine + "global _start" + newLine + newLine + "_start:");
 
-      public StringBuilder SECTIONbss { get; set; } = new StringBuilder("SECTION .bss");
+      public StringBuilder SECTIONbss { get; set; } = new StringBuilder("\n\nSECTION .bss");
     }
 }

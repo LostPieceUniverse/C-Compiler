@@ -5,12 +5,14 @@ the code I am testing with:
 int main() {
   int a = 6;
   int b = 2 + 3;
+  printf("another string");
   int c = 3 + (8 - 2) * 3;
   int d = 3 + (a - b) * 3;
   printf("HelloWorld");
   return 0;
 }
 ```
+```muffin``` and ```memi``` are ment as default values.
 yes I know one could ```#include <stdio.h>``` but I wanned to implement the printf function myself in the Assembygenerator for now.
 ## Writing a C compiler
 
@@ -146,7 +148,7 @@ I have to learn about proper memory handling.
 Memory will either be allocated on a stack or heap.
 
 #### Stack
-The size of memoy to be allocated is known to the compiler and whenever a function is called, its variables get memoru allocated on the stack.
+The size of memory to be allocated is known to the compiler and whenever a function is called, its variables get memoru allocated on the stack.
 Is the functioncall over the memory for those variables will be de-allocated. This means any value stored in stack memory is accesible
 as long as the function has not completed its execution. Stack memory allocation is considered safer as compared to heap memory allocation
 because the data stored can only be accessed by the owner thread. Altho memory allocation and de-allocation are faster than heap memory allocation
