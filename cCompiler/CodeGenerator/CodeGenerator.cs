@@ -17,6 +17,7 @@ namespace Compiler
         //call corresponding function
         switch (node.Type)
         {
+          
           case Node.NodeType.Program:
             GenerateProgram(node);
             break;
@@ -67,13 +68,21 @@ namespace Compiler
 
       static private void GenerateStringExpression(Node node)
       {
-
+        foreach(var n in node.Tokens)
+        {
+          Console.WriteLine(n.Value);
+          Console.WriteLine(n.Type);
+          Console.WriteLine(n.Literal);
+          Console.WriteLine(newLine);
+        }
       }
 
-      public StringBuilder SECTIONdata { get; set; } = new StringBuilder();
+      private const string newLine = "\n"; //windows -> \r\n
 
-      public StringBuilder SECTIONtext { get; set; } = new StringBuilder();
+      public StringBuilder SECTIONdata { get; set; } = new StringBuilder("SECTION .data" + newLine);
 
-      public StringBuilder SECTIONbss { get; set; } = new StringBuilder();
+      public StringBuilder SECTIONtext { get; set; } = new StringBuilder("SECTION .text" + newLine + "global _start" + newLine + newLine + "_start:");
+
+      public StringBuilder SECTIONbss { get; set; } = new StringBuilder("SECTION .bss");
     }
 }
