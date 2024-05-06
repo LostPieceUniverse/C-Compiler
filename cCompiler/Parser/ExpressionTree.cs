@@ -220,6 +220,8 @@ namespace Compiler
 
           IsValue = true;
           Value = result.ToString();
+
+          TreeGotOptimized = true;
         }
       }
       public int TreeNodeSolver()
@@ -256,6 +258,8 @@ namespace Compiler
 
       public string Value { get; private set; } = string.Empty;
       public bool IsValue { get; private set; } = false;//return value ffs ------------------------------------------------- !!
+
+      public bool TreeGotOptimized { get; private set; } = false;
   }
 
   public class StringLiteralExpressionNode : ExpressionTree

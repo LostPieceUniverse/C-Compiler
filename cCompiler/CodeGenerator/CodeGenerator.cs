@@ -78,7 +78,7 @@ namespace Compiler
       {
         ExpressionNode expNode = node as ExpressionNode;
         IntegerLiteralExpressionNode intExprNode = expNode.ExpressionRootNode as IntegerLiteralExpressionNode;
-        if(expNode.Tokens.Count == 1)
+        if(intExprNode.TreeGotOptimized)
         {
           integerVariables.Add(expNode.ExpressionIdentifier, intExprNode.Value);
         }
