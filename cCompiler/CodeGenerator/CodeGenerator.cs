@@ -3,22 +3,20 @@ namespace Compiler
 {
     internal class AssemblyGenerator
     {
-      static public void Generate(Node node)
+      static public string Generate(Node node)
       {
         AssemblyGenerator generator = new AssemblyGenerator();
         generator.GenerateNode(node);
         
-        foreach(var a in generator.integerVariables)
-        {
-          Console.WriteLine(a + "----------------------------------------------------------------------");
-        }
         Section.FillData(generator.SECTIONdata, generator.stringVariables);
-        Section.FillText(generator.SECTIONtext, generator.integerVariables);
+
+        Section.InitVariables(generator.SECTIONtextTop, generator.integerVariables);
+
         Section.FillBss(generator.SECTIONbss, generator.integerVariables);
 
-        Console.WriteLine(generator.SECTIONdata);
-        Console.WriteLine(generator.SECTIONtext);
-        Console.WriteLine(generator.SECTIONbss);
+        string returnString = string.Concat(generator.SECTIONdata, generator.SECTIONtextTop, generator.SECTIONtextBody, generator.SECTIONbss);
+
+        return returnString;
       }
       
       private void GenerateNode(Node node)
@@ -70,9 +68,9 @@ namespace Compiler
       //StatementNodes
       private void GenerateStatement(Node node)
       {
-
+        Section.Exit(SECTIONtextBody);
       }
-      //////////////////////////////make a flag if equation got optimized
+
       //ExpressionNodes
       private void GenerateIntegerExpression(Node node)
       {
@@ -82,6 +80,7 @@ namespace Compiler
         {
           integerVariables.Add(expNode.ExpressionIdentifier, intExprNode.Value);
         }
+        //calc equation
       }
 
       private void GenerateStringExpression(Node node)
@@ -90,9 +89,9 @@ namespace Compiler
         switch(expNode.ExpressionIdentifier)
         {
           case "printf":
-            //class section add to .data 
             StringLiteralExpressionNode strExprNode = expNode.ExpressionRootNode as StringLiteralExpressionNode;
             stringVariables.Add(strExprNode.Value);
+            Section.ConsoleOutputString(SECTIONtextBody, strExprNode.Value);
             break;
           default:
             break;
@@ -110,8 +109,11 @@ namespace Compiler
       //stringbuilders
       public StringBuilder SECTIONdata { get; set; } = new StringBuilder("SECTION .data" + newLine + "newline db 0xA ;newline character for formatting output");
 
-      public StringBuilder SECTIONtext { get; set; } = new StringBuilder("\n\nSECTION .text" + newLine + "global _start" + newLine + newLine + "_start:");
+      public StringBuilder SECTIONtextTop { get; set; } = new StringBuilder("\n\nSECTION .text" + newLine + "global _start" + newLine + newLine + "_start:");
+
+      public StringBuilder SECTIONtextBody { get; set; } = new StringBuilder();
 
       public StringBuilder SECTIONbss { get; set; } = new StringBuilder("\n\nSECTION .bss");
+
     }
 }

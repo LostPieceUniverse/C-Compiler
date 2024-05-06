@@ -7,7 +7,15 @@
       //string path = @"/home/haru/test.c";
       string path = @"/home/runin/dev/c#/Compiler/test.c";
       //string path = @"C:\Users\sam.zgraggen\Desktop\test.c";
-      string code = File.ReadAllText(path);
+
+      //read filename from args
+      //string directory = AppDomain.CurrentDomain.BaseDirectory;
+      //string filename = args[0] //check if args[0] has filename
+      //string code = File.ReadAllText(Path.Combine(directory, filename));
+
+      string directory = @"/home/runin/dev/c#/Compiler/NasmAssembly/testing/";
+      string filename = "test";
+      string code = File.ReadAllText(path);//path.combine
 
       Console.WriteLine("************LEXER***********************");
       List<Token> tokenList = Lexer.Lexing(code);
@@ -20,11 +28,25 @@
 
       Console.WriteLine("********************************");
 
-      AssemblyGenerator.Generate(node);
+      string assembly = AssemblyGenerator.Generate(node);
 
+      WriteToFile(assembly, directory, filename);
       Console.ReadLine();
     }
 
+    static void WriteToFile(string code, string directory, string filename)
+    {
+      filename = filename + ".asm";
+      string filePath = Path.Combine(directory, filename);
+
+      File.WriteAllText(filePath, code);
+
+      Console.WriteLine("File has been created at: " + filePath);
+    }
+
+
+
+    /*
     static void OutputNode(Node node)
     {
       if (node == null)
@@ -41,6 +63,6 @@
       OutputNode(node.Right);
       OutputNode(node.Left);
     }
-
+    */
   }
 }
