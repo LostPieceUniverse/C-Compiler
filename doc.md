@@ -143,7 +143,7 @@ While recursivly iterating over the AST-Nodes, each node gets fed one of the cor
 I have to learn about proper memory handling.
 
 As I traverse through the AST I'll have ```StringBuilder```s creating the different sections.
-One for the ```.data``` and ```.bss``` section. ```.text``` is split into four parts *(so far)* | variable initializiation | calculation | print | exit|<br>
+One for the ```.data```, ```.text``` and ```.bss``` section.
 
 ### Memory Handling
 -> define how variables and data will be allocated and accessed in memory, considering  stack frames, heap memory ect.<br>
