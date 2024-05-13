@@ -14,7 +14,7 @@ namespace Compiler
         sb.AppendFormat("\n");
       }
       
-      //.text
+      //.textTop
       static public void InitVariables(StringBuilder sb, Dictionary<string, string> integerVariables)
       {
         sb.AppendFormat("\n;init variables");
@@ -25,8 +25,48 @@ namespace Compiler
         sb.AppendFormat("\n");
       }
 
-      static public void CalcEquation(StringBuilder sb, Dictionary<string, string> integerVariables)
+      //.textBody
+      static public void CalcEquation(StringBuilder sb, Dictionary<string, string> integerVariables, IntegerLiteralExpressionNode equation)
       {
+        //travers through calcTree
+        sb.Append(Traverse(equation));
+        
+      }
+      
+      static private string Traverse(IntegerLiteralExpressionNode node)
+      {
+         if (node.LeftNode == null && node.RightNode == null)
+        {
+          // If value is numeric or variable
+          if (int.TryParse(node.Value, out _))
+          {
+            return "mov eax, " + node.Value + "\n";
+          }
+          else
+          {
+            return "mov eax, dword[" + node.Value + "]\n";
+          }
+        }
+        else
+        {
+          string leftCode = Traverse(node.LeftNode);
+          string rightCode = Traverse(node.RightNode);
+        
+          string result = "";
+          switch(node.Operand)
+          {
+            case ExpressionTree.OperatorType.Addition:
+              return leftCode + "add eax, " + rightCode + "\n";
+            case ExpressionTree.OperatorType.Subtraction:
+              return leftCode + "sub eax, " + rightCode + "\n";
+            case ExpressionTree.OperatorType.Multiplication:
+              return leftCode + "imul eax, " + rightCode + "\n";
+            case ExpressionTree.OperatorType.Division:
+              return leftCode + "idiv eax, " + rightCode + "\n";
+            default:
+              throw new Exception("Unknown operator");
+          }
+        }
 
       }
 
@@ -34,7 +74,7 @@ namespace Compiler
       {
         string variableName = str.Replace(" ", "").ToLower();
         
-        string asmString = " ;print\nmov eax, 4 \nmov ebx, 1\nmov ecx, " + variableName + "\nmov edx, " + str.Length + " \nint 0x80\n\n";
+        string asmString = ";print\nmov eax, 4 \nmov ebx, 1\nmov ecx, " + variableName + "\nmov edx, " + str.Length + " \nint 0x80\n\n";
         sb.AppendFormat(asmString);
         sb.AppendFormat(newLine);
       }

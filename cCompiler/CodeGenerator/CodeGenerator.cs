@@ -80,7 +80,12 @@ namespace Compiler
         {
           integerVariables.Add(expNode.ExpressionIdentifier, intExprNode.Value);
         }
-        //calc equation
+        else
+        {
+          //calc equation
+          SECTIONtextBody.Append(";calc\n");
+          Section.CalcEquation(SECTIONtextBody, integerVariables, intExprNode);
+        }
       }
 
       private void GenerateStringExpression(Node node)
