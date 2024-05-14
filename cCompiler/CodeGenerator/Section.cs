@@ -29,11 +29,11 @@ namespace Compiler
       static public void CalcEquation(StringBuilder sb, Dictionary<string, string> integerVariables, IntegerLiteralExpressionNode equation)
       {
         //travers through calcTree
-        sb.Append(Traverse(equation));
+        sb.Append(Traverse(equation, 'r'));
         
       }
       
-      static private string Traverse(IntegerLiteralExpressionNode node)
+      static private string Traverse(IntegerLiteralExpressionNode node, char dir)
       {
          if (node.LeftNode == null && node.RightNode == null)
         {
@@ -49,10 +49,20 @@ namespace Compiler
         }
         else
         {
-          string leftCode = Traverse(node.LeftNode);
-          string rightCode = Traverse(node.RightNode);
-        
-          string result = "";
+          string leftCode = string.Empty;
+          string rightCode = string.Empty;
+
+          if(dir == 'l')
+          {
+            rightCode = Traverse(node.RightNode, 'r');
+            leftCode = Traverse(node.LeftNode, 'l');
+          }
+          else
+          {
+            leftCode = Traverse(node.LeftNode, 'l');
+            rightCode = Traverse(node.RightNode, 'r');
+          }
+          
           switch(node.Operand)
           {
             case ExpressionTree.OperatorType.Addition:
@@ -64,10 +74,9 @@ namespace Compiler
             case ExpressionTree.OperatorType.Division:
               return leftCode + "idiv eax, " + rightCode + "\n";
             default:
-              throw new Exception("Unknown operator");
+              throw new Exception("idfk");
           }
         }
-
       }
 
       static public void ConsoleOutputString(StringBuilder sb, string str)

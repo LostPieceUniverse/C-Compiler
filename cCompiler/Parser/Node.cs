@@ -52,7 +52,7 @@ namespace Compiler
 
     public Node Left { get; set; }
     public Node Right { get; set; }
-
+    /*
     public static void OutputNode(Node rootNode, string indent = "")
     {
       if (rootNode != null)
@@ -78,6 +78,7 @@ namespace Compiler
         }
       }
     }
+    */
   }
 
   public class ExpressionNode : Node

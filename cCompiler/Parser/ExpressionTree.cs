@@ -190,7 +190,7 @@ namespace Compiler
         }
         else
         {
-          Console.WriteLine("LeftNode is null");
+          //Console.WriteLine("LeftNode is null");
         }
 
         if (RightNode != null)
@@ -206,7 +206,7 @@ namespace Compiler
         }
         else
         {
-          Console.WriteLine("RightnNode is null");
+          //Console.WriteLine("RightnNode is null");
         }
 
         if(depth == 0 && !hasVariable)

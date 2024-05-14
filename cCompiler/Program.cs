@@ -1,4 +1,5 @@
-﻿namespace Compiler
+﻿using System.Diagnostics;
+namespace Compiler
 {
   internal class Program
   {
@@ -17,20 +18,44 @@
       string filename = "test";
       string code = File.ReadAllText(path);//path.combine
 
-      Console.WriteLine("************LEXER***********************");
+      //Console.WriteLine("************LEXER***********************");
       List<Token> tokenList = Lexer.Lexing(code);
-      Console.WriteLine(string.Join(Environment.NewLine, tokenList));
+      //Console.WriteLine(string.Join(Environment.NewLine, tokenList));
 
-      Console.WriteLine("************PARSER********************");
+      //Console.WriteLine("************PARSER********************");
 
       Node node = Parser.Parsing(tokenList);
-      Node.OutputNode(node);
+      //Node.OutputNode(node);
 
-      Console.WriteLine("********************************");
+      //Console.WriteLine("***************Generate Assembly*****************");
 
       string assembly = AssemblyGenerator.Generate(node);
+      
+      string tempDir = Path.GetTempPath();
 
-      WriteToFile(assembly, directory, filename);
+      WriteToFile(assembly, tempDir, filename);
+
+      /*
+      // Run the nasm command
+        Process nasmProcess = new Process();
+        nasmProcess.StartInfo.FileName = "nasm";
+        nasmProcess.StartInfo.Arguments = $"-f elf {filename}.asm";
+        nasmProcess.StartInfo.UseShellExecute = false;
+        nasmProcess.StartInfo.RedirectStandardOutput = true;
+        nasmProcess.Start();
+        nasmProcess.WaitForExit();
+
+        // Run the ld command
+        Process ldProcess = new Process();
+        ldProcess.StartInfo.FileName = "ld";
+        ldProcess.StartInfo.Arguments = $"-m elf_i386 {fileName}.o -o {fileName}";
+        ldProcess.StartInfo.UseShellExecute = false;
+        ldProcess.StartInfo.RedirectStandardOutput = true;
+        ldProcess.Start();
+        ldProcess.WaitForExit();
+
+        Console.WriteLine("Commands executed successfully.");
+*/
       Console.ReadLine();
     }
 
