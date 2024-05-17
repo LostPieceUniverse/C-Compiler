@@ -27,57 +27,44 @@ namespace Compiler
 
       //.textBody
       static public void CalcEquation(StringBuilder sb, Dictionary<string, string> integerVariables, IntegerLiteralExpressionNode equation)
-      {
-        //travers through calcTree
-        sb.Append(Traverse(equation, 'r'));
-        
-      }
-      
-      static private string Traverse(IntegerLiteralExpressionNode node, char dir)
-      {
-         if (node.LeftNode == null && node.RightNode == null)
+{
+    sb.Append(Traverse(equation, integerVariables));
+}
+
+static private string Traverse(IntegerLiteralExpressionNode node, Dictionary<string, string> integerVariables)
+{
+    if (node.LeftNode == null && node.RightNode == null)
+    {
+        // If it's a leaf node (numeric value or variable), return the appropriate NASM code
+        if (node.IsValue)
         {
-          // If value is numeric or variable
-          if (int.TryParse(node.Value, out _))
-          {
             return "mov eax, " + node.Value + "\n";
-          }
-          else
-          {
-            return "mov eax, dword[" + node.Value + "]\n";
-          }
         }
         else
         {
-          string leftCode = string.Empty;
-          string rightCode = string.Empty;
-
-          if(dir == 'l')
-          {
-            rightCode = Traverse(node.RightNode, 'r');
-            leftCode = Traverse(node.LeftNode, 'l');
-          }
-          else
-          {
-            leftCode = Traverse(node.LeftNode, 'l');
-            rightCode = Traverse(node.RightNode, 'r');
-          }
-          
-          switch(node.Operand)
-          {
-            case ExpressionTree.OperatorType.Addition:
-              return leftCode + "add eax, " + rightCode + "\n";
-            case ExpressionTree.OperatorType.Subtraction:
-              return leftCode + "sub eax, " + rightCode + "\n";
-            case ExpressionTree.OperatorType.Multiplication:
-              return leftCode + "imul eax, " + rightCode + "\n";
-            case ExpressionTree.OperatorType.Division:
-              return leftCode + "idiv eax, " + rightCode + "\n";
-            default:
-              throw new Exception("idfk");
-          }
+            return "mov eax, dword [" + node.Value + "]\n";
         }
-      }
+    }
+    else
+    {
+        // Recursive traversal for left and right nodes
+        string leftCode = Traverse(node.LeftNode, integerVariables);
+        string rightCode = Traverse(node.RightNode, integerVariables);
+
+        // Determine the operation and generate corresponding NASM code
+        switch (node.Operand)
+        {
+            case ExpressionTree.OperatorType.Addition:
+                return leftCode + rightCode + "add eax, dword [" + node.RightNode.Value + "]\n";
+            case ExpressionTree.OperatorType.Subtraction:
+                return leftCode + rightCode + "sub eax, dword [" + node.RightNode.Value + "]\n";
+            case ExpressionTree.OperatorType.Multiplication:
+                return leftCode + "imul eax, " + node.RightNode.Value + "\n";
+            default:
+                throw new Exception("Unknown operand type.");
+        }
+    }
+}
 
       static public void ConsoleOutputString(StringBuilder sb, string str)
       {
