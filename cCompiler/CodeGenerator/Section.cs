@@ -27,44 +27,41 @@ namespace Compiler
 
       //.textBody
       static public void CalcEquation(StringBuilder sb, Dictionary<string, string> integerVariables, IntegerLiteralExpressionNode equation)
-{
-    sb.Append(Traverse(equation, integerVariables));
-}
+      {
+          sb.Append(Traverse(equation, integerVariables));
+      }
 
-static private string Traverse(IntegerLiteralExpressionNode node, Dictionary<string, string> integerVariables)
-{
-    if (node.LeftNode == null && node.RightNode == null)
-    {
-        // If it's a leaf node (numeric value or variable), return the appropriate NASM code
-        if (node.IsValue)
-        {
-            return "mov eax, " + node.Value + "\n";
-        }
-        else
-        {
-            return "mov eax, dword [" + node.Value + "]\n";
-        }
-    }
-    else
-    {
-        // Recursive traversal for left and right nodes
-        string leftCode = Traverse(node.LeftNode, integerVariables);
-        string rightCode = Traverse(node.RightNode, integerVariables);
+      static private string Traverse(IntegerLiteralExpressionNode node, Dictionary<string, string> integerVariables)
+      {
+        string str = string.Empty;
 
-        // Determine the operation and generate corresponding NASM code
-        switch (node.Operand)
+        //if operator
+        if(node.IsOperator)
         {
+          switch(node.Operand)
+          {
             case ExpressionTree.OperatorType.Addition:
-                return leftCode + rightCode + "add eax, dword [" + node.RightNode.Value + "]\n";
+              str = "add";
+              break;
             case ExpressionTree.OperatorType.Subtraction:
-                return leftCode + rightCode + "sub eax, dword [" + node.RightNode.Value + "]\n";
-            case ExpressionTree.OperatorType.Multiplication:
-                return leftCode + "imul eax, " + node.RightNode.Value + "\n";
+              str = "sub";
+              break;
+              case ExpressionTree.OperatorType.Multiplication:
+              str = "imul";
+              break;
+              case ExpressionTree.OperatorType.Division:
+              str = "idiv";
+              break;
             default:
-                throw new Exception("Unknown operand type.");
+              break;
+          }
+          else if(node.IsValue)
+          {
+
+          }
         }
-    }
-}
+        return string.Empty;
+      }
 
       static public void ConsoleOutputString(StringBuilder sb, string str)
       {
