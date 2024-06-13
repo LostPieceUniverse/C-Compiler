@@ -196,6 +196,13 @@ If the top value needs to be checked without altering the stack's contents ```pe
 If operations are performed such as ```pop``` or ```peek``` its essential to verify the stack's status first to avoid errors<br>
 ```cmp esp, ebp ; Compares the stack pointer (ESP) with the base pointer (EBP) to check if the stack is empty```
 
+#### Registers
+
+|--------------|:-----------:|
+| rax | 64 bit 'long' register |
+| eax | 32 bit 'int' register |
+| rbx | preserved register |
+
 # Glossar
 
 *Translation Unit*<br>
