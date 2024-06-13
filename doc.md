@@ -198,6 +198,7 @@ If operations are performed such as ```pop``` or ```peek``` its essential to ver
 
 #### Registers
 
+|||
 |--------------|:-----------:|
 | rax | 64 bit 'long' register |
 | eax | 32 bit 'int' register |
