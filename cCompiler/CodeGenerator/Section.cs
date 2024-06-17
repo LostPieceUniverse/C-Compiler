@@ -1,3 +1,4 @@
+using System.Data.Common;
 using System.Text;
 namespace Compiler
 {
@@ -28,39 +29,85 @@ namespace Compiler
       //.textBody
       static public void CalcEquation(StringBuilder sb, Dictionary<string, string> integerVariables, IntegerLiteralExpressionNode equation)
       {
-          sb.Append(Traverse(equation, integerVariables));
+          // Clear the string builder
+          StringBuilder sb2 = new StringBuilder();
+          
+          // Traverse the equation tree to generate assembly code
+          Traverse(equation, integerVariables, sb2);
+          
+          // Append the generated code to the main StringBuilder
+          sb.Append(sb2);
       }
 
-      static private string Traverse(IntegerLiteralExpressionNode node, Dictionary<string, string> integerVariables)
+      static private void Traverse(IntegerLiteralExpressionNode node, Dictionary<string, string> integerVariables, StringBuilder sb)
       {
-        string str = string.Empty;
-
-        //if operator
-        if(node.IsOperator)
-        {
-          switch(node.Operand)
+          if (node == null)
           {
-            case ExpressionTree.OperatorType.Addition:
-              str = "add";
-              break;
-            case ExpressionTree.OperatorType.Subtraction:
-              str = "sub";
-              break;
-              case ExpressionTree.OperatorType.Multiplication:
-              str = "imul";
-              break;
-              case ExpressionTree.OperatorType.Division:
-              str = "idiv";
-              break;
-            default:
-              break;
+              return;
           }
-          else if(node.IsValue)
-          {
 
+          // Traverse left subtree
+          if (node.LeftNode != null)
+          {
+              Traverse(node.LeftNode, integerVariables, sb);
           }
-        }
-        return string.Empty;
+
+          // Traverse right subtree
+          if (node.RightNode != null)
+          {
+              Traverse(node.RightNode, integerVariables, sb);
+          }
+
+          // Generate assembly for operators and values/variables
+          if (node.IsOperator)
+          {
+              switch (node.Operand)
+              {
+                  case ExpressionTree.OperatorType.Addition:
+                      sb.AppendLine("  pop rbx");
+                      sb.AppendLine("  pop rax");
+                      sb.AppendLine("  add rax, rbx");
+                      sb.AppendLine("  push rax");
+                      break;
+                  case ExpressionTree.OperatorType.Subtraction:
+                      sb.AppendLine("  pop rbx");
+                      sb.AppendLine("  pop rax");
+                      sb.AppendLine("  sub rax, rbx");
+                      sb.AppendLine("  push rax");
+                      break;
+                  case ExpressionTree.OperatorType.Multiplication:
+                      sb.AppendLine("  pop rbx");
+                      sb.AppendLine("  pop rax");
+                      sb.AppendLine("  imul rax, rbx");
+                      sb.AppendLine("  push rax");
+                      break;
+                  case ExpressionTree.OperatorType.Division:
+                      sb.AppendLine("  pop rbx");
+                      sb.AppendLine("  pop rax");
+                      sb.AppendLine("  cqo"); // convert rax to rdx:rax
+                      sb.AppendLine("  idiv rbx");
+                      sb.AppendLine("  push rax");
+                      break;
+                  default:
+                      throw new InvalidOperationException("Unknown operator type");
+              }
+          }
+          else if (node.IsValue)
+          {
+              // Check if the value is a variable
+              if (integerVariables.ContainsKey(node.Value))
+              {
+                  sb.AppendLine($"  push dword [{node.Value}]");
+              }
+              else
+              {
+                  sb.AppendLine($"  push {node.Value}");
+              }
+          }
+          else
+          {
+              throw new InvalidOperationException("Node is neither a value nor an operator");
+          }
       }
 
       static public void ConsoleOutputString(StringBuilder sb, string str)
