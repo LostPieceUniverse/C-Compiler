@@ -27,16 +27,18 @@ namespace Compiler
       }
 
       //.textBody
-      static public void CalcEquation(StringBuilder sb, Dictionary<string, string> integerVariables, IntegerLiteralExpressionNode equation)
+      static public void CalcEquation(StringBuilder sb, Dictionary<string, string> integerVariables, IntegerLiteralExpressionNode equation, string identifier)
       {
           // Clear the string builder
           StringBuilder sb2 = new StringBuilder();
           
           // Traverse the equation tree to generate assembly code
           Traverse(equation, integerVariables, sb2);
-          
+          sb2.Append("  pop dword [" + identifier + "]");
+          sb2.Append("\r\n");
           // Append the generated code to the main StringBuilder
           sb.Append(sb2);
+          sb.Append("\r\n");
       }
 
       static private void Traverse(IntegerLiteralExpressionNode node, Dictionary<string, string> integerVariables, StringBuilder sb)

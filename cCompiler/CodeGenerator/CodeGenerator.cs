@@ -84,7 +84,7 @@ namespace Compiler
         {
           //calc equation
           SECTIONtextBody.Append(";calc\n");
-          Section.CalcEquation(SECTIONtextBody, integerVariables, intExprNode);
+          Section.CalcEquation(SECTIONtextBody, integerVariables, intExprNode, expNode.ExpressionIdentifier);
         }
       }
 
