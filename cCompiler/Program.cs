@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 namespace Compiler
 {
@@ -10,11 +11,11 @@ namespace Compiler
 
       if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
       {
-        path = @"C:\Users\sam.zgraggen\Desktop\test.c";
+        path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "testc");
       }
       else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
       {
-        path = @"/home/runin/dev/c#/Compiler/test.c";
+        path = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "/dev/c#/Compiler/test.c";
       }
       else
       {
