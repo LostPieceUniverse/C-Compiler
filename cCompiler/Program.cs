@@ -1,93 +1,83 @@
 ﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 namespace Compiler
 {
   internal class Program
   {
     static void Main(string[] args)
     {
-      //string path = @"/home/haru/test.c";
-      string path = @"/home/runin/dev/c#/Compiler/test.c";
-      //string path = @"C:\Users\sam.zgraggen\Desktop\test.c";
+      string path = string.Empty;
 
-      //read filename from args
-      //string directory = AppDomain.CurrentDomain.BaseDirectory;
-      //string filename = args[0] //check if args[0] has filename
-      //string code = File.ReadAllText(Path.Combine(directory, filename));
-
-      string directory = @"/home/runin/dev/c#/Compiler/NasmAssembly/testing/";
-      string filename = "test";
-      string code = File.ReadAllText(path);//path.combine
+      if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+      {
+        path = @"C:\Users\sam.zgraggen\Desktop\test.c";
+      }
+      else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+      {
+        path = @"/home/runin/dev/c#/Compiler/test.c";
+      }
+      else
+      {
+        Console.WriteLine("Unknown OS platform");
+        Environment.Exit(0);
+      }
+      
+      string fileName = "test";
+      string code = File.ReadAllText(path);
 
       //Console.WriteLine("************LEXER***********************");
       List<Token> tokenList = Lexer.Lexing(code);
-      //Console.WriteLine(string.Join(Environment.NewLine, tokenList));
 
       //Console.WriteLine("************PARSER********************");
-
       Node node = Parser.Parsing(tokenList);
-      //Node.OutputNode(node);
 
       //Console.WriteLine("***************Generate Assembly*****************");
-
       string assembly = AssemblyGenerator.Generate(node);
       
       string tempDir = Path.GetTempPath();
 
-      WriteToFile(assembly, tempDir, filename);
-
-      /*
-      // Run the nasm command
-        Process nasmProcess = new Process();
-        nasmProcess.StartInfo.FileName = "nasm";
-        nasmProcess.StartInfo.Arguments = $"-f elf {filename}.asm";
-        nasmProcess.StartInfo.UseShellExecute = false;
-        nasmProcess.StartInfo.RedirectStandardOutput = true;
-        nasmProcess.Start();
-        nasmProcess.WaitForExit();
-
-        // Run the ld command
-        Process ldProcess = new Process();
-        ldProcess.StartInfo.FileName = "ld";
-        ldProcess.StartInfo.Arguments = $"-m elf_i386 {fileName}.o -o {fileName}";
-        ldProcess.StartInfo.UseShellExecute = false;
-        ldProcess.StartInfo.RedirectStandardOutput = true;
-        ldProcess.Start();
-        ldProcess.WaitForExit();
-
-        Console.WriteLine("Commands executed successfully.");
-*/
-      Console.ReadLine();
+      WriteToFile(assembly, tempDir, fileName);
     }
 
-    static void WriteToFile(string code, string directory, string filename)
+    static void WriteToFile(string code, string directory, string fileName)
     {
-      filename = filename + ".asm";
-      string filePath = Path.Combine(directory, filename);
+      fileName = fileName + ".asm";
+      string filePath = Path.Combine(directory, fileName);
 
       File.WriteAllText(filePath, code);
 
       Console.WriteLine("File has been created at: " + filePath);
     }
 
-
-
-    /*
-    static void OutputNode(Node node)
+    static string ReadFile(string[] args)
     {
-      if (node == null)
-      {
-        return;
-      }
-      Console.WriteLine("********************************");
-      Console.WriteLine(node.Type.ToString());
-      foreach (var token in node.Tokens)
-      {
-        List<Token> temp = new List<Token>();
-        temp.Add(token);
-      }
-      OutputNode(node.Right);
-      OutputNode(node.Left);
+      string directory = AppDomain.CurrentDomain.BaseDirectory;
+      string fileName = args[0]; 
+      string code = File.ReadAllText(Path.Combine(directory, fileName));
+      return code;
     }
-    */
+
+    static void GenerateExecutable(string fileName) //not correctly implemented yet
+    {
+      // Run the nasm command
+      Process nasmProcess = new Process();
+      nasmProcess.StartInfo.FileName = "nasm";
+      nasmProcess.StartInfo.Arguments = $"-f elf {fileName}.asm";
+      nasmProcess.StartInfo.UseShellExecute = false;
+      nasmProcess.StartInfo.RedirectStandardOutput = true;
+      nasmProcess.Start();
+      nasmProcess.WaitForExit();
+
+      // Run the ld command
+      Process ldProcess = new Process();
+      ldProcess.StartInfo.FileName = "ld";
+      ldProcess.StartInfo.Arguments = $"-m elf_i386 {fileName}.o -o {fileName}";
+      ldProcess.StartInfo.UseShellExecute = false;
+      ldProcess.StartInfo.RedirectStandardOutput = true;
+      ldProcess.Start();
+      ldProcess.WaitForExit();
+
+      Console.WriteLine("Commands executed successfully.");
+    }
   }
 }
