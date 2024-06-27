@@ -202,12 +202,17 @@ If operations are performed such as ```pop``` or ```peek``` its essential to ver
 |--------------|:-----------:|
 | rax | 64 bit 'long' register |
 | eax | 32 bit 'int' register |
+| rdx | scratch register |
 | rbx | preserved register |
+| cqo |  converts rdx to rax |
 
 # Glossar
 
 *Translation Unit*<br>
 -> The whole code file without any sort of preprocessor directives ('#xyz')
+
+*Scratch register*<br>
+-> refers to a register that is used for temporary storage of data during computations or function calls
 
 # References
 
