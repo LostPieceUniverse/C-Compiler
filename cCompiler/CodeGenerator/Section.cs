@@ -30,14 +30,14 @@ namespace Compiler
       static public void CalcEquation(StringBuilder sb, Dictionary<string, string> integerVariables, IntegerLiteralExpressionNode equation, string identifier)
       {
           // Clear the string builder
-          StringBuilder sb2 = new StringBuilder();
+          StringBuilder tempSB = new StringBuilder();
           
           // Traverse the equation tree to generate assembly code
-          Traverse(equation, integerVariables, sb2);
-          sb2.Append("  pop dword [" + identifier + "]");
-          sb2.Append("\r\n");
+          Traverse(equation, integerVariables, tempSB);
+          tempSB.Append("  pop dword [" + identifier + "]");
+          tempSB.Append("\r\n");
           // Append the generated code to the main StringBuilder
-          sb.Append(sb2);
+          sb.Append(tempSB);
           sb.Append("\r\n");
       }
 
@@ -63,36 +63,27 @@ namespace Compiler
           // Generate assembly for operators and values/variables
           if (node.IsOperator)
           {
-              switch (node.Operand)
-              {
-                  case ExpressionTree.OperatorType.Addition:
-                      sb.AppendLine("  pop rbx");
-                      sb.AppendLine("  pop rax");
-                      sb.AppendLine("  add rax, rbx");
-                      sb.AppendLine("  push rax");
-                      break;
-                  case ExpressionTree.OperatorType.Subtraction:
-                      sb.AppendLine("  pop rbx");
-                      sb.AppendLine("  pop rax");
-                      sb.AppendLine("  sub rax, rbx");
-                      sb.AppendLine("  push rax");
-                      break;
-                  case ExpressionTree.OperatorType.Multiplication:
-                      sb.AppendLine("  pop rbx");
-                      sb.AppendLine("  pop rax");
-                      sb.AppendLine("  imul rax, rbx");
-                      sb.AppendLine("  push rax");
-                      break;
-                  case ExpressionTree.OperatorType.Division:
-                      sb.AppendLine("  pop rbx");
-                      sb.AppendLine("  pop rax");
-                      sb.AppendLine("  cqo"); // convert rax to rdx:rax
-                      sb.AppendLine("  idiv rbx");
-                      sb.AppendLine("  push rax");
-                      break;
-                  default:
-                      throw new InvalidOperationException("Unknown operator type");
-              }
+            sb.AppendLine("  pop rbx");
+            sb.AppendLine("  pop rax");
+            switch (node.Operand)
+            {
+                case ExpressionTree.OperatorType.Addition:
+                    sb.AppendLine("  add rax, rbx");
+                    break;
+                case ExpressionTree.OperatorType.Subtraction:
+                    sb.AppendLine("  sub rax, rbx");
+                    break;
+                case ExpressionTree.OperatorType.Multiplication:
+                    sb.AppendLine("  imul rax, rbx");
+                    break;
+                case ExpressionTree.OperatorType.Division:
+                    sb.AppendLine("  cqo"); // convert rax to rdx:rax
+                    sb.AppendLine("  idiv rbx");
+                    break;
+                default:
+                    throw new InvalidOperationException(";!--------------------> Unknown operator type");
+            }
+            sb.AppendLine("  push rax");
           }
           else if (node.IsValue)
           {

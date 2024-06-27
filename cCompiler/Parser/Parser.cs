@@ -1,6 +1,6 @@
 namespace Compiler
 {
-public class Parser
+  public class Parser
   {
     static public Node Parsing(List<Token> tokenList)
     {

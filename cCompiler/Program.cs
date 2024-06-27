@@ -7,21 +7,8 @@ namespace Compiler
   {
     static void Main(string[] args)
     {
-      string path = string.Empty;
-
-      if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-      {
-        path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "testc");
-      }
-      else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-      {
-        path = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "/dev/c#/Compiler/test.c";
-      }
-      else
-      {
-        Console.WriteLine("Unknown OS platform");
-        Environment.Exit(0);
-      }
+      string path = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "/dev/c#/Compiler/test.c";
+      
       
       string fileName = "test";
       string code = File.ReadAllText(path);
