@@ -6,6 +6,7 @@ namespace Compiler
     {
       Node rootNode = null;
       Node currentNode = null;
+      Stack<Node> nodeStack = new Stack<Node>();
       
       List<Token> tempTokens = new List<Token>();
 
@@ -19,26 +20,45 @@ namespace Compiler
               rootNode = new Node(GetTokens(tempTokens));
               currentNode = rootNode;
             }
+            else
+            {
+              Node newNode = new Node(GetTokens(tempTokens));
+              currentNode.Left = newNode;
+              nodeStack.Push(currentNode);
+              currentNode = newNode;
+            }
             tempTokens.Clear();
-            continue;
+            break;
+
+          case Token.TokenType.CloseBrace:
+            if (nodeStack.Count > 0)
+            {
+              currentNode = nodeStack.Pop();
+            }
+            tempTokens.Clear();
+            break;
+
           case Token.TokenType.Semicolon:
             List<Token> list = GetTokens(tempTokens);
             ExpressionNode expNode = new ExpressionNode(list);
             currentNode.Left = expNode;
             currentNode = expNode;
             tempTokens.Clear();
-            continue;
+            break;
+
           case Token.TokenType.Return:
             StatementNode statNode = new StatementNode(GetTokens(tokenList.GetRange(i, (tokenList.Count - 1) - i)));
             currentNode.Right = statNode;
             tempTokens.Clear();
             i = tokenList.Count - 1;
             break;
+
           default:
             tempTokens.Add(tokenList[i]);
             break;
         }
       }
+
       return rootNode;
     }
 
