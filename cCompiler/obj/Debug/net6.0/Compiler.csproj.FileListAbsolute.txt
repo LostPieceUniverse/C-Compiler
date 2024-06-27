@@ -1,0 +1,15 @@
+/home/runin/dev/c#/Compiler/cCompiler/bin/Debug/net6.0/Compiler
+/home/runin/dev/c#/Compiler/cCompiler/bin/Debug/net6.0/Compiler.deps.json
+/home/runin/dev/c#/Compiler/cCompiler/bin/Debug/net6.0/Compiler.runtimeconfig.json
+/home/runin/dev/c#/Compiler/cCompiler/bin/Debug/net6.0/Compiler.dll
+/home/runin/dev/c#/Compiler/cCompiler/bin/Debug/net6.0/Compiler.pdb
+/home/runin/dev/c#/Compiler/cCompiler/obj/Debug/net6.0/Compiler.GeneratedMSBuildEditorConfig.editorconfig
+/home/runin/dev/c#/Compiler/cCompiler/obj/Debug/net6.0/Compiler.AssemblyInfoInputs.cache
+/home/runin/dev/c#/Compiler/cCompiler/obj/Debug/net6.0/Compiler.AssemblyInfo.cs
+/home/runin/dev/c#/Compiler/cCompiler/obj/Debug/net6.0/Compiler.csproj.CoreCompileInputs.cache
+/home/runin/dev/c#/Compiler/cCompiler/obj/Debug/net6.0/Compiler.dll
+/home/runin/dev/c#/Compiler/cCompiler/obj/Debug/net6.0/refint/Compiler.dll
+/home/runin/dev/c#/Compiler/cCompiler/obj/Debug/net6.0/Compiler.pdb
+/home/runin/dev/c#/Compiler/cCompiler/obj/Debug/net6.0/Compiler.genruntimeconfig.cache
+/home/runin/dev/c#/Compiler/cCompiler/obj/Debug/net6.0/ref/Compiler.dll
+/home/runin/dev/c#/Compiler/cCompiler/obj/Debug/net6.0/Compiler.sourcelink.json

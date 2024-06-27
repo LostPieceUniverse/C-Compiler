@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "kn3yg0NLf+pVWOf+qVd0ftkLVkrTWhUG1Zdirv7Im8M5e6Y7yuaTmsz6Gzp3b+NgVPTrzt8mEflKZmv8SuJqUQ==",
+  "success": true,
+  "projectFilePath": "/home/runin/dev/c#/Compiler/cCompiler/Compiler.csproj",
+  "expectedPackageFiles": [
+    "/home/runin/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.30/microsoft.aspnetcore.app.ref.6.0.30.nupkg.sha512",
+    "/home/runin/.nuget/packages/microsoft.netcore.app.host.linux-x64/6.0.30/microsoft.netcore.app.host.linux-x64.6.0.30.nupkg.sha512"
+  ],
+  "logs": []
+}
