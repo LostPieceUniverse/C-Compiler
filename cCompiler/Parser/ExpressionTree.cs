@@ -27,7 +27,21 @@ namespace Compiler
       IntegerLiteralExpressionNode node = NewNode(token);
 
 
+
+
       return null;
+    }
+
+    private void SetPrecedence()
+    {
+      Precedence += Operand switch
+      {
+          OperatorType.Addition => 1,
+          OperatorType.Subtraction => 1,
+          OperatorType.Multiplication => 2,
+          OperatorType.Division => 2,
+          _ => 0
+      };
     }
 
     private IntegerLiteralExpressionNode NewNode(Token token)
@@ -57,6 +71,7 @@ namespace Compiler
               break;
           }
           node.IsOperator = true;
+          node.SetPrecedence();
           break;
       }
       return node;
@@ -298,6 +313,8 @@ namespace Compiler
 
       public string Value { get; private set; } = string.Empty;
       public bool IsValue { get; private set; } = false;//return value ffs ------------------------------------------------- !!
+
+      public int Precedence { get; private set; } = 0;
 
       public bool TreeGotOptimized { get; private set; } = false;
   }
