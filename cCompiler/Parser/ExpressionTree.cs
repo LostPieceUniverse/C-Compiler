@@ -26,7 +26,32 @@ namespace Compiler
 
       IntegerLiteralExpressionNode node = NewNode(token);
 
+      IntegerLiteralExpressionNode nextNode = BuildAST(index++, tokenList);
 
+      if (nextNode == null)
+      {
+        return node;
+      }
+      else if (nextNode.IsOperator)
+      {
+        var tempNode = node;
+        node = nextNode;
+        if (node.LeftNode == null)
+        {
+          node.LeftNode = tempNode;
+        }
+        else
+        {
+          node.RightNode = node.LeftNode;
+          node.LeftNode = tempNode;
+        }
+        tempNode = null;
+        nextNode = null;
+      }
+      else
+      {
+        throw new Exception("switch: integerliteral");
+      }
 
 
       return null;
