@@ -103,6 +103,12 @@ namespace Compiler
         //check if tree can be calced
         bool hasVariable = false;
         ExpressionRootNode.TreeNodeOptimizing(ref hasVariable, 0);
+        string[] treeOutput = ExpressionRootNode.OutputTree(); // Assuming rootNode is the root of the tree.
+        foreach (string line in treeOutput)
+        {
+          Console.WriteLine(line);
+        }
+        Console.WriteLine("------------------------------------------------------------------------");
       }
       else if (Type == NodeType.StringExpression)
       {
@@ -124,6 +130,7 @@ namespace Compiler
         }
       }
     }
+
     public ExpressionTree ExpressionRootNode { get; private set; } //equation or string contents
     public String ExpressionIdentifier { get; private set; } //variable
   }

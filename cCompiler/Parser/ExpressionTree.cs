@@ -11,51 +11,12 @@ namespace Compiler
       muffin
     }
     public abstract void TreeNodeOptimizing( ref bool hasVariable, int depth);
+    public abstract string[] OutputTree();
+
   }
 
   public class IntegerLiteralExpressionNode : ExpressionTree
   {
-    public IntegerLiteralExpressionNode BuildAST2(int index, List<Token> tokenList)
-    {
-      if (index == tokenList.Count)
-      {
-        return null;
-      }
-
-      Token token = tokenList[index];
-
-      IntegerLiteralExpressionNode node = NewNode(token);
-
-      IntegerLiteralExpressionNode nextNode = BuildAST(index++, tokenList);
-
-      if (nextNode == null)
-      {
-        return node;
-      }
-      else if (nextNode.IsOperator)
-      {
-        var tempNode = node;
-        node = nextNode;
-        if (node.LeftNode == null)
-        {
-          node.LeftNode = tempNode;
-        }
-        else
-        {
-          node.RightNode = node.LeftNode;
-          node.LeftNode = tempNode;
-        }
-        tempNode = null;
-        nextNode = null;
-      }
-      else
-      {
-        throw new Exception("switch: integerliteral");
-      }
-
-
-      return null;
-    }
 
     private void SetPrecedence()
     {
@@ -330,6 +291,60 @@ namespace Compiler
         }
         return 0;
       }
+
+    //output tree
+    public override string[] OutputTree()
+    {
+      int depth = GetTreeDepth(this);
+      int width = (int)Math.Pow(2, depth) - 1; 
+
+      string[] output = new string[depth];
+
+      for (int i = 0; i < depth; i++)
+      {
+        output[i] = new string(' ', width * 2);      
+      }
+
+
+      FillOutput(this, output, 0, 0, width);
+
+      return output;
+    }
+
+    private void FillOutput(IntegerLiteralExpressionNode node, string[] output, int depth, int left, int right)
+    {
+      if (node == null) return;
+
+      int mid = (left + right) / 2; 
+      output[depth] = output[depth].Remove(mid * 2, 1).Insert(mid * 2, node.IsOperator ? OperandToString(node.Operand) : node.Value); // Insert node value.
+
+      if (node.LeftNode != null)
+      {
+        FillOutput(node.LeftNode, output, depth + 1, left, mid - 1); 
+      }
+      if (node.RightNode != null)
+      {
+        FillOutput(node.RightNode, output, depth + 1, mid + 1, right); 
+      }
+    }
+
+    private int GetTreeDepth(IntegerLiteralExpressionNode node)
+    {
+        if (node == null) return 0;
+        return 1 + Math.Max(GetTreeDepth(node.LeftNode), GetTreeDepth(node.RightNode));
+    }
+
+    private string OperandToString(OperatorType operand)
+    {
+        return operand switch
+        {
+            OperatorType.Addition => "+",
+            OperatorType.Subtraction => "-",
+            OperatorType.Multiplication => "*",
+            OperatorType.Division => "/",
+            _ => " "
+        };
+    }
       public IntegerLiteralExpressionNode LeftNode { get; set; } = null;
       public IntegerLiteralExpressionNode RightNode { get; set; } = null;
 
@@ -374,6 +389,10 @@ namespace Compiler
     public override void TreeNodeOptimizing(ref bool hasVariable, int depth)
     {
         
+    }
+    public override string[] OutputTree()
+    {
+      return null;
     }
     public string Value { get; private set; } = string.Empty;
   }
