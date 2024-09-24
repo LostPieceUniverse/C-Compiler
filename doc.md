@@ -1,11 +1,4 @@
-<!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
-
-- [C Compiler NOT UP TO DATE but still usable](#c-compiler-not-up-to-date-but-still-usable)
-
-<!-- TOC end -->
-
-<!-- TOC --><a name="c-compiler-not-up-to-date-but-still-usable"></a>
-# C Compiler NOT UP TO DATE but still usable
+# C Compiler
 
 the code I am testing with:
 ```c
