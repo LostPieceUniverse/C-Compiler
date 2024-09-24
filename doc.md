@@ -92,7 +92,7 @@ Here are all the tokens that this lexer can recognize, along with the regular ex
 - Constant: Integer Literal: 5<br>
 - Punctuator: ;<br>
 
-## 2.2.2 Parser
+### 2.2.2 Parser
 
 The parser processes the token list to create an Abstract Syntax Tree (AST) and performs a partial syntax check. This verification occurs automatically, as, for instance, a variable name is expected after a data type.
 
