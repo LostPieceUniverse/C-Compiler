@@ -1,5 +1,22 @@
 # C Compiler
 
+[1 Objective] 
+[2 Procedure] 
+[2.1 Technology selection] 
+[2.2 Modular structure] 
+[2.2.1 Lexer] 
+[2.2.2 Parser] 
+[2.2.3 Code generator] 
+[2.2.4 Test strategy] 
+[3 Current status] 
+[3.1 Milestones achieved] 
+[3.2 Problems]
+[3.3 Example] 
+[3.3.1 Functioning] 
+[3.3.2 Faulty]
+[4 Outlook]]
+[5 Sources]
+
 the code I am testing with:
 ```c
 int main() {
