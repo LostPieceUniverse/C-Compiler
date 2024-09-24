@@ -27,6 +27,47 @@ Through this project, I will learn how a compiler is structured and gain a deepe
 
 The compiler will be developed according to the Open-Closed Principle, allowing for incremental extensions over time. It should be able to output strings without preprocessor directives and handle basic integer calculations, as well as initialize and use variables. A semantic analyzer and optimizer will not be implemented initially. However, calculations that don’t involve variables will be computed directly.
 
+# 2 Procedure
+
+## 2.1 Technology selection
+The compiler is being developed using .NET 6.0 and C#. I chose the .NET framework and C# because I have the most experience with them, and the project itself is already very complex. However, I am aware that a functional programming language (e.g., Haskell) would likely be more suitable.
+
+[Lunarvim](https://www.lunarvim.org/) is my preferred development environment on the Linux distribution EndeavourOS. Since I work on this project in my free time, it was advantageous to stay in my familiar environment. This allowed me to focus entirely on the complexity of the project.
+
+## 2.2 Modular structure
+
+### 2.2.1 Lexer
+
+The lexer analyzes source code and divides it into tokens.
+
+**To Do:**<br>
+Implement a ```lex``` method.<br>
+**Input:** C source code **Output:** List of Tokens ```List<Token>```<br>
+
+**Structure:**<br>
+
+There is a ```Token``` class that includes the following elements:<br>
+
+two enumerations:<br> 
+    - ```TokenType``` 
+    - ```LiteralType```
+
+three attributes:<br>
+    - ```TokenType Type```
+    - ```string Value```
+    - ```LiteralType Literal```
+
+Two Enumerations:
+
+    - ```TokenType: {Int, Return, Literal, Semicolon, …}```
+    - ```LiteralType: {StringLiteral, IntegerLiteral, …}```
+
+Example: For the statement ```Int a = 5;```
+
+    - Type      =   Identifier
+    - Value     =   “a”
+    - Literal   =   IntegerLiteral
+
 ```c
 int main() {
   int a = 6;
