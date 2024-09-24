@@ -1,23 +1,32 @@
 # C Compiler
 
-[1 Objective] 
-[2 Procedure] 
-[2.1 Technology selection] 
-[2.2 Modular structure] 
-[2.2.1 Lexer] 
-[2.2.2 Parser] 
-[2.2.3 Code generator] 
-[2.2.4 Test strategy] 
-[3 Current status] 
-[3.1 Milestones achieved] 
-[3.2 Problems]
-[3.3 Example] 
-[3.3.1 Functioning] 
-[3.3.2 Faulty]
-[4 Outlook]]
-[5 Sources]
+- [1 Objective](#1-objective)
+- [2 Procedure](#2-procedure)
+    - [2.1 Technology selection](#2.1-technology-selection)
+    - [2.2 Modular structure](#2.2-modular-structure)
+        - [2.2.1 Lexer](#2.2.1-lexer)
+        - [2.2.2 Parser](#2.2.2-parser)
+        - [2.2.3 Code generator](#2.2.3-code-generator) 
+        - [2.2.4 Test strategy](#2.2.4-test-strategy)
+- [3 Current status](#3-current-status)
+    - [3.1 Milestones achieved](#3.1-milestones-achieved) 
+    - [3.2 Problems](#3.2-problems)
+    - [3.3 Example](#3.3-example)
+        - [3.3.1 Works](#3.3.1-works) 
+        - [3.3.2 Faulty](#3.3.2-faulty)
+- [4 Outlook]](#4-outlook)
+- [5 Sources](#5-sources)
 
-the code I am testing with:
+# 1 Objective
+
+The goal is to create a simple C compiler. The compiler should be able to read a basic C file, convert it into NASM assembly, and generate an executable file from it.
+
+C is a straightforward language, which is why the compiler was chosen to be a C compiler.
+
+Through this project, I will learn how a compiler is structured and gain a deeper understanding of the theory behind it. Additionally, I will become familiar with and use assembly language. Patterns like Lexer and Parser will be applied, giving me practical experience.
+
+The compiler will be developed according to the Open-Closed Principle, allowing for incremental extensions over time. It should be able to output strings without preprocessor directives and handle basic integer calculations, as well as initialize and use variables. A semantic analyzer and optimizer will not be implemented initially. However, calculations that don’t involve variables will be computed directly.
+
 ```c
 int main() {
   int a = 6;
