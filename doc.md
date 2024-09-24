@@ -104,7 +104,7 @@ Implement a ```pars``` method.<br>
 
 The program consists of two main classes: ```Node``` and ```ExpressionTree```, along with their subclasses.
 
-***Node***<br>
+***Class: Node***<br>
 
 The Node class represents the nodes that form the Abstract Syntax Tree (AST).<br> 
 
@@ -128,7 +128,7 @@ This subclass creates ```string``` or ```integer literal``` objects from the ```
 
 This subclass is designed to handle statements such as ```return``` and ```if-else```. However, its functionality will not be implemented in this project. It exists to support simple statements like ```return 0;```.
 
-***ExpressionTree***<br>
+***Class: ExpressionTree***<br>
 
 - Enum:<br>
     - ```OperatorType {Addition, Subtraction, Multiplication, Division}```
