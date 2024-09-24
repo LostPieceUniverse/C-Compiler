@@ -49,24 +49,26 @@ Implement a ```lex``` method.<br>
 There is a ```Token``` class that includes the following elements:<br>
 
 two enumerations:<br> 
-    - ```TokenType``` 
-    - ```LiteralType```
+
+    - ```TokenType```<br> 
+    - ```LiteralType```<br>
 
 three attributes:<br>
-    - ```TokenType Type```
-    - ```string Value```
-    - ```LiteralType Literal```
 
-Two Enumerations:
+    - ```TokenType Type```<br>
+    - ```string Value```<br>
+    - ```LiteralType Literal```<br>
 
-    - ```TokenType: {Int, Return, Literal, Semicolon, …}```
-    - ```LiteralType: {StringLiteral, IntegerLiteral, …}```
+Two Enumerations:<br>
 
-Example: For the statement ```Int a = 5;```
+    - ```TokenType: {Int, Return, Literal, Semicolon, …}```<br>
+    - ```LiteralType: {StringLiteral, IntegerLiteral, …}```<br>
 
-    - Type      =   Identifier
-    - Value     =   “a”
-    - Literal   =   IntegerLiteral
+Example: For the statement ```Int a = 5;```<br>
+
+    - Type      =   Identifier<br>
+    - Value     =   “a”<br>
+    - Literal   =   IntegerLiteral<br>
 
 ```c
 int main() {
