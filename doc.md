@@ -72,7 +72,7 @@ Example: For the statement ```Int a = 5;```<br>
 
 **Lexical Elements**
 
-ere are all the tokens that this lexer can recognize, along with the regular expressions that define each one:
+Here are all the tokens that this lexer can recognize, along with the regular expressions that define each one:
 
 | Term | Definition	| Example |
 |:------------|:------------:|:------------:|
@@ -84,4 +84,10 @@ ere are all the tokens that this lexer can recognize, along with the regular exp
 | Operator |	Used for arithmetic operations. |	arithmetic |
 | Punctuation |	Symbols used for grouping and assignment. |	(), =, :, ... |
 
+**Example:** ```int variableName = 5;```<br>
 
+- Keyword: int<br>
+- Identifier: variableName<br>
+- Punctuator: =<br>
+- Constant: Integer Literal: 5<br>
+- Punctuator: ;<br>
