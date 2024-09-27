@@ -14,7 +14,7 @@
     - [3.3 Example](#3.3-example)
         - [3.3.1 Works](#3.3.1-works) 
         - [3.3.2 Faulty](#3.3.2-faulty)
-- [4 Outlook]](#4-outlook)
+- [4 Outlook](#4-outlook)
 - [5 References](#5-sources)
 
 # 1 Objective
