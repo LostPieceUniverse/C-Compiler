@@ -49,22 +49,22 @@ Implement a ```lex``` method.<br>
 There is a ```Token``` class that includes the following elements:<br>
 
 Two enumerations:<br> 
-    - TokenType 
-    - LiteralType
+    - TokenType<br> 
+    - LiteralType<br>
 
 Three attributes:<br>
-    - TokenType Type
-    - string Value
-    - LiteralType Literal
+    - TokenType Type<br>
+    - string Value<br>
+    - LiteralType Literal<br>
 
 Two Enumerations:<br>
-    - TokenType: {Int, Return, Literal, Semicolon, …}
-    - LiteralType: {StringLiteral, IntegerLiteral, …}
+    - TokenType: {Int, Return, Literal, Semicolon, …}<br>
+    - LiteralType: {StringLiteral, IntegerLiteral, …}<br>
 
 Example: For the statement ```Int a = 5;```<br>
-    - Type      =   Identifier
-    - Value     =   “a”
-    - Literal   =   IntegerLiteral
+    - Type      =   Identifier<br>
+    - Value     =   “a”<br>
+    - Literal   =   IntegerLiteral<br>
 
 **Lexical Elements**
 
@@ -81,7 +81,6 @@ Here are all the tokens that this lexer can recognize, along with the regular ex
 | Punctuation |	Symbols used for grouping and assignment. |	(), =, :, ... |
 
 **Example:** ```int variableName = 5;```<br>
-
 - Keyword: int<br>
 - Identifier: variableName<br>
 - Punctuator: =<br>
@@ -108,10 +107,10 @@ The Node class represents the nodes that form the Abstract Syntax Tree (AST).<br
     - This constructor checks whether the sequence of tokens represents an expression or a statement, and initializes the ```Type```and ```Tokens```variables accordingly.<br>
 
 - Attributes:<br>
-    - NodeType Type
-    - List<Token> Tokens
-    - Node Left
-    - Node Right
+    - NodeType Type<br>
+    - List<Token> Tokens<br>
+    - Node Left<br>
+    - Node Right<br>
 
 - Enum:<br>
     - ```NodeType {Program, FuncDecl, Statement, IntegerExpression, StringExpression}```
