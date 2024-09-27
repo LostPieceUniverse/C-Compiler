@@ -48,24 +48,20 @@ Implement a ```lex``` method.<br>
 
 There is a ```Token``` class that includes the following elements:<br>
 
-two enumerations:<br> 
-
+Two enumerations:<br> 
     - TokenType 
     - LiteralType
 
-three attributes:<br>
-
+Three attributes:<br>
     - TokenType Type
     - string Value
     - LiteralType Literal
 
 Two Enumerations:<br>
-
     - TokenType: {Int, Return, Literal, Semicolon, …}
     - LiteralType: {StringLiteral, IntegerLiteral, …}
 
 Example: For the statement ```Int a = 5;```<br>
-
     - Type      =   Identifier
     - Value     =   “a”
     - Literal   =   IntegerLiteral
