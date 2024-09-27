@@ -50,19 +50,19 @@ There is a ```Token``` class that includes the following elements:<br>
 
 two enumerations:<br> 
 
-    - ```TokenType``` 
-    - ```LiteralType```
+    - TokenType 
+    - LiteralType
 
 three attributes:<br>
 
-    - ```TokenType Type```
-    - ```string Value```
-    - ```LiteralType Literal```
+    - TokenType Type
+    - string Value
+    - LiteralType Literal
 
 Two Enumerations:<br>
 
-    - ```TokenType: {Int, Return, Literal, Semicolon, …}```
-    - ```LiteralType: {StringLiteral, IntegerLiteral, …}```
+    - TokenType: {Int, Return, Literal, Semicolon, …}
+    - LiteralType: {StringLiteral, IntegerLiteral, …}
 
 Example: For the statement ```Int a = 5;```<br>
 
@@ -112,10 +112,10 @@ The Node class represents the nodes that form the Abstract Syntax Tree (AST).<br
     - This constructor checks whether the sequence of tokens represents an expression or a statement, and initializes the ```Type```and ```Tokens```variables accordingly.<br>
 
 - Attributes:<br>
-    - ```NodeType Type```
-    - ```List<Token> Tokens```
-    - ```Node Left```
-    - ```Node Right```
+    - NodeType Type
+    - List<Token> Tokens
+    - Node Left
+    - Node Right
 
 - Enum:<br>
     - ```NodeType {Program, FuncDecl, Statement, IntegerExpression, StringExpression}```
@@ -138,19 +138,19 @@ This subclass is designed to handle statements such as ```return``` and ```if-el
 This subclass recursively forms an equation AST and implements the method ```TreeNodeSolver()```, which computes equations that do not contain variables directly.<br>
 
 - Attributes:<br>
-    - ```OperatorType Operand```<br>
-    - ```bool IsOperator```<br>
-    - ```string Value```<br>
-    - ```bool IsValue```<br>
-    - ```int Precedence```<br>
-    - ```bool TreeGotOptimized```<br>
+    - OperatorType Operand<br>
+    - bool IsOperator<br>
+    - string Value<br>
+    - bool IsValue<br>
+    - int Precedence<br>
+    - bool TreeGotOptimized<br>
 
 *Subclass: StringLiteralExpressionTree*<br>
 
 This subclass constructs an AST with a node that contains the string being processed.<br>
 
 - Attribute:<br>
-    - ```string Value```<br>
+    - string Value<br>
 
 **AST:**<br>
 
@@ -175,13 +175,13 @@ The ```AssemblyGenerator```` class traverses the AST (Abstract Syntax Tree) and 
 The ```newLine``` string helps generalize the code and makes it easier to insert line breaks.<br>
 
 - Attributes:<br>
-    - ````string newLine```<br>
-    - ```List<string> stringVariables```<br>
-    - ```Dictionary<string, string> integerVariables```<br>
-    - ```StringBuilder SECTIONdata```<br>
-    - ```StringBuilder SECTIONtextTop```<br>
-    - ```StringBuilder SECTIONtextBody```<br>
-    - ```StringBuilder SECTIONbss```<br>
+    - string newLine<br>
+    - List<string> stringVariables<br>
+    - Dictionary<string, string> integerVariables<br>
+    - StringBuilder SECTIONdata<br>
+    - StringBuilder SECTIONtextTop<br>
+    - StringBuilder SECTIONtextBody<br>
+    - StringBuilder SECTIONbss<br>
 
 ***Section***
 
