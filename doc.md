@@ -1,21 +1,21 @@
 # C Compiler
 
 - [1 Objective](#1-objective)
-- [2 Procedure](#2-procedure)
-    - [2.1 Technology selection](#2.1-technology-selection)
-    - [2.2 Modular structure](#2.2-modular-structure)
+- [2 Approach](#2-procedure)
+    - [2.1 Technology Selection](#2.1-technology-selection)
+    - [2.2 Modular Structure](#2.2-modular-structure)
         - [2.2.1 Lexer](#2.2.1-lexer)
         - [2.2.2 Parser](#2.2.2-parser)
-        - [2.2.3 Code generator](#2.2.3-code-generator) 
-        - [2.2.4 Test strategy](#2.2.4-test-strategy)
-- [3 Current status](#3-current-status)
-    - [3.1 Milestones achieved](#3.1-milestones-achieved) 
+        - [2.2.3 Code Generator](#2.2.3-code-generator) 
+        - [2.2.4 Test Strategy](#2.2.4-test-strategy)
+- [3 Current Status](#3-current-status)
+    - [3.1 Milestones Achieved](#3.1-milestones-achieved) 
     - [3.2 Problems](#3.2-problems)
     - [3.3 Example](#3.3-example)
         - [3.3.1 Works](#3.3.1-works) 
         - [3.3.2 Faulty](#3.3.2-faulty)
 - [4 Outlook]](#4-outlook)
-- [5 Sources](#5-sources)
+- [5 References](#5-sources)
 
 # 1 Objective
 
@@ -27,14 +27,14 @@ Through this project, I will learn how a compiler is structured and gain a deepe
 
 The compiler will be developed according to the Open-Closed Principle, allowing for incremental extensions over time. It should be able to output strings without preprocessor directives and handle basic integer calculations, as well as initialize and use variables. A semantic analyzer and optimizer will not be implemented initially. However, calculations that don’t involve variables will be computed directly.
 
-# 2 Procedure
+# 2 Approach
 
-## 2.1 Technology selection
+## 2.1 Technology Selection
 The compiler is being developed using .NET 6.0 and C#. I chose the .NET framework and C# because I have the most experience with them, and the project itself is already very complex. However, I am aware that a functional programming language (e.g., Haskell) would likely be more suitable.
 
 [Lunarvim](https://www.lunarvim.org/) is my preferred development environment on the Linux distribution EndeavourOS. Since I work on this project in my free time, it was advantageous to stay in my familiar environment. This allowed me to focus entirely on the complexity of the project.
 
-## 2.2 Modular structure
+## 2.2 Modular Structure
 
 ### 2.2.1 Lexer
 
@@ -155,4 +155,151 @@ This subclass constructs an AST with a node that contains the string being proce
 **AST:**<br>
 
 A data structure that represents the structure of a program (or code snippet). The Abstract Syntax Tree (AST) should be rooted in a program node and trigger an error in the event of invalid syntax. The left nodes form the main trunk that runs through the program, while the right nodes represent branches (expressions that are handled by the ```ExpressionTree class```).
+
+### 2.2.3 Code Generator
+
+The code generator translates an Abstract Syntax Tree (AST) into assembly code. During the recursive traversal of the AST nodes, each node is passed to its corresponding translation function.<br>
+
+**To Do:**<br>
+Implement a ```generate``` method.<br> 
+**Input:** AST **Output:** Assembly Code<br> 
+
+**Structure:**<br>
+
+There are two main classes: ```AssemblyGenerator``` and ```Section```.
+
+***AssemblyGenerator***
+
+The ```AssemblyGenerator```` class traverses the AST (Abstract Syntax Tree) and organizes all ```StringBuilder``` objects, which are populated by the ```Section``` class, into a complete assembly code output. It also collects all variables to ensure they are correctly initialized in the appropriate sections.<br>
+
+The ```newLine``` string helps generalize the code and makes it easier to insert line breaks.<br>
+
+- Attributes:<br>
+    - ````string newLine```<br>
+    - ```List<string> stringVariables```<br>
+    - ```Dictionary<string, string> integerVariables```<br>
+    - ```StringBuilder SECTIONdata```<br>
+    - ```StringBuilder SECTIONtextTop```<br>
+    - ```StringBuilder SECTIONtextBody```<br>
+    - ```StringBuilder SECTIONbss```<br>
+
+***Section***
+
+The ```Section``` class handles each ```node``` passed to it by the ```AssemblyGenerator```, along with the corresponding ```StringBuilder```. The respective ```StringBuilder``` is then used to append the newly generated assembly code.<br>
+
+- Attribute:<br>
+    - ```newLine```<br>
+
+### 2.2.4 Test Strategy
+
+The following C code served as the template for testing:<br>
+
+```c
+int main(){
+    int a = 6;
+    int b = 2 + 3;
+    printf("ThisIsAString");
+    int c = 3 + (8 - 2) * 3;
+    int d = 3 + (a - b) * 3;
+    printf("AnotherString");
+    return 0;
+}
+```
+This code is constantly being modified.<br>
+Additionally, an assembler code file has been generated from the existing test code to serve as a reference. Generated code is reviewed and analyzed with ChatGPT, as debugging with assembler code is not possible.<br>
+
+# 3 Current Status
+
+## 3.1 Milestones Achieved
+
+**Functional Lexer:**<br>
+
+The lexer operates reliably according to the defined requirements, successfully breaking down the source code into the appropriate token types. Recognized token types include the following keywords: ```Int, String, Return, If, Else, Identifier, Literal, Operand, OpenParenthesis, CloseParenthesis, OpenBrace, CloseBrace, Equals, and Semicolon```. The source code is deconstructed into its components, and a corresponding token object is created for each recognized element. This serves as the foundation for the subsequent parsing steps.<br>
+
+**Parser Progress:**<br>
+
+The parser is capable of processing a list of tokens and generating an abstract syntax tree (AST) that accurately represents the logical structure of the code. While the handling of mathematical equations is still flawed, the parser functions correctly for all other elements and accurately reflects the program's structure.<br>
+
+
+**Code Generator:**<br>
+
+The code generator can completely translate the correctly generated AST into assembly code. This encompasses all essential language features that the parser can successfully handle. The generated assembly code reflects the logical structure of the AST, maintaining the correct sequence of instructions. This ensures that the resulting assembly code meets the expected criteria.<br>
+
+## 3.2 Problems
+
+Currently, there is a major issue with the incorrect processing of equations, particularly regarding operator precedence (parentheses before multiplication before addition). The existing parsing routines are unable to correctly establish the order of operations.<br>
+
+## 3.3 Example
+
+**Functioning**<br>
+*Equation:* 3 + a * b<br>
+
+AST:<br>
+
+```
+    +
+  /    \
+3       /
+      /  \
+    a     5
+```
+
+Assembly Code:
+
+```
+push	3
+push dword [a]
+push	5
+pop	rbx
+pop	rax
+cqo
+idiv	rbx
+push 	rax
+pop 	rbx
+pop 	rax
+add 	rax, rbx
+push 	rax
+```
+
+**Incorrect**<br>
+*Equation:* 3 + (a – b) * 3 / 6<br>
+
+Expected AST:                Actual AST:<br>
+```
+		+							+
+     /    \						  /   \
+   3       /					 3     *
+        /  \				  /    \
+       *     6				 -      /
+     /       			   /   \   /  \
+    -     				  a     b 3    6
+  /   \   	
+ a     b 
+```
+
+Due to the faulty AST, the assembly code generated is also flawed accordingly.<br>
+
+# 4 Outlook
+
+In the current state of the project, the generation of the abstract syntax tree (AST) for equations is not yet fully functional. Specifically, it's necessary to ensure that the correct operator precedence—parentheses before multiplication/division before addition/subtraction—is maintained. This is crucial for accurately parsing and interpreting mathematical expressions.<br>
+
+Accordingly, the code generator is also being adjusted.
+
+# 5 References
+
+![Nora Sandler write a compiler](https://norasandler.com/2017/11/29/Write-a-Compiler.html)
+
+![lexer tutorial](https://stlab.cc/legacy/how-to-write-a-simple-lexical-analyzer-or-parser.html)
+
+![c bible](https://web.archive.org/web/20200909074736if_/https://www.pdf-archive.com/2014/10/02/ansi-iso-9899-1990-1/ansi-iso-9899-1990-1.pdf)
+
+![compiler explorer](https://godbolt.org/)
+
+![assembly totorial](https://asmtutor.com/#lesson1)
+
+![memory sheit](https://www.geeksforgeeks.org/stack-vs-heap-memory-allocation/)
+
+![stack stuff](https://marketsplash.com/tutorials/assembly/assembly-stack-operations/)
+
+![GG Simple Code Generator](https://www.geeksforgeeks.org/simple-code-generator/)
 
