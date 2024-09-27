@@ -26,7 +26,7 @@ In future iterations, I plan to expand the capabilities of the compiler to inclu
 - Incorporating compiler optimizations for improved performance.
 - Strengthening syntax checking and error handling mechanisms.(maybe)
 
-## Documentation NOT UP TO DATE but still usable to orient yourself 
+## Documentation
 
 For detailed planning, thoughts, notes and project management, please refer to the `doc.md` file. 
 This document serves as a personal repository of ideas, plans, and reflections on the development journey of this compiler. 
