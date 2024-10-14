@@ -32,16 +32,32 @@ namespace Compiler
 
     private IntegerLiteralExpressionNode NewNode(Token token)
     {
-      IntegerLiteralExpressionNode node = new IntegerLiteralExpressionNode();
-      switch (token.Type)
+      return null;
+    }
+    
+    public IntegerLiteralExpressionNode BuildAST(int index, List<Token> tokenList)
+    {
+      var node = new IntegerLiteralExpressionNode();
+      Token token = tokenList[index];
+      index++;
+
+      switch(token.Type)
       {
         case Token.TokenType.Identifier:
         case Token.TokenType.Literal:
-          node.Value = token.Value;
-          node.IsValue = true;
+          if(token.Literal != Token.LiteralType.IntegerLiteral)
+          {
+            Console.WriteLine("Expected IntegerLiteral is StringLiteral");
+            Console.WriteLine(token.Value + " -- " + token.Type + " -- " + token.Literal);
+          }
+          else
+          {
+            node.IsValue = true;
+            node.Value = token.Value;
+          }
           break;
         case Token.TokenType.Operand:
-          switch (token.Value)
+          switch(token.Value)
           {
             case "-":
               node.Operand = OperatorType.Subtraction;
@@ -49,172 +65,22 @@ namespace Compiler
             case "+":
               node.Operand = OperatorType.Addition;
               break;
-            case "/":
-              node.Operand = OperatorType.Division;
-              break;
             case "*":
               node.Operand = OperatorType.Multiplication;
               break;
+            case "/":
+              node.Operand = OperatorType.Division;
+              break;
           }
-          node.IsOperator = true;
-          node.SetPrecedence();
+          break;
+        default:
           break;
       }
-      return node;
+      
+      var nextNode = BuildAST(index+1, tokenList);
+      return node; 
     }
-      public IntegerLiteralExpressionNode BuildAST(int index, List<Token> tokenList)
-      {
-        IntegerLiteralExpressionNode node = new IntegerLiteralExpressionNode();
-        IntegerLiteralExpressionNode nextNode = new IntegerLiteralExpressionNode();
-        IntegerLiteralExpressionNode tempNode = new IntegerLiteralExpressionNode();
-
-        if (index == tokenList.Count)
-        {
-          return null;
-        }
-
-        Token token = tokenList[index];
-        switch (token.Type)
-        {
-          case Token.TokenType.Identifier:
-          case Token.TokenType.Literal:
-            if(token.Literal == Token.LiteralType.IntegerLiteral)
-            {
-              if (node.IsValue)
-              {
-                throw new Exception("two values ffs");
-              }
-              node.IsValue = true;
-              node.Value = token.Value;
-              nextNode = BuildAST(index + 1, tokenList);
-              if (nextNode == null)
-              {
-                return node;
-              }
-              else if (nextNode.IsOperator)
-              {
-                tempNode = node;
-                node = nextNode;
-                if (node.LeftNode == null)
-                {
-                  node.LeftNode = tempNode;
-                }
-                else
-                {
-                  node.RightNode = node.LeftNode;
-                  node.LeftNode = tempNode;
-                }
-                tempNode = null;
-                nextNode = null;
-              }
-              else
-              {
-                throw new Exception("switch: integerliteral");
-              }
-              break;
-            }
-            else
-            {
-              throw new Exception("is StringLiteral");
-            }
-          case Token.TokenType.Operand:
-            if (node.IsOperator)
-            {
-              throw new Exception("two operands ffs");
-            }
-            switch (token.Value)
-            {
-              case "-":
-                node.Operand = OperatorType.Subtraction;
-                break;
-              case "+":
-                node.Operand = OperatorType.Addition;
-                break;
-              case "/":
-                node.Operand = OperatorType.Division;
-                break;
-              case "*":
-                node.Operand = OperatorType.Multiplication;
-                break;
-            }
-            node.IsOperator = true;
-            IntegerLiteralExpressionNode parenthesisNode = new IntegerLiteralExpressionNode();
-            if (tokenList[index + 1].Type == Token.TokenType.OpenParenthesis)
-            {
-              
-              parenthesisNode = BuildAST(index + 1, tokenList);
-              int indexclosing = FindClosingParenthesis(index + 2, tokenList);
-              nextNode = BuildAST(indexclosing + 1, tokenList);
-
-              if (nextNode.LeftNode == null)
-              {
-                nextNode.LeftNode = parenthesisNode;
-              }
-              else
-              {
-                nextNode.RightNode = nextNode.LeftNode;
-                nextNode.LeftNode = parenthesisNode;
-              }
-            }
-            else
-            {
-              nextNode = BuildAST(index + 1, tokenList);
-            }
-
-            if (node.LeftNode == null)
-            {
-              node.LeftNode = nextNode;
-            }
-            else
-            {
-              node.RightNode = nextNode;
-            }
-            tempNode = null;
-            nextNode = null;
-            break;
-          case Token.TokenType.OpenParenthesis:
-            int closingIndex = FindClosingParenthesis(index + 1, tokenList);
-            node = BuildAST(0, tokenList.GetRange(index + 1, closingIndex - index - 1));
-            index = closingIndex + 1;
-            if (!node.IsOperator)
-            {
-              throw new Exception("switch: OpenParenthesis");
-            }
-
-            break;
-          case Token.TokenType.CloseParenthesis:
-            return node;
-          default:
-            break;
-        }
-        //if node is null error
-        if (node == null)
-        {
-          throw new Exception("node is null");
-        }
-        return node;
-      }
-
-      private int FindClosingParenthesis(int startIndex, List<Token> tokenList)
-      {
-        int count = 1;
-        for (int i = startIndex; i < tokenList.Count; i++)
-        {
-          if (tokenList[i].Type == Token.TokenType.OpenParenthesis)
-          {
-            count++;
-          }
-          else if (tokenList[i].Type == Token.TokenType.CloseParenthesis)
-          {
-            count--;
-            if (count == 0)
-            {
-              return i;
-            }
-          }
-        }
-        return 0;//error
-      }
+    
 
       public override void TreeNodeOptimizing( ref bool hasVariable, int depth)
       {
