@@ -17,26 +17,120 @@ namespace Compiler
 
   public class IntegerLiteralExpressionNode : ExpressionTree
   {
+   private string OperandToString(OperatorType operand)
+    {
+      return operand switch
+      {
+        OperatorType.Addition => "+",
+        OperatorType.Subtraction => "-",
+        OperatorType.Multiplication => "*",
+        OperatorType.Division => "/",
+        _ => " "
+      };
+    }
 
     private void SetPrecedence()
     {
       Precedence += Operand switch
       {
-          OperatorType.Addition => 1,
-          OperatorType.Subtraction => 1,
-          OperatorType.Multiplication => 2,
-          OperatorType.Division => 2,
-          _ => 0
+        OperatorType.Addition => 1,
+        OperatorType.Subtraction => 1,
+        OperatorType.Multiplication => 2,
+        OperatorType.Division => 2,
+        _ => 0
       };
+    }
+    private int GetPrecedence(OperatorType operatorType)
+    {
+      return operatorType switch
+      {
+        OperatorType.Multiplication => 2,
+        OperatorType.Division => 2,
+        OperatorType.Addition => 1,
+        OperatorType.Subtraction => 1,
+        _ => 0
+      };
+    }
+    private OperatorType GetOperatorType(string value)
+    {
+      return value switch
+      {
+        "+" => OperatorType.Addition,
+        "-" => OperatorType.Subtraction,
+        "*" => OperatorType.Multiplication,
+        "/" => OperatorType.Division,
+        _ => throw new Exception("Unknown operator")
+      };
+    }
+    private IntegerLiteralExpressionNode ParseValueOrLiteral(ref int index, List<Token> tokenList)
+    {
+      var node = new IntegerLiteralExpressionNode();
+
+      Token token = tokenList[index];
+      index++;
+
+      if (token.Type == Token.TokenType.Literal && token.Literal == Token.LiteralType.IntegerLiteral || token.Type == Token.TokenType.Identifier)
+      {
+        node.IsValue = true;
+        node.Value = token.Value;
+      }
+      else
+      {
+        Console.WriteLine(token.Value);
+        throw new Exception("Expected a literal value.");
+      }
+
+      return node;
     }
 
     private IntegerLiteralExpressionNode NewNode(Token token)
     {
       return null;
     }
-    
+    public IntegerLiteralExpressionNode BuildAST(ref int index, List<Token> tokenList, int currentPrecedence = 0)
+    {
+        if (index >= tokenList.Count) return null;
+
+        IntegerLiteralExpressionNode leftNode = ParseValueOrLiteral(ref index, tokenList);
+
+        while (index < tokenList.Count)
+        {
+            Token token = tokenList[index];
+
+            if (token.Type != Token.TokenType.Operand) break;
+
+            OperatorType opType = GetOperatorType(token.Value);
+            int precedence = GetPrecedence(opType);
+
+            if (precedence < currentPrecedence) break;
+
+            index++;
+
+            IntegerLiteralExpressionNode rightNode = BuildAST(ref index, tokenList, precedence);
+
+            var operatorNode = new IntegerLiteralExpressionNode
+            {
+                IsOperator = true,
+                Operand = opType,
+                Precedence = precedence,
+                LeftNode = leftNode,
+                RightNode = rightNode
+            };
+
+            leftNode = operatorNode;
+        }
+
+        return leftNode;
+    }
+
+    /*
     public IntegerLiteralExpressionNode BuildAST(int index, List<Token> tokenList)
     {
+      if (index >= tokenList.Count) 
+      {
+        return null;
+      }
+
       var node = new IntegerLiteralExpressionNode();
       Token token = tokenList[index];
       index++;
@@ -57,21 +151,8 @@ namespace Compiler
           }
           break;
         case Token.TokenType.Operand:
-          switch(token.Value)
-          {
-            case "-":
-              node.Operand = OperatorType.Subtraction;
-              break;
-            case "+":
-              node.Operand = OperatorType.Addition;
-              break;
-            case "*":
-              node.Operand = OperatorType.Multiplication;
-              break;
-            case "/":
-              node.Operand = OperatorType.Division;
-              break;
-          }
+          node.Operand = GetOperatorType(token.Value);
+          node.IsOperator = true;
           break;
         default:
           break;
@@ -80,7 +161,7 @@ namespace Compiler
       var nextNode = BuildAST(index+1, tokenList);
       return node; 
     }
-    
+    */
 
       public override void TreeNodeOptimizing( ref bool hasVariable, int depth)
       {
@@ -200,17 +281,6 @@ namespace Compiler
         return 1 + Math.Max(GetTreeDepth(node.LeftNode), GetTreeDepth(node.RightNode));
     }
 
-    private string OperandToString(OperatorType operand)
-    {
-        return operand switch
-        {
-            OperatorType.Addition => "+",
-            OperatorType.Subtraction => "-",
-            OperatorType.Multiplication => "*",
-            OperatorType.Division => "/",
-            _ => " "
-        };
-    }
       public IntegerLiteralExpressionNode LeftNode { get; set; } = null;
       public IntegerLiteralExpressionNode RightNode { get; set; } = null;
 

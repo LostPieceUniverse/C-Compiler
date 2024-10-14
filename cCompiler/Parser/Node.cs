@@ -93,7 +93,8 @@ namespace Compiler
         
         //build expressionTree
         IntegerLiteralExpressionNode obj = new IntegerLiteralExpressionNode();
-        ExpressionRootNode = obj.BuildAST(0, tokens);
+        int index = 0;
+        ExpressionRootNode = obj.BuildAST(ref index, tokens);
 
         if (ExpressionRootNode == null)
         {
